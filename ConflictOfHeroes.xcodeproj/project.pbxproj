@@ -10,9 +10,22 @@
 		592E8AC82CE7972600FAE0C9 /* ConflictOfHeroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConflictOfHeroes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		592E8AF32CE7986200FAE0C9 /* Exceptions for "ConflictOfHeroes" folder in "ConflictOfHeroes" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 592E8AC72CE7972600FAE0C9 /* ConflictOfHeroes */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		592E8ACA2CE7972600FAE0C9 /* ConflictOfHeroes */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				592E8AF32CE7986200FAE0C9 /* Exceptions for "ConflictOfHeroes" folder in "ConflictOfHeroes" target */,
+			);
 			path = ConflictOfHeroes;
 			sourceTree = "<group>";
 		};
@@ -257,6 +270,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ConflictOfHeroes/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -285,6 +299,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ConflictOfHeroes/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
