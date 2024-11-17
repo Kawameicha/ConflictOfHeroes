@@ -16,19 +16,22 @@ struct HexagonGridView: View {
     }
 
     var body: some View {
-        ZStack {
-            Image("AtB_Planning_Map_1_Plains")
-                .resizable()
-                .scaledToFit()
+        ScrollView([.horizontal, .vertical]) {
+            ZStack {
+                Image("AtB_Planning_Map_1_Plains")
+                    .resizable()
+                    .scaledToFit()
 
-            HexagonGrid(cells) { cell in
-                HexagonView(
-                    cell: cell,
-                    onUnitMoved: { unit, targetCell in
-                        moveUnit(unit, to: targetCell)
-                    }
-                )
+                HexagonGrid(cells) { cell in
+                    HexagonView(
+                        cell: cell,
+                        onUnitMoved: { unit, targetCell in
+                            moveUnit(unit, to: targetCell)
+                        }
+                    )
+                }
             }
+            .frame(width: 2965 / 3, height: 2300 / 3)
         }
     }
 
