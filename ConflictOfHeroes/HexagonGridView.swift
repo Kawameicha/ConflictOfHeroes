@@ -31,7 +31,7 @@ struct HexagonGridView: View {
                     )
                 }
             }
-            .frame(width: 2965 / 3, height: 2300 / 3)
+            .frame(width: 2965 / 2, height: 2300 / 2)
         }
     }
 

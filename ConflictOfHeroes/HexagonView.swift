@@ -18,10 +18,7 @@ struct HexagonView: View {
                 .fill(Color.blue.opacity(0.2))
 
             ForEach(cell.units, id: \.self) { unit in
-                Text(unit.name)
-                    .foregroundColor(.black)
-                    .padding(8)
-                    .background(Capsule().fill(Color.white))
+                UnitView(units: cell.units, unit: unit)
                     .draggable(unit)
             }
         }
