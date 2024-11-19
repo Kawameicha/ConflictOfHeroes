@@ -186,21 +186,21 @@ struct UnitView: View {
                     .font(.subheadline)
                     .fontWeight(.bold)
                     .foregroundStyle(.black)
+
+                    if units.count > 1 {
+                        Text("\(units.count - 1)+")
+                            .font(.caption2)
+                            .foregroundColor(.white)
+                            .padding(5)
+                            .background(Circle().fill(Color.red))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                    }
                 }
                 .frame(width: 75, height: 75)
                 .aspectRatio(1.0, contentMode: .fit)
                 .background(RoundedRectangle(cornerRadius: 9, style: .continuous)
                     .fill(Color("\(unit.army)")))
                 .rotationEffect(rotationAngle(for: unit.orientation))
-
-                if units.count > 1 {
-                    Text("\(units.count - 1)+")
-                        .font(.caption2)
-                        .foregroundColor(.white)
-                        .padding(5)
-                        .background(Circle().fill(Color.red))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                }
             }
         }
     }
@@ -265,5 +265,5 @@ extension UnitFront {
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
     let unit = Unit(name: "Rifles '41", type: .foot, army: .german, statsDictionary: statsDictionary)
-    UnitView(units: [unit], unit: unit)
+    UnitView(units: [unit, unit], unit: unit)
 }
