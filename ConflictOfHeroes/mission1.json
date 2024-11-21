@@ -1,0 +1,74 @@
+{
+    "metadata": {
+        "germanVictoryPoints": 10,
+        "sovietVictoryPoints": 8,
+        "germanCommandPoints": 3,
+        "sovietCommandPoints": 4,
+        "rounds": 10
+    },
+    "units": [
+        {
+            "name": "Rifles '41",
+            "type": "foot",
+            "army": "german",
+            "hexagon": { "row": 1, "col": 0 },
+            "orientation": "South-East"
+        },
+        {
+            "name": "MG34",
+            "type": "foot",
+            "army": "german",
+            "hexagon": { "row": 2, "col": 0 },
+            "orientation": "South-East"
+        },
+        {
+            "name": "Rifles '41",
+            "type": "foot",
+            "army": "german",
+            "hexagon": { "row": 5, "col": 0 },
+            "orientation": "North-East"
+        },
+        {
+            "name": "MG34",
+            "type": "foot",
+            "army": "german",
+            "hexagon": { "row": 6, "col": 0 },
+            "orientation": "North-East"
+        },
+        {
+            "name": "MMG Maxim",
+            "type": "foot",
+            "army": "soviet",
+            "hexagon": { "row": 1, "col": 9 },
+            "orientation": "South-West"
+        },
+        {
+            "name": "Rifles '41",
+            "type": "foot",
+            "army": "soviet",
+            "hexagon": { "row": 4, "col": 11 },
+            "orientation": "South-West"
+        },
+        {
+            "name": "Rifles '41",
+            "type": "foot",
+            "army": "soviet",
+            "hexagon": { "row": 7, "col": 10 },
+            "orientation": "North-West"
+        },
+        {
+            "name": "Rifles '41",
+            "type": "foot",
+            "army": "soviet",
+            "hexagon": { "row": 9, "col": 12 },
+            "orientation": "North-West"
+        },
+        {
+            "name": "Control",
+            "type": "control",
+            "army": "soviet",
+            "hexagon": { "row": 5, "col": 7 },
+            "orientation": "North"
+        }
+    ]
+}
