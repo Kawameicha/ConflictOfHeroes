@@ -29,6 +29,7 @@ struct MissionData: Codable {
 }
 
 enum Mission: String {
+    case mission0
     case mission1
     case mission2
 }

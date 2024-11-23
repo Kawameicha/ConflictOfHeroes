@@ -15,7 +15,7 @@ struct HexagonView: View {
     var body: some View {
         ZStack {
             Hexagon()
-                .fill(Color.blue.opacity(0.2))
+                .fill(Color.clear)
 
             ForEach(cell.units, id: \.self) { unit in
                 UnitView(units: cell.units, unit: unit)

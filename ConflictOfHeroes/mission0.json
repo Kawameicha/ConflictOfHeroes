@@ -1,0 +1,32 @@
+{
+    "metadata": {
+        "germanVictoryPoints": 10,
+        "sovietVictoryPoints": 8,
+        "germanCommandPoints": 3,
+        "sovietCommandPoints": 4,
+        "rounds": 10
+    },
+    "units": [
+        {
+            "name": "Rifles '41",
+            "type": "foot",
+            "army": "german",
+            "hexagon": { "row": 1, "col": 0 },
+            "orientation": "South-East"
+        },
+        {
+            "name": "Rifles '41",
+            "type": "foot",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 3 },
+            "orientation": "North-West"
+        },
+        {
+            "name": "Control",
+            "type": "control",
+            "army": "soviet",
+            "hexagon": { "row": 2, "col": 2 },
+            "orientation": "North"
+        }
+    ]
+}

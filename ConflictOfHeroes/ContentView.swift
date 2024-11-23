@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    let initialCells: [HexagonCell] = setupInitialUnits(for: .mission1)
+    let initialCells: [HexagonCell] = setupInitialUnits(for: .mission0)
     var allUnits: [Unit] {
             initialCells.flatMap { $0.units }
         }
 
     var body: some View {
         NavigationSplitView {
-            List(allUnits, id: \.self) { unit in
-                Text(unit.name)
+            VStack {
+                List(allUnits, id: \.self) { unit in
+                    Text(unit.name)
+                }
+
+                Spacer()
+
+                DiceSimulatorView()
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
         } detail: {
