@@ -17,7 +17,13 @@ struct ContentView: View {
         NavigationSplitView {
             VStack {
                 List(allUnits, id: \.self) { unit in
-                    Text(unit.name)
+                    UnitRow(unit: unit)
+                        .draggable(unit) {
+                            Text(unit.name)
+                                .foregroundColor(.black)
+                                .padding(8)
+                                .background(Capsule().fill(Color.white))
+                        }
                 }
 
                 Spacer()

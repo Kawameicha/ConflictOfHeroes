@@ -20,11 +20,6 @@ struct HexagonView: View {
             ForEach(cell.units, id: \.self) { unit in
                 UnitView(units: cell.units, unit: unit)
                     .draggable(unit) {
-//                        Text(unit.name)
-//                            .foregroundColor(.black)
-//                            .padding(8)
-//                            .background(Capsule().fill(Color.white))
-
                         ZStack(alignment: .center) {
                             UnitSymbol(unit: unit)
                                 .scaleEffect(0.5, anchor: .center)
