@@ -15,9 +15,9 @@ func setupInitialUnits(for mission: Mission) -> [HexagonCell] {
         return []
     }
 
-    let columns = 17
-    let evenColumnRows = 12
-    let oddColumnRows = 11
+    let columns = missionData.metadata.columns
+    let evenColumnRows = missionData.metadata.evenColumnRows
+    let oddColumnRows = missionData.metadata.oddColumnRows
 
     for column in 0..<columns {
         let rows = column.isMultiple(of: 2) ? evenColumnRows : oddColumnRows

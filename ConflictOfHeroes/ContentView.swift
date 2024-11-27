@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    let missionData: MissionData? = loadMissionData(from: "mission0")
     let initialCells: [HexagonCell] = setupInitialUnits(for: .mission0)
     var allUnits: [Unit] {
             initialCells.flatMap { $0.units }
@@ -32,7 +33,11 @@ struct ContentView: View {
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
         } detail: {
-            HexagonGridView(cells: initialCells)
+            if let missionData {
+                HexagonGridView(cells: initialCells, mapName: missionData.metadata.mapName)
+            } else {
+                Text("Error loading mission data")
+            }
         }
     }
 }

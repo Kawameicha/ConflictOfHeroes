@@ -10,15 +10,17 @@ import SwiftUI
 
 struct HexagonGridView: View {
     @State private var cells: [HexagonCell]
+    private let mapName: String
 
-    init(cells: [HexagonCell]) {
+    init(cells: [HexagonCell], mapName: String) {
         self._cells = State(initialValue: cells)
+        self.mapName = mapName
     }
 
     var body: some View {
         ScrollView([.horizontal, .vertical]) {
             ZStack {
-                Image("AtB_Planning_Map_1_Plains")
+                Image(mapName)
                     .resizable()
                     .scaledToFit()
 
@@ -40,11 +42,10 @@ struct HexagonGridView: View {
               let targetIndex = cells.firstIndex(where: { $0.id == targetCell.id }) else { return }
 
         cells[sourceIndex].units.removeAll { $0 == unit }
-
         cells[targetIndex].units.append(unit)
     }
 }
 
 #Preview {
-    HexagonGridView(cells: hexagonGridGenerator())
+    HexagonGridView(cells: hexagonGridGenerator(), mapName: "AtB_Planning_Map_1_Plains")
 }

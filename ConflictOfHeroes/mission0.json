@@ -1,30 +1,34 @@
 {
     "metadata": {
-        "germanVictoryPoints": 10,
-        "sovietVictoryPoints": 8,
-        "germanCommandPoints": 3,
-        "sovietCommandPoints": 4,
-        "rounds": 10
+      "germanVictoryPoints": 10,
+      "sovietVictoryPoints": 15,
+      "germanCommandPoints": 3,
+      "sovietCommandPoints": 4,
+      "rounds": 5,
+      "mapName": "AtB_Planning_Map_2_Village",
+      "columns": 17,
+      "evenColumnRows": 12,
+      "oddColumnRows": 11
     },
     "units": [
         {
-            "name": "Rifles '41",
-            "type": "foot",
+            "name": "3.7cm PaK36",
+            "type": "wheeled",
             "army": "german",
             "hexagon": { "row": 1, "col": 0 },
             "orientation": "South-East"
         },
         {
-            "name": "Rifles '41",
-            "type": "foot",
-            "army": "soviet",
+            "name": "88mm FlaK18",
+            "type": "wheeled",
+            "army": "german",
             "hexagon": { "row": 0, "col": 3 },
             "orientation": "North-West"
         },
         {
             "name": "Control",
             "type": "control",
-            "army": "soviet",
+            "army": "german",
             "hexagon": { "row": 2, "col": 2 },
             "orientation": "North"
         }

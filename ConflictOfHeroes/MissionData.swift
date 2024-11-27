@@ -14,6 +14,10 @@ struct MissionData: Codable {
         let germanCommandPoints: Int
         let sovietCommandPoints: Int
         let rounds: Int
+        let mapName: String
+        let columns: Int
+        let evenColumnRows: Int
+        let oddColumnRows: Int
     }
 
     struct MissionUnit: Codable {

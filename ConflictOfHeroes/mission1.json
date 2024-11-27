@@ -1,10 +1,14 @@
 {
     "metadata": {
-        "germanVictoryPoints": 10,
-        "sovietVictoryPoints": 8,
-        "germanCommandPoints": 3,
-        "sovietCommandPoints": 4,
-        "rounds": 10
+      "germanVictoryPoints": 10,
+      "sovietVictoryPoints": 15,
+      "germanCommandPoints": 3,
+      "sovietCommandPoints": 4,
+      "rounds": 5,
+      "mapName": "AtB_Planning_Map_1_Plains",
+      "columns": 17,
+      "evenColumnRows": 12,
+      "oddColumnRows": 11
     },
     "units": [
         {
