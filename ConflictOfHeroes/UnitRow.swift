@@ -15,14 +15,17 @@ struct UnitRow: View {
             UnitSymbol(unit: unit)
 
             ZStack {
-                HStack(alignment: .center) {
-                    Spacer()
-
+                VStack(alignment: .leading) {
                     Text(unit.name)
                         .font(.headline)
-
-                    Spacer()
+                    HStack {
+                        Text("\(unit.army.rawValue.capitalized) \(unit.type.rawValue) unit")
+                            .font(.subheadline)
+                        Spacer()
+                    }
                 }
+                .foregroundStyle(.black)
+                .padding()
 
                 UnitStatsView(unit: unit)
             }

@@ -16,25 +16,28 @@ struct UnitStats: Codable {
     var costAttack: Int? = nil
     var indirectAttack: Int? = nil
     var turretUnit: Bool? = false
-    var costMove: Int? = nil
-    var moveBon1: UnitType? = nil
-    var moveBon2: UnitType? = nil
-    var defBonus: Int? = nil
+    var costToMove: Int? = nil
+    var moveBonus1: UnitType? = nil
+    var moveBonus2: UnitType? = nil
+    var coverBonus: Int? = nil
     var attackSoft: Int? = nil
-    var attackArmored: Int? = nil
+    var attackHard: Int? = nil
     var attackSort: UnitAttack? = nil
     var crewedUnit: Bool? = false
+    var crewedType: UnitType? = nil
     var minRange: Int? = nil
     var maxRange: Int? = nil
     var defenseFlank: Int? = nil
+    var flankType: UnitType = .foot
     var defenseFront: Int? = nil
+    var frontType: UnitType = .foot
     var openVehicle: Bool? = false
 
     var identifier: UnitIdentifier {
         return UnitIdentifier(name: name, army: army)
     }
 
-    init(name: String = "", desc: String = "", game: UnitGame? = .AtB, type: UnitType = .foot, army: UnitArmy = .german, costAttack: Int? = nil, indirectAttack: Int? = nil, turretUnit: Bool? = false, costMove: Int? = nil, moveBon1: UnitType? = nil, moveBon2: UnitType? = nil, defBonus: Int? = nil, attackSoft: Int? = nil, attackArmored: Int? = nil, attackSort: UnitAttack? = nil, crewedUnit: Bool? = false, minRange: Int? = nil, maxRange: Int? = nil, defenseFlank: Int? = nil, defenseFront: Int? = nil, openVehicle: Bool? = false) {
+    init(name: String = "", desc: String = "", game: UnitGame? = .AtB, type: UnitType = .foot, army: UnitArmy = .german, costAttack: Int? = nil, indirectAttack: Int? = nil, turretUnit: Bool? = false, costMove: Int? = nil, moveBon1: UnitType? = nil, moveBon2: UnitType? = nil, defBonus: Int? = nil, attackSoft: Int? = nil, attackArmored: Int? = nil, attackSort: UnitAttack? = nil, crewedUnit: Bool? = false, crewedType: UnitType? = nil, minRange: Int? = nil, maxRange: Int? = nil, defenseFlank: Int? = nil, flankType: UnitType = .foot, defenseFront: Int? = nil, frontType: UnitType = .foot, openVehicle: Bool? = false) {
         self.name = name
         self.desc = desc
         self.game = game
@@ -43,18 +46,21 @@ struct UnitStats: Codable {
         self.costAttack = costAttack
         self.indirectAttack = indirectAttack
         self.turretUnit = turretUnit
-        self.costMove = costMove
-        self.moveBon1 = moveBon1
-        self.moveBon2 = moveBon2
-        self.defBonus = defBonus
+        self.costToMove = costMove
+        self.moveBonus1 = moveBon1
+        self.moveBonus2 = moveBon2
+        self.coverBonus = defBonus
         self.attackSoft = attackSoft
-        self.attackArmored = attackArmored
+        self.attackHard = attackArmored
         self.attackSort = attackSort
         self.crewedUnit = crewedUnit
+        self.crewedType = crewedType
         self.minRange = minRange
         self.maxRange = maxRange
         self.defenseFlank = defenseFlank
+        self.flankType = flankType
         self.defenseFront = defenseFront
+        self.frontType = frontType
         self.openVehicle = openVehicle
     }
 }

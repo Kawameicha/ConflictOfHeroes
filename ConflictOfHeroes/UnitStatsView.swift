@@ -15,6 +15,7 @@ struct UnitStatsView: View {
             VStack {
                 if let cost = unit.stats.costAttack, unit.stats.turretUnit == true {
                     Text("\(cost)")
+                        .padding(1)
                         .background(Circle().fill(Color.white))
                 } else if let cost = unit.stats.costAttack, let indirect = unit.stats.indirectAttack {
                     Text("\(cost)")
@@ -27,23 +28,37 @@ struct UnitStatsView: View {
 
 
             VStack {
-                if let cost = unit.stats.costMove {
+                if let cost = unit.stats.costToMove {
                     Text("\(cost)")
-                        .foregroundStyle(unit.type == .foot ? .red : .blue)
+                        .foregroundColor((Color(unit.type.rawValue)))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
 
-            VStack {
-                if let attack = unit.stats.attackSoft {
-                    Text("\(attack)")
-                        .background(unit.stats.crewedUnit ?? false ? .white : .clear)
-                        .foregroundStyle(.red)
+            HStack(spacing: 0) {
+                VStack {
+                    if let attack = unit.stats.attackSoft {
+                        Text("\(attack)")
+                            .background(unit.stats.crewedUnit ?? false ? .white : .clear)
+                            .foregroundStyle(.foot)
+                    }
+                    if let attack = unit.stats.attackHard {
+                        Text("\(attack)")
+                            .background(unit.stats.crewedType == .tracked ? .white : .clear)
+                            .foregroundStyle(.tracked)
+                    }
                 }
-                if let attack = unit.stats.attackArmored {
-                    Text("\(attack)")
-                        .background(unit.stats.crewedUnit ?? false ? .white : .clear)
-                        .foregroundStyle(.blue)
+
+                VStack {
+                    if unit.stats.attackSort == .flamethrower {
+                        Image(systemName: "flame.circle.fill")
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.red, .black)
+                    } else if unit.stats.attackSort == .explosive {
+                        Image(systemName: "flame.circle.fill")
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.yellow, .red)
+                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
@@ -51,16 +66,17 @@ struct UnitStatsView: View {
             VStack {
                 if let _ = unit.stats.openVehicle, let defense = unit.stats.defenseFlank {
                     Text("\(defense)")
+                        .foregroundColor((Color(unit.stats.flankType.rawValue)))
                         .background(.white)
-                        .background{Rectangle().stroke(Color.red)}
+                        .background{Rectangle().stroke(Color.foot)}
                 } else if let defense = unit.stats.defenseFlank {
                     Text("\(defense)")
                         .foregroundStyle(.white)
-                        .background(unit.type == .foot ? .red : .blue)
+                        .background((Color(unit.stats.flankType.rawValue)))
                 }
                 if let defense = unit.stats.defenseFront {
                     Text("\(defense)")
-                        .foregroundStyle(unit.type == .foot ? .red : .blue)
+                        .foregroundColor((Color(unit.stats.frontType.rawValue)))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
@@ -74,6 +90,6 @@ struct UnitStatsView: View {
 
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
-    let unit = Unit(name: "Rifles '41", type: .foot, army: .german, statsDictionary: statsDictionary)
+    let unit = Unit(name: "88mm FlaK18", type: .foot, army: .german, statsDictionary: statsDictionary)
     UnitStatsView(unit: unit)
 }
