@@ -38,7 +38,7 @@ struct UnitView: View {
                 } else {
                     Image("\(unit.name)")
                         .resizable()
-                        .scaleEffect(0.7, anchor: .bottom)
+                        .scaleEffect(0.9, anchor: .bottom)
 
                     UnitSymbolsView(unit: unit)
                         .frame(width: geometry.size.width, height: geometry.size.height)
@@ -107,6 +107,6 @@ extension UnitFront {
 
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
-    let unit = Unit(name: "Rifles '41", type: .foot, army: .german, statsDictionary: statsDictionary)
+    let unit = Unit(name: "Pioneers", type: .foot, army: .german, statsDictionary: statsDictionary)
     UnitView(units: [unit, unit], unit: unit)
 }
