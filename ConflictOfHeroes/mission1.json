@@ -40,6 +40,13 @@
             "orientation": "North-East"
         },
         {
+            "name": "Pioneers",
+            "type": "foot",
+            "army": "german",
+            "hexagon": { "row": 0, "col": 13 },
+            "orientation": "South-West"
+        },
+        {
             "name": "MMG Maxim",
             "type": "foot",
             "army": "soviet",
