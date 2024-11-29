@@ -29,7 +29,8 @@ struct ContentView: View {
 
                 Spacer()
 
-                DiceSimulatorView()
+                d10SimulatorView()
+                d6SimulatorView()
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
         } detail: {
