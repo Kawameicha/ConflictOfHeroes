@@ -15,17 +15,23 @@ struct UnitRow: View {
             UnitSymbol(unit: unit)
 
             ZStack {
-                VStack(alignment: .leading) {
+                VStack(alignment: .center) {
                     Text(unit.name)
-                        .font(.headline)
-                    HStack {
-                        Text("\(unit.army.rawValue.capitalized) \(unit.type.rawValue) unit")
-                            .font(.subheadline)
-                        Spacer()
-                    }
+                        .foregroundStyle(.black)
+                        .font(.system(size: 6))
+                        .lineLimit(1)
+                        .offset(y: 12)
+
+//                    HStack {
+//                        Text("\(unit.army.rawValue.capitalized) \(unit.type.rawValue) unit")
+//                            .font(.subheadline)
+//                    }
+
+                    Image("\(unit.army) \(unit.name)" )
+                        .resizable()
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .scaleEffect(0.9, anchor: .bottom)
                 }
-                .foregroundStyle(.black)
-                .padding()
 
                 UnitStatsView(unit: unit)
             }
@@ -35,7 +41,7 @@ struct UnitRow: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color("\(unit.army)").opacity(0.7))
         )
-        .aspectRatio(2.75, contentMode: .fit)
+//        .aspectRatio(2.75, contentMode: .fit)
     }
 }
 

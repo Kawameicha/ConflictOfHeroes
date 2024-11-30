@@ -9,12 +9,14 @@
 import SwiftUI
 
 struct HexagonGridView: View {
-    @State private var cells: [HexagonCell]
-    private let mapName: String
+    @State var cells: [HexagonCell]
+    let mapName: String
+    let onHexagonSelected: (HexagonCell) -> Void
 
-    init(cells: [HexagonCell], mapName: String) {
+    init(cells: [HexagonCell], mapName: String, onHexagonSelected: @escaping (HexagonCell) -> Void) {
         self._cells = State(initialValue: cells)
         self.mapName = mapName
+        self.onHexagonSelected = onHexagonSelected
     }
 
     var body: some View {
@@ -31,6 +33,9 @@ struct HexagonGridView: View {
                             moveUnit(unit, to: targetCell)
                         }
                     )
+                    .onTapGesture {
+                        onHexagonSelected(cell)
+                    }
                 }
             }
             .frame(width: 2965 / 2, height: 2300 / 2)
@@ -46,6 +51,6 @@ struct HexagonGridView: View {
     }
 }
 
-#Preview {
-    HexagonGridView(cells: hexagonGridGenerator(), mapName: "AtB_Planning_Map_1_Plains")
-}
+//#Preview {
+//    HexagonGridView(cells: hexagonGridGenerator(), mapName: "AtB_Planning_Map_1_Plains")
+//}
