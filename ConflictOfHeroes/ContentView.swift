@@ -24,16 +24,17 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             VStack {
-                List(reserveUnits, id: \.self) { unit in
-                    UnitRow(unit: unit)
-                        .draggable(unit) {
-                            Text(unit.name)
-                                .foregroundColor(.black)
-                                .padding(8)
-                                .background(Capsule().fill(Color.white))
-                        }
+                Section(header: Text("Reserve Units")) {
+                    List(reserveUnits, id: \.self) { unit in
+                        UnitRow(unit: unit)
+                            .draggable(unit) {
+                                Text(unit.name)
+                                    .foregroundColor(.black)
+                                    .padding(8)
+                                    .background(Capsule().fill(Color.white))
+                            }
+                    }
                 }
-                .navigationTitle("Reserve Units")
 
                 d10SimulatorView()
                 d6SimulatorView()
@@ -56,21 +57,20 @@ struct ContentView: View {
         } detail: {
             VStack {
                 if let selectedHexagon {
-                    List(selectedHexagon.units, id: \.self) { unit in
-                        UnitRow(unit: unit)
-                            .draggable(unit) {
-                                Text(unit.name)
-                                    .foregroundColor(.black)
-                                    .padding(8)
-                                    .background(Capsule().fill(Color.white))
-                            }
+                    Section(header: Text("Hexagon Units")) {
+                        List(selectedHexagon.units, id: \.self) { unit in
+                            UnitRow(unit: unit)
+                                .draggable(unit) {
+                                    Text(unit.name)
+                                        .foregroundColor(.black)
+                                        .padding(8)
+                                        .background(Capsule().fill(Color.white))
+                                }
+                        }
                     }
-                    .navigationTitle("Units in Hexagon")
-                } else {
-                    Text("Select a hexagon to view its units")
                 }
             }
-            .navigationSplitViewColumnWidth(180)
+            .navigationSplitViewColumnWidth(selectedHexagon != nil ? 180 : 0)
         }
     }
 }

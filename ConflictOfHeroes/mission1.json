@@ -15,35 +15,35 @@
             "name": "Rifles '41",
             "army": "german",
             "hexagon": { "row": 1, "col": 0 },
-            "orientation": "South-East",
+            "orientation": "North",
             "isReserve": true
         },
         {
             "name": "MG34",
             "army": "german",
             "hexagon": { "row": 2, "col": 0 },
-            "orientation": "South-East",
+            "orientation": "North",
             "isReserve": true
         },
         {
             "name": "Rifles '41",
             "army": "german",
             "hexagon": { "row": 5, "col": 0 },
-            "orientation": "North-East",
+            "orientation": "North",
             "isReserve": true
         },
         {
             "name": "MG34",
             "army": "german",
             "hexagon": { "row": 6, "col": 0 },
-            "orientation": "North-East",
+            "orientation": "North",
             "isReserve": true
         },
         {
             "name": "Pioneers",
             "army": "german",
             "hexagon": { "row": 0, "col": 13 },
-            "orientation": "South-West",
+            "orientation": "North",
             "isReserve": true
         },
         {

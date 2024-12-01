@@ -13,7 +13,7 @@ struct HexagonGridView: View {
     @Binding var reserveUnits: [Unit]
     @Binding var removedUnits: [Unit]
     let mapName: String
-    let onHexagonSelected: (HexagonCell) -> Void
+    let onHexagonSelected: (HexagonCell?) -> Void
     let onUnitRemoved: (Unit, HexagonCell) -> Void
     
     init(
@@ -21,7 +21,7 @@ struct HexagonGridView: View {
         reserveUnits: Binding<[Unit]>,
         removedUnits: Binding<[Unit]>,
         mapName: String,
-        onHexagonSelected: @escaping (HexagonCell) -> Void
+        onHexagonSelected: @escaping (HexagonCell?) -> Void
     ) {
         self._cells = State(initialValue: cells)
         self._reserveUnits = reserveUnits
@@ -58,6 +58,9 @@ struct HexagonGridView: View {
                 }
             }
             .frame(width: 2965 / 2, height: 2300 / 2)
+            .onTapGesture {
+                onHexagonSelected(nil)
+            }
         }
     }
 
