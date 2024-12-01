@@ -13,7 +13,6 @@ class Unit: Identifiable, Hashable, Transferable, Codable {
     var id = UUID()
     var name: String
     var game: UnitGame? = .AtB
-    var type: UnitType
     var army: UnitArmy
     var hexagon: HexagonCoordinate
     var orientation: UnitFront
@@ -24,18 +23,17 @@ class Unit: Identifiable, Hashable, Transferable, Codable {
         return UnitIdentifier(name: name, army: army)
     }
 
-    init(id: UUID = UUID(), name: String, game: UnitGame? = nil, type: UnitType, army: UnitArmy, hexagon: HexagonCoordinate = HexagonCoordinate(row: 0, col: 0), orientation: UnitFront = .N, exhausted: Bool = false, statsDictionary: [UnitIdentifier: UnitStats]) {
+    init(id: UUID = UUID(), name: String, game: UnitGame? = nil, army: UnitArmy, hexagon: HexagonCoordinate = HexagonCoordinate(row: 0, col: 0), orientation: UnitFront = .N, exhausted: Bool = false, statsDictionary: [UnitIdentifier: UnitStats]) {
         self.id = id
         self.name = name
         self.game = game
-        self.type = type
         self.army = army
         self.hexagon = hexagon
         self.orientation = orientation
         self.exhausted = exhausted
 
         let identifier = UnitIdentifier(name: name, army: army)
-        self.stats = statsDictionary[identifier] ?? UnitStats(name: name, type: type, army: army)
+        self.stats = statsDictionary[identifier] ?? UnitStats(name: name, army: army)
         self.game = stats.game
     }
 
@@ -65,7 +63,6 @@ enum UnitType: String, Codable {
     case foot
     case tracked
     case wheeled
-    case control
     var id: Self { self }
     var name: String { rawValue.capitalized }
 }

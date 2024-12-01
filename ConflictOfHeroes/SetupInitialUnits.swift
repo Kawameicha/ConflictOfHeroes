@@ -30,7 +30,6 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit]) {
             if let missionUnit = missionData.units.first(where: { $0.hexagon == coordinate && $0.isReserve == false }) {
                 let unit = Unit(
                     name: missionUnit.name,
-                    type: missionUnit.type,
                     army: missionUnit.army,
                     orientation: missionUnit.orientation,
                     statsDictionary: statsDictionary
@@ -45,7 +44,6 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit]) {
     reserveUnits = missionData.units.filter { $0.isReserve }.map {
         Unit(
             name: $0.name,
-            type: $0.type,
             army: $0.army,
             orientation: $0.orientation,
             statsDictionary: statsDictionary

@@ -14,7 +14,7 @@ struct UnitView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                if unit.type == .control {
+                if unit.name == "Control" {
                     ZStack(alignment: .center) {
                         UnitSymbol(unit: unit)
                             .scaleEffect(0.5, anchor: .center)
@@ -107,6 +107,6 @@ extension UnitFront {
 
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
-    let unit = Unit(name: "76mm F22 Arti", type: .wheeled, army: .soviet, statsDictionary: statsDictionary)
+    let unit = Unit(name: "76mm F22 Arti", army: .soviet, statsDictionary: statsDictionary)
     UnitView(units: [unit], unit: unit)
 }

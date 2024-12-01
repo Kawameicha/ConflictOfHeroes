@@ -22,7 +22,6 @@ struct MissionData: Codable {
 
     struct MissionUnit: Codable {
         let name: String
-        let type: UnitType
         let army: UnitArmy
         let hexagon: HexagonCoordinate
         let orientation: UnitFront

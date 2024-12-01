@@ -30,7 +30,7 @@ struct UnitStatsView: View {
             VStack {
                 if let cost = unit.stats.costToMove {
                     Text("\(cost)")
-                        .foregroundColor((Color(unit.type.rawValue)))
+                        .foregroundColor((Color(unit.stats.type.rawValue)))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
@@ -90,6 +90,6 @@ struct UnitStatsView: View {
 
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
-    let unit = Unit(name: "88mm FlaK18", type: .foot, army: .german, statsDictionary: statsDictionary)
+    let unit = Unit(name: "88mm FlaK18", army: .german, statsDictionary: statsDictionary)
     UnitStatsView(unit: unit)
 }

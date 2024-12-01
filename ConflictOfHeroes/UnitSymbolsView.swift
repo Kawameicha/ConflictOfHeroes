@@ -49,6 +49,6 @@ struct UnitSymbolsView: View {
 
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
-    let unit = Unit(name: "Rifles '41", type: .foot, army: .german, statsDictionary: statsDictionary)
+    let unit = Unit(name: "Rifles '41", army: .german, statsDictionary: statsDictionary)
     UnitSymbolsView(unit: unit)
 }
