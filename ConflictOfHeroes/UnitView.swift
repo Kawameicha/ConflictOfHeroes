@@ -105,8 +105,46 @@ extension UnitFront {
     }
 }
 
+/// Preview
+struct UnitGridView: View {
+    let units: [Unit]
+    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 8)
+
+    var sortedUnits: [Unit] {
+        units.sorted {
+            if $0.army.rawValue == $1.army.rawValue {
+                return $0.name < $1.name
+            } else {
+                return $0.army.rawValue < $1.army.rawValue
+            }
+        }
+    }
+
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 8) {
+                ForEach(sortedUnits, id: \.id) { unit in
+                    UnitView(units: [unit], unit: unit)
+                }
+            }
+            .frame(width: 640, height: .infinity)
+        }
+        .navigationTitle("Units")
+    }
+}
+
+func createUnitsFromStats(statsDictionary: [UnitIdentifier: UnitStats]) -> [Unit] {
+    statsDictionary.map { (identifier, stats) in
+        Unit(
+            name: identifier.name,
+            army: identifier.army,
+            statsDictionary: statsDictionary
+        )
+    }
+}
+
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
-    let unit = Unit(name: "76mm F22 Arti", army: .soviet, statsDictionary: statsDictionary)
-    UnitView(units: [unit], unit: unit)
+    let units = createUnitsFromStats(statsDictionary: statsDictionary)
+    UnitGridView(units: units)
 }
