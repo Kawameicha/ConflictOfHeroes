@@ -7,12 +7,13 @@
 
 import Foundation
 
-func setupInitialUnits(for mission: Mission) -> [HexagonCell] {
+func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit]) {
     let statsDictionary = loadUnitStatsFromFile()
     var hexagonCells: [HexagonCell] = []
+    var reserveUnits: [Unit] = []
 
     guard let missionData = loadMissionData(from: "\(mission)") else {
-        return []
+        return ([], [])
     }
 
     let columns = missionData.metadata.columns
@@ -26,7 +27,7 @@ func setupInitialUnits(for mission: Mission) -> [HexagonCell] {
 
             var updatedCell = HexagonCell(offsetCoordinate: coordinate, units: [])
 
-            if let missionUnit = missionData.units.first(where: { $0.hexagon == coordinate }) {
+            if let missionUnit = missionData.units.first(where: { $0.hexagon == coordinate && $0.isReserve == false }) {
                 let unit = Unit(
                     name: missionUnit.name,
                     type: missionUnit.type,
@@ -41,6 +42,16 @@ func setupInitialUnits(for mission: Mission) -> [HexagonCell] {
         }
     }
 
-    return hexagonCells
+    reserveUnits = missionData.units.filter { $0.isReserve }.map {
+        Unit(
+            name: $0.name,
+            type: $0.type,
+            army: $0.army,
+            orientation: $0.orientation,
+            statsDictionary: statsDictionary
+        )
+    }
+
+    return (hexagonCells, reserveUnits)
 }
 

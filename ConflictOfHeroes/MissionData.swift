@@ -26,6 +26,7 @@ struct MissionData: Codable {
         let army: UnitArmy
         let hexagon: HexagonCoordinate
         let orientation: UnitFront
+        let isReserve: Bool
     }
 
     let metadata: Metadata

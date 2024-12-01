@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct HexagonView: View {
-    @State private var hexagonIsTargeted = false
+    @State var hexagonIsTargeted = false
     var cell: HexagonCell
     var onUnitMoved: (Unit, HexagonCell) -> Void
+    var onUnitAdded: (Unit, HexagonCell) -> Void
+    var onUnitRemoved: (Unit) -> Void
+    var reserveUnits: [Unit]
 
     var body: some View {
         ZStack {
@@ -19,6 +22,11 @@ struct HexagonView: View {
 
             ForEach(cell.units, id: \.self) { unit in
                 UnitView(units: cell.units, unit: unit)
+                    .contextMenu {
+                        Button("Remove Unit") {
+                            onUnitRemoved(unit)
+                        }
+                    }
                     .draggable(unit) {
                         ZStack(alignment: .center) {
                             UnitSymbol(unit: unit)
@@ -42,7 +50,12 @@ struct HexagonView: View {
         .dropDestination(for: Unit.self) { items, location in
             guard let droppedUnit = items.first else { return false }
 
-            onUnitMoved(droppedUnit, cell)
+            if reserveUnits.contains(droppedUnit) {
+                onUnitAdded(droppedUnit, cell)
+            } else {
+                onUnitMoved(droppedUnit, cell)
+            }
+
             return true
         } isTargeted: { isTargeted in
             hexagonIsTargeted = isTargeted

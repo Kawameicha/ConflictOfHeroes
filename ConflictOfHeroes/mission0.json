@@ -16,35 +16,40 @@
             "type": "foot",
             "army": "german",
             "hexagon": { "row": 1, "col": 0 },
-            "orientation": "South-East"
+            "orientation": "South-East",
+            "isReserve": false
         },
         {
             "name": "7.5cm LeIG 18",
             "type": "foot",
             "army": "german",
             "hexagon": { "row": 0, "col": 3 },
-            "orientation": "North-West"
+            "orientation": "North-West",
+            "isReserve": false
         },
         {
             "name": "Tank Hunters",
             "type": "foot",
             "army": "german",
             "hexagon": { "row": 1, "col": 3 },
-            "orientation": "North-West"
+            "orientation": "North-West",
+            "isReserve": true
         },
         {
             "name": "8cm Mortar",
             "type": "foot",
             "army": "german",
             "hexagon": { "row": 2, "col": 3 },
-            "orientation": "North-West"
+            "orientation": "North-West",
+            "isReserve": true
         },
         {
             "name": "Control",
             "type": "control",
             "army": "german",
             "hexagon": { "row": 2, "col": 2 },
-            "orientation": "North"
+            "orientation": "North",
+            "isReserve": false
         }
     ]
 }

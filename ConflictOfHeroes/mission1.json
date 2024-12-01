@@ -16,70 +16,80 @@
             "type": "foot",
             "army": "german",
             "hexagon": { "row": 1, "col": 0 },
-            "orientation": "South-East"
+            "orientation": "South-East",
+            "isReserve": true
         },
         {
             "name": "MG34",
             "type": "foot",
             "army": "german",
             "hexagon": { "row": 2, "col": 0 },
-            "orientation": "South-East"
+            "orientation": "South-East",
+            "isReserve": true
         },
         {
             "name": "Rifles '41",
             "type": "foot",
             "army": "german",
             "hexagon": { "row": 5, "col": 0 },
-            "orientation": "North-East"
+            "orientation": "North-East",
+            "isReserve": true
         },
         {
             "name": "MG34",
             "type": "foot",
             "army": "german",
             "hexagon": { "row": 6, "col": 0 },
-            "orientation": "North-East"
+            "orientation": "North-East",
+            "isReserve": true
         },
         {
             "name": "Pioneers",
             "type": "foot",
             "army": "german",
             "hexagon": { "row": 0, "col": 13 },
-            "orientation": "South-West"
+            "orientation": "South-West",
+            "isReserve": true
         },
         {
             "name": "MMG Maxim",
             "type": "foot",
             "army": "soviet",
             "hexagon": { "row": 1, "col": 9 },
-            "orientation": "South-West"
+            "orientation": "South-West",
+            "isReserve": false
         },
         {
             "name": "Rifles '41",
             "type": "foot",
             "army": "soviet",
             "hexagon": { "row": 4, "col": 11 },
-            "orientation": "South-West"
+            "orientation": "South-West",
+            "isReserve": false
         },
         {
             "name": "Rifles '41",
             "type": "foot",
             "army": "soviet",
             "hexagon": { "row": 7, "col": 10 },
-            "orientation": "North-West"
+            "orientation": "North-West",
+            "isReserve": false
         },
         {
             "name": "Rifles '41",
             "type": "foot",
             "army": "soviet",
             "hexagon": { "row": 9, "col": 12 },
-            "orientation": "North-West"
+            "orientation": "North-West",
+            "isReserve": false
         },
         {
             "name": "Control",
             "type": "control",
             "army": "soviet",
             "hexagon": { "row": 5, "col": 7 },
-            "orientation": "North"
+            "orientation": "North",
+            "isReserve": false
         }
     ]
 }
