@@ -8,6 +8,7 @@
 import Foundation
 
 struct UnitStats: Codable {
+    var id: String = ""
     var name: String = ""
     var desc: String = ""
     var game: UnitGame? = .AtB
@@ -37,7 +38,8 @@ struct UnitStats: Codable {
         return UnitIdentifier(name: name, army: army)
     }
 
-    init(name: String = "", desc: String = "", game: UnitGame? = .AtB, type: UnitType = .foot, army: UnitArmy = .german, costAttack: Int? = nil, indirectAttack: Int? = nil, turretUnit: Bool? = false, costMove: Int? = nil, moveBon1: UnitType? = nil, moveBon2: UnitType? = nil, defBonus: Int? = nil, attackSoft: Int? = nil, attackArmored: Int? = nil, attackSort: UnitAttack? = nil, crewedUnit: Bool? = false, crewedType: UnitType? = nil, minRange: Int? = nil, maxRange: Int? = nil, defenseFlank: Int? = nil, flankType: UnitType = .foot, defenseFront: Int? = nil, frontType: UnitType = .foot, openVehicle: Bool? = false) {
+    init(id: String = "", name: String = "", desc: String = "", game: UnitGame? = .AtB, type: UnitType = .foot, army: UnitArmy = .german, costAttack: Int? = nil, indirectAttack: Int? = nil, turretUnit: Bool? = false, costMove: Int? = nil, moveBon1: UnitType? = nil, moveBon2: UnitType? = nil, defBonus: Int? = nil, attackSoft: Int? = nil, attackArmored: Int? = nil, attackSort: UnitAttack? = nil, crewedUnit: Bool? = false, crewedType: UnitType? = nil, minRange: Int? = nil, maxRange: Int? = nil, defenseFlank: Int? = nil, flankType: UnitType = .foot, defenseFront: Int? = nil, frontType: UnitType = .foot, openVehicle: Bool? = false) {
+        self.id = id
         self.name = name
         self.desc = desc
         self.game = game

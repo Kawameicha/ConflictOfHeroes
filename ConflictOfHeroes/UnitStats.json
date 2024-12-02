@@ -1,5 +1,6 @@
 [
     {
+        "id": "1101",
         "name": "Rifles '41",
         "desc": "Seven men and officers armed with rifles and some sub-machine guns, a Squad included a MG34 unit.",
         "type": "foot",
@@ -15,6 +16,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1102",
         "name": "MG34",
         "desc": "With 200-round belt-fed ammo, the MG34 became the classic infantry medium support weapon.",
         "type": "foot",
@@ -32,6 +34,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1103",
         "name": "Pioneers",
         "desc": "Specially trained squads of 8-10 men that assaulted fortified positions, laid mines and set traps.",
         "type": "foot",
@@ -48,6 +51,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1104",
         "name": "HMG34",
         "desc": "An MG34 mounted on a tripod made the machine gun very lethal and accurate.",
         "type": "foot",
@@ -65,6 +69,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1105",
         "name": "5cm Mortar",
         "desc": "The 5cm light mortar proved to be underpowered and was later supplanted by the 8cm mortar.",
         "type": "foot",
@@ -84,6 +89,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1106",
         "name": "8cm Mortar",
         "desc": "Three-man crews manned these mortars which could attack indirectly. They replaced the 5cm mortars.",
         "type": "foot",
@@ -104,6 +110,8 @@
         "frontType": "foot",
     },
     {
+
+        "id": "1107",
         "name": "Tank Hunters",
         "desc": "Two man teams trained to assault tanks with bundled grenades (Geballte Ladung), mines and other improvised explosives.",
         "type": "foot",
@@ -121,6 +129,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1108",
         "name": "7.5cm LeIG 18",
         "desc": "The short-barrel LeIG 18 light infantry gun was used for close infantry support against soft targets and fired high-explosive shells.",
         "type": "wheeled",
@@ -138,6 +147,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1109",
         "name": "3.7cm PaK36",
         "desc": "The Germans were totally unprepared for the Soviet T-34 tank and the PaK36 3.7 cm shells literally bounced off of its armor.",
         "type": "wheeled",
@@ -155,6 +165,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1110",
         "name": "5cm PaK38",
         "desc": "This 5cm anti-tank gun was too weak against the heavily armed T-34 and KV tanks and was useful only at short ranges.",
         "type": "wheeled",
@@ -172,6 +183,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1111",
         "name": "7.62cm FK 297",
         "desc": "To stop the T-34 and KV-1, the Germans used many captured Soviet guns, here the un-modified F-22 USV M39 anti-tank gun.",
         "type": "wheeled",
@@ -189,6 +201,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1112",
         "name": "88mm FlaK18",
         "desc": "This anti-air gun was converted into one of the most effective anti-tank guns of the war. It could penetrate any armor.",
         "type": "wheeled",
@@ -207,6 +220,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1201",
         "name": "Rifles '41",
         "desc": "10 men and officers armed with rifles. Though no as tactically trained as the Germans, they had greater firepower.",
         "type": "foot",
@@ -222,6 +236,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1202",
         "name": "SMG Rifles",
         "desc": "The soviets began to supply more men with dreaded sub-machine guns. By war's end, 34% of all Soviet hand weapons were comprised of SMGs.",
         "type": "foot",
@@ -237,6 +252,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1203",
         "name": "MMG Maxim",
         "desc": "The model 1910 Maxim was heavy and cumbersome, but rugged and reliable.",
         "type": "foot",
@@ -254,6 +270,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1204",
         "name": "NKVD",
         "desc": "Security troops used for internal ‘order’ as well as anti-German fighting. Many fought ferociously during 1941.",
         "type": "foot",
@@ -269,6 +286,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1205",
         "name": "50mm Mortar",
         "desc": "The 50mm light mortar proved to be too underpowered to have any great effect on the battlefield.",
         "type": "foot",
@@ -288,6 +306,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1206",
         "name": "82mm Mortar",
         "desc": "Most heavily-produced Soviet mortar. Some had wheels affixed to the base for easier movement. Could attack indirectly and fire smoke.",
         "type": "foot",
@@ -308,6 +327,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1207",
         "name": "76mm Inf Gun",
         "desc": "The 76.2mm regimental field gun M1927 was a Soviet infantry support gun, and was issued to rifle and cavalry regiments.",
         "type": "wheeled",
@@ -325,6 +345,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1208",
         "name": "45mm ATG",
         "desc": "Upgraded from the German PaK36, the m37 19-K L43 gun was very versatile, firing armor-piercing and high-explosive ammo.",
         "type": "wheeled",
@@ -342,6 +363,7 @@
         "frontType": "foot",
     },
     {
+        "id": "1209",
         "name": "76mm F22 Arti",
         "desc": "Designed as both an AA and AT gun, it had awkward sights and controls. It was disappointing in handling and performance.",
         "type": "wheeled",

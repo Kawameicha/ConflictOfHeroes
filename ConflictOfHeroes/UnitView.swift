@@ -112,11 +112,7 @@ struct UnitGridView: View {
 
     var sortedUnits: [Unit] {
         units.sorted {
-            if $0.army.rawValue == $1.army.rawValue {
-                return $0.name < $1.name
-            } else {
-                return $0.army.rawValue < $1.army.rawValue
-            }
+            return $0.stats.id < $1.stats.id
         }
     }
 
