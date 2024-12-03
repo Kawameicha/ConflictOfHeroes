@@ -1,0 +1,141 @@
+[
+    {
+        "id": "11",
+        "name": "Stunned",
+        "type": "soft",
+        "item": 2,
+        "rally": 7,
+        "attackDisabled": true,
+        "moveDisabled": true,
+    },
+    {
+        "id": "12",
+        "name": "Unnerved",
+        "type": "soft",
+        "item": 2,
+        "rally": 7
+    },
+    {
+        "id": "13",
+        "name": "Destroyed",
+        "type": "soft",
+        "item": 1
+    },
+    {
+        "id": "14",
+        "name": "Panicked",
+        "type": "soft",
+        "item": 2,
+        "rally": 8,
+        "attackDisabled": true,
+        "defenseFlank": 1,
+        "defenseFront": -2,
+    },
+    {
+        "id": "15",
+        "name": "Pinned",
+        "type": "soft",
+        "item": 5,
+        "rally": 7,
+        "moveDisabled": true
+    },
+    {
+        "id": "16",
+        "name": "Suppressed",
+        "type": "soft",
+        "item": 5,
+        "rally": 7,
+        "attackCost": 1,
+        "attackSoft": -2,
+        "attackHard": -2
+    },
+    {
+        "id": "17",
+        "name": "Cowering",
+        "type": "soft",
+        "item": 2,
+        "rally": 8,
+        "attackCost": 2,
+        "moveCost": 1,
+        "defenseFlank": 1,
+        "defenseFront": 1,
+        "rangeDisabled": true
+    },
+    {
+        "id": "18",
+        "name": "Berserk",
+        "type": "soft",
+        "item": 1,
+        "rally": 8,
+        "attackCost": -1,
+        "attackSoft": 1,
+        "attackHard": 1,
+        "defenseFlank": 1,
+        "defenseFront": 2,
+        "rangeDisabled": true
+    },
+    {
+        "id": "21",
+        "name": "Stunned",
+        "type": "hard",
+        "item": 2,
+        "rally": 9,
+        "attackDisabled": true,
+        "moveDisabled": true
+    },
+    {
+        "id": "22",
+        "name": "Gun Damage",
+        "type": "hard",
+        "item": 2,
+        "gunDamaged": "soft"
+    },
+    {
+        "id": "23",
+        "name": "Gun Damage",
+        "type": "hard",
+        "item": 2,
+        "gunDamaged": "hard"
+    },
+    {
+        "id": "24",
+        "name": "Destroyed",
+        "type": "hard",
+        "item": 1
+    },
+    {
+        "id": "25",
+        "name": "Panicked",
+        "type": "hard",
+        "item": 1,
+        "rally": 9,
+        "attackDisabled": true,
+        "defenseFlank": 0,
+        "defenseFront": -4
+    },
+    {
+        "id": "26",
+        "name": "Immobilized",
+        "type": "hard",
+        "item": 5,
+        "moveDisabled": true,
+        "defenseFlank": 1,
+        "defenseFront": -1
+    },
+    {
+        "id": "27",
+        "name": "Suppressed",
+        "type": "hard",
+        "item": 5,
+        "rally": 8,
+        "attackCost": 1,
+        "attackSoft": -3,
+        "attackHard": -5
+    },
+    {
+        "id": "28",
+        "name": "Light Damage",
+        "type": "hard",
+        "item": 4,
+    }
+]
