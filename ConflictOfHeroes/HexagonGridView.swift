@@ -9,21 +9,21 @@
 import SwiftUI
 
 struct HexagonGridView: View {
-    @State var cells: [HexagonCell]
+    @Binding var cells: [HexagonCell]
     @Binding var reserveUnits: [Unit]
     @Binding var removedUnits: [Unit]
     let mapName: String
     let onHexagonSelected: (HexagonCell?) -> Void
     let onUnitRemoved: (Unit, HexagonCell) -> Void
-    
+
     init(
-        cells: [HexagonCell],
+        cells: Binding<[HexagonCell]>,
         reserveUnits: Binding<[Unit]>,
         removedUnits: Binding<[Unit]>,
         mapName: String,
         onHexagonSelected: @escaping (HexagonCell?) -> Void
     ) {
-        self._cells = State(initialValue: cells)
+        self._cells = cells
         self._reserveUnits = reserveUnits
         self._removedUnits = removedUnits
         self.mapName = mapName
