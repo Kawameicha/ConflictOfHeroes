@@ -12,7 +12,11 @@ struct UnitRow: View {
 
     var body: some View {
         HStack {
-            UnitSymbol(unit: unit)
+            if let hitMarker = unit.hitMarker {
+                HitMarkerView(hitMarker: hitMarker)
+            } else {
+                UnitSymbol(unit: unit)
+            }
 
             ZStack {
                 VStack(alignment: .center) {
@@ -21,11 +25,6 @@ struct UnitRow: View {
                         .font(.system(size: 6))
                         .lineLimit(1)
                         .offset(y: 12)
-
-//                    HStack {
-//                        Text("\(unit.army.rawValue.capitalized) \(unit.type.rawValue) unit")
-//                            .font(.subheadline)
-//                    }
 
                     Image("\(unit.army) \(unit.name)" )
                         .resizable()
@@ -41,12 +40,13 @@ struct UnitRow: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color("\(unit.army)").opacity(0.7))
         )
-//        .aspectRatio(2.75, contentMode: .fit)
+        .frame(width: 160, height: 85)
     }
 }
 
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
-    let unit = Unit(name: "Rifles '41", army: .german, statsDictionary: statsDictionary)
+    let hitMarkers = loadHitMarkers(from: "HitMarkers")
+    let unit = Unit(name: "Rifles '41", army: .german, hitMarker: hitMarkers.first , statsDictionary: statsDictionary)
     UnitRow(unit: unit)
 }

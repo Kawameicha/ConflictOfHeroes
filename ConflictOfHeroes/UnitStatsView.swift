@@ -30,7 +30,7 @@ struct UnitStatsView: View {
             VStack {
                 if let cost = unit.stats.costToMove {
                     Text("\(cost)")
-                        .foregroundColor((Color(unit.stats.type.rawValue)))
+                        .foregroundColor(Color(unit.stats.type.rawValue))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
@@ -66,17 +66,17 @@ struct UnitStatsView: View {
             VStack {
                 if let _ = unit.stats.openVehicle, let defense = unit.stats.defenseFlank {
                     Text("\(defense)")
-                        .foregroundColor((Color(unit.stats.flankType.rawValue)))
+                        .foregroundColor(Color(unit.stats.flankType.rawValue))
                         .background(.white)
                         .background{Rectangle().stroke(Color.foot)}
                 } else if let defense = unit.stats.defenseFlank {
                     Text("\(defense)")
                         .foregroundStyle(.white)
-                        .background((Color(unit.stats.flankType.rawValue)))
+                        .background(Color(unit.stats.flankType.rawValue))
                 }
                 if let defense = unit.stats.defenseFront {
                     Text("\(defense)")
-                        .foregroundColor((Color(unit.stats.frontType.rawValue)))
+                        .foregroundColor(Color(unit.stats.frontType.rawValue))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)

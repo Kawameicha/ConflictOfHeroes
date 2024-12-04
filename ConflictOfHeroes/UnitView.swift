@@ -50,14 +50,20 @@ struct UnitView: View {
                         .frame(width: geometry.size.width, height: geometry.size.height)
                 }
 
-                if units.count > 1 {
-                    Text("\(units.count - 1)+")
-                        .font(.caption2)
-                        .foregroundColor(.white)
-                        .padding(5)
-                        .background(Circle().fill(Color.red))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                HStack {
+                    if unit.hitMarker != nil {
+                        Image(systemName: "cross.circle.fill")
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.red, .white)
+                    }
+                    
+                    if units.count > 1 {
+                        Image(systemName: "\(units.count).circle.fill")
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.white, .red)
+                    }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
             .frame(width: 75, height: 75)
             .background(

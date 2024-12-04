@@ -17,13 +17,14 @@ class Unit: Identifiable, Hashable, Transferable, Codable {
     var hexagon: HexagonCoordinate
     var orientation: UnitFront
     var exhausted: Bool
+    var hitMarker: HitMarker?
     var stats: UnitStats
 
     var identifier: UnitIdentifier {
         return UnitIdentifier(name: name, army: army)
     }
 
-    init(id: UUID = UUID(), name: String, game: UnitGame? = nil, army: UnitArmy, hexagon: HexagonCoordinate = HexagonCoordinate(row: 0, col: 0), orientation: UnitFront = .N, exhausted: Bool = false, statsDictionary: [UnitIdentifier: UnitStats]) {
+    init(id: UUID = UUID(), name: String, game: UnitGame? = nil, army: UnitArmy, hexagon: HexagonCoordinate = HexagonCoordinate(row: 0, col: 0), orientation: UnitFront = .N, exhausted: Bool = false, hitMarker: HitMarker? = nil, statsDictionary: [UnitIdentifier: UnitStats]) {
         self.id = id
         self.name = name
         self.game = game
@@ -31,6 +32,7 @@ class Unit: Identifiable, Hashable, Transferable, Codable {
         self.hexagon = hexagon
         self.orientation = orientation
         self.exhausted = exhausted
+        self.hitMarker = hitMarker
 
         let identifier = UnitIdentifier(name: name, army: army)
         self.stats = statsDictionary[identifier] ?? UnitStats(name: name, army: army)
