@@ -7,10 +7,7 @@
 
 import SwiftUI
 
-import SwiftUI
-import UniformTypeIdentifiers
-
-class HitMarker: Codable {
+class HitMarker: Codable, Equatable {
     var id: String
     var name: String
     var type: HitMarkerType
@@ -43,6 +40,10 @@ class HitMarker: Codable {
         self.defenseFlank = defenseFlank
         self.defenseFront = defenseFront
         self.rangeDisabled = rangeDisabled
+    }
+
+    static func == (lhs: HitMarker, rhs: HitMarker) -> Bool {
+        return lhs.id == rhs.id
     }
 }
 

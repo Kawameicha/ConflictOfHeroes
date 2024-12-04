@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HexagonView: View {
+    @EnvironmentObject var hitMarkerPool: HitMarkerPool
     @State var hexagonIsTargeted = false
     var cell: HexagonCell
     var onUnitMoved: (Unit, HexagonCell) -> Void
@@ -25,6 +26,27 @@ struct HexagonView: View {
                     .contextMenu {
                         Button("Remove Unit") {
                             onUnitRemoved(unit)
+                            if let hitMarker = unit.hitMarker {
+                                hitMarkerPool.returnHitMarker(hitMarker)
+                                unit.hitMarker = nil
+                            }
+                        }
+
+                        Button("Assign Random Hit Marker") {
+                            if let marker = hitMarkerPool.assignRandomSoftHitMarker() {
+                                unit.hitMarker = marker
+                            }
+                        }
+
+                        Button("Return Hit Marker to Pool") {
+                            if let hitMarker = unit.hitMarker {
+                                hitMarkerPool.returnHitMarker(hitMarker)
+                                unit.hitMarker = nil
+                            }
+                        }
+
+                        Button("Print HitMarkerPool") {
+                            print("HitMarkerPool contents: \(hitMarkerPool.pool.map(\.name)), HitMarkerPool items: \(hitMarkerPool.pool.count)")
                         }
                     }
                     .draggable(unit) {

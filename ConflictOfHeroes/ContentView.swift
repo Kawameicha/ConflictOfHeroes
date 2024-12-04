@@ -35,11 +35,8 @@ struct ContentView: View {
                             }
                     }
                 }
-
-                d10SimulatorView()
-                d6SimulatorView()
             }
-            .navigationSplitViewColumnWidth(180)
+            .navigationSplitViewColumnWidth(190)
         } content: {
             if let missionData {
                 HexagonGridView(
@@ -69,12 +66,17 @@ struct ContentView: View {
                         }
                     }
                 }
+
+                d10SimulatorView()
+                d6SimulatorView()
             }
-            .navigationSplitViewColumnWidth(selectedHexagon != nil ? 180 : 0)
+            .navigationSplitViewColumnWidth(selectedHexagon != nil ? 190 : 0)
         }
     }
 }
 
 #Preview {
+    let hitMarkerPool = HitMarkerPool(hitMarkers: loadHitMarkers(from: "HitMarkers"))
     ContentView()
+        .environmentObject(hitMarkerPool)
 }

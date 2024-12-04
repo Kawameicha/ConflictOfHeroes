@@ -15,8 +15,10 @@ struct HitMarkerView: View {
             VStack {
                 if let rally = hitMarker.rally {
                     Text("R\u{2265}\(rally)")
-                } else {
+                } else if hitMarker.name == "Destroyed" {
                     Text("XX")
+                } else {
+                    Text("No Rally")
                 }
 
                 Spacer()
@@ -129,9 +131,7 @@ struct HitMarkerGridView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(hitMarkers, id: \.id) { hitMarker in
-//                    ForEach(0..<hitMarker.item, id: \.self) { _ in
-                        HitMarkerView(hitMarker: hitMarker)
-//                    }
+                    HitMarkerView(hitMarker: hitMarker)
                 }
             }
             .frame(width: 640, height: .infinity)
