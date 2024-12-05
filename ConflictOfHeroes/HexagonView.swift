@@ -24,29 +24,42 @@ struct HexagonView: View {
             ForEach(cell.units, id: \.self) { unit in
                 UnitView(units: cell.units, unit: unit)
                     .contextMenu {
-                        Button("Remove Unit") {
-                            onUnitRemoved(unit)
+                        Button(action: {
+                            unit.stressed.toggle()
+                        }) {
+                            Label(unit.stressed ? "Relax Unit" : "Stress Unit",
+                                  systemImage: unit.stressed ? "" : "")
+                        }
+
+                        Button(action: {
                             if let hitMarker = unit.hitMarker {
                                 hitMarkerPool.returnHitMarker(hitMarker)
                                 unit.hitMarker = nil
-                            }
-                        }
-
-                        Button("Assign Random Hit Marker") {
-                            if let marker = hitMarkerPool.assignRandomSoftHitMarker() {
+                            } else if let marker = hitMarkerPool.assignRandomSoftHitMarker() {
                                 unit.hitMarker = marker
                             }
+                        }) {
+                            Label(unit.hitMarker != nil ? "Rally Unit" : "Hit Marker",
+                                  systemImage: unit.hitMarker == nil ? "" : "")
                         }
 
-                        Button("Return Hit Marker to Pool") {
-                            if let hitMarker = unit.hitMarker {
-                                hitMarkerPool.returnHitMarker(hitMarker)
-                                unit.hitMarker = nil
+                        Menu("Assign to") {
+                            Button("Reserve") {
+                                onUnitRemoved(unit)
+                                unit.stressed = false
+                                if let hitMarker = unit.hitMarker {
+                                    hitMarkerPool.returnHitMarker(hitMarker)
+                                    unit.hitMarker = nil
+                                }
                             }
                         }
 
-                        Button("Print HitMarkerPool") {
-                            print("HitMarkerPool contents: \(hitMarkerPool.pool.map(\.name)), HitMarkerPool items: \(hitMarkerPool.pool.count)")
+                        Divider()
+
+                        Menu("Debug") {
+                            Button("Print HitMarkerPool") {
+                                print("HitMarkerPool contents: \(hitMarkerPool.pool.map(\.name)), HitMarkerPool items: \(hitMarkerPool.pool.count)")
+                            }
                         }
                     }
                     .draggable(unit) {

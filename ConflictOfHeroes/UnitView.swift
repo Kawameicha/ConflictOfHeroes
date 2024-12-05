@@ -56,7 +56,13 @@ struct UnitView: View {
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(.red, .white)
                     }
-                    
+
+                    if unit.stressed {
+                        Image(systemName: "xmark.octagon.fill")
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.white, .red)
+                    }
+
                     if units.count > 1 {
                         Image(systemName: "\(units.count).circle.fill")
                             .symbolRenderingMode(.palette)
