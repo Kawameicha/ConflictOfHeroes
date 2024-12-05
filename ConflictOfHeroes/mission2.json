@@ -1,0 +1,129 @@
+{
+    "metadata": {
+        "name": "NKVD Defense at Mir",
+        "date": "June 30, 1941",
+        "victoryPoints": 1,
+        "victoryMarker": "german",
+        "germanCommandPoints": 6,
+        "sovietCommandPoints": 12,
+        "rounds": 4,
+        "mapName": "AtB_Planning_Map_1_Plains",
+        "columns": 17,
+        "evenColumnRows": 12,
+        "oddColumnRows": 11
+    },
+    "units": [
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 3, "col": 0 },
+            "orientation": "North-East",
+            "isReserve": false
+        },
+        {
+            "name": "HMG34",
+            "army": "german",
+            "hexagon": { "row": 3, "col": 1 },
+            "orientation": "North-East",
+            "isReserve": false
+        },
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 6, "col": 4 },
+            "orientation": "North-East",
+            "isReserve": false
+        },
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 5, "col": 5 },
+            "orientation": "North-East",
+            "isReserve": false
+        },
+        {
+            "name": "MG34",
+            "army": "german",
+            "hexagon": { "row": 6, "col": 9 },
+            "orientation": "North-East",
+            "isReserve": false
+        },
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 6, "col": 11 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "MG34",
+            "army": "german",
+            "hexagon": { "row": 6, "col": 12 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 6, "col": 15 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "MMG Maxim",
+            "army": "soviet",
+            "hexagon": { "row": 2, "col": 9 },
+            "orientation": "South-West",
+            "isReserve": false
+        },
+        {
+            "name": "SMG Rifles",
+            "army": "soviet",
+            "hexagon": { "row": 4, "col": 10 },
+            "orientation": "South",
+            "isReserve": false
+        },
+        {
+            "name": "NKVD",
+            "army": "soviet",
+            "hexagon": { "row": 3, "col": 11 },
+            "orientation": "South",
+            "isReserve": false
+        },
+        {
+            "name": "MMG Maxim",
+            "army": "soviet",
+            "hexagon": { "row": 2, "col": 12 },
+            "orientation": "South",
+            "isReserve": false
+        },
+        {
+            "name": "Rifles '41",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "isReserve": true
+        },
+        {
+            "name": "Rifles '41",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "isReserve": true
+        },
+        {
+            "name": "Control",
+            "army": "german",
+            "hexagon": { "row": 6, "col": 6 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "Control",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 11 },
+            "orientation": "North",
+            "isReserve": false
+        }
+    ]
+}

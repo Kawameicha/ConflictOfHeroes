@@ -9,8 +9,10 @@ import Foundation
 
 struct MissionData: Codable {
     struct Metadata: Codable {
-        let germanVictoryPoints: Int
-        let sovietVictoryPoints: Int
+        let name: String
+        let date: String
+        let victoryPoints: Int
+        let victoryMarker: UnitArmy
         let germanCommandPoints: Int
         let sovietCommandPoints: Int
         let rounds: Int

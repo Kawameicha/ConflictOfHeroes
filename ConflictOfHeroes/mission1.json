@@ -1,14 +1,16 @@
 {
     "metadata": {
-      "germanVictoryPoints": 10,
-      "sovietVictoryPoints": 15,
-      "germanCommandPoints": 3,
-      "sovietCommandPoints": 4,
-      "rounds": 5,
-      "mapName": "AtB_Planning_Map_1_Plains",
-      "columns": 17,
-      "evenColumnRows": 12,
-      "oddColumnRows": 11
+        "name": "Partisans",
+        "date": "October 17, 1941",
+        "victoryPoints": 1,
+        "victoryMarker": "soviet",
+        "germanCommandPoints": 7,
+        "sovietCommandPoints": 7,
+        "rounds": 5,
+        "mapName": "AtB_Planning_Map_1_Plains",
+        "columns": 17,
+        "evenColumnRows": 12,
+        "oddColumnRows": 11
     },
     "units": [
         {
