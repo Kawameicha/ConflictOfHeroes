@@ -2,7 +2,7 @@
     "gameSetup": {
         "name": "NKVD Defense at Mir",
         "date": "June 30, 1941",
-        "maps": "AtB_Planning_Map_1_Plains"],
+        "maps": ["AtB_Planning_Map_1_Plains"],
         "rounds": 4,
         "columns": 17,
         "evenColumnRows": 12,
@@ -15,6 +15,20 @@
         "sovietCommandPoints": 12
     },
     "gameUnits": [
+        {
+            "name": "Control",
+            "army": "german",
+            "hexagon": { "row": 6, "col": 6 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "Control",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 11 },
+            "orientation": "North",
+            "isReserve": false
+        },
         {
             "name": "Rifles '41",
             "army": "german",
@@ -112,20 +126,6 @@
             "hexagon": { "row": 0, "col": 0 },
             "orientation": "North",
             "isReserve": true
-        },
-        {
-            "name": "Control",
-            "army": "german",
-            "hexagon": { "row": 6, "col": 6 },
-            "orientation": "North",
-            "isReserve": false
-        },
-        {
-            "name": "Control",
-            "army": "soviet",
-            "hexagon": { "row": 0, "col": 11 },
-            "orientation": "North",
-            "isReserve": false
         }
     ]
 }

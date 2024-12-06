@@ -1,0 +1,152 @@
+{
+    "gameSetup": {
+        "name": "The Gap",
+        "date": "June 23, 1941",
+        "maps": ["AtB_Planning_Map_2_Village", "AtB_Planning_Map_1_Plains"],
+        "rounds": 4,
+        "columns": 17,
+        "evenColumnRows": 24,
+        "oddColumnRows": 23
+    },
+    "gameState": {
+        "victoryPoints": 1,
+        "victoryMarker": "soviet",
+        "germanCommandPoints": 8,
+        "sovietCommandPoints": 6
+    },
+    "gameUnits": [
+        {
+            "name": "Control",
+            "army": "soviet",
+            "hexagon": { "row": 9, "col": 8 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "Control",
+            "army": "soviet",
+            "hexagon": { "row": 2, "col": 9 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 19, "col": 5 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "MG34",
+            "army": "german",
+            "hexagon": { "row": 19, "col": 5 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 20, "col": 5 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "MG34",
+            "army": "german",
+            "hexagon": { "row": 20, "col": 5 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 18, "col": 6 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "MG34",
+            "army": "german",
+            "hexagon": { "row": 18, "col": 6 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 19, "col": 6 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "MG34",
+            "army": "german",
+            "hexagon": { "row": 19, "col": 6 },
+            "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "MMG Maxim",
+            "army": "soviet",
+            "hexagon": { "row": 9, "col": 8 },
+            "orientation": "South",
+            "isReserve": false
+        },
+        {
+            "name": "Rifles '41",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "isReserve": true
+        },
+        {
+            "name": "Rifles '41",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "isReserve": true
+        },
+        {
+            "name": "Rifles '41",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "isReserve": true
+        },
+        {
+            "name": "Rifles '41",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "isReserve": true
+        },
+        {
+            "name": "Rifles '41",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "isReserve": true
+        },
+        {
+            "name": "Rifles '41",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "isReserve": true
+        },
+        {
+            "name": "Rifles '41",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "isReserve": true
+        },
+        {
+            "name": "MMG Maxim",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "isReserve": true
+        }
+    ]
+}

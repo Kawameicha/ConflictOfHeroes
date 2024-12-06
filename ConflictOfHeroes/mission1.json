@@ -2,7 +2,7 @@
     "gameSetup": {
         "name": "Partisans",
         "date": "October 17, 1941",
-        "maps": "AtB_Planning_Map_1_Plains",
+        "maps": ["AtB_Planning_Map_1_Plains"],
         "rounds": 5,
         "columns": 17,
         "evenColumnRows": 12,
@@ -15,6 +15,13 @@
         "sovietCommandPoints": 7
     },
     "gameUnits": [
+        {
+            "name": "Control",
+            "army": "soviet",
+            "hexagon": { "row": 5, "col": 7 },
+            "orientation": "North",
+            "isReserve": false
+        },
         {
             "name": "Rifles '41",
             "army": "german",
@@ -76,13 +83,6 @@
             "army": "soviet",
             "hexagon": { "row": 9, "col": 12 },
             "orientation": "North-West",
-            "isReserve": false
-        },
-        {
-            "name": "Control",
-            "army": "soviet",
-            "hexagon": { "row": 5, "col": 7 },
-            "orientation": "North",
             "isReserve": false
         }
     ]

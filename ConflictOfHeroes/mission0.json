@@ -2,7 +2,7 @@
     "gameSetup": {
         "name": "Test",
         "date": "June 30, 1941",
-        "maps": "AtB_Planning_Map_2_Village",
+        "maps": ["AtB_Planning_Map_2_Village"],
         "rounds": 5,
         "columns": 17,
         "evenColumnRows": 12,
@@ -16,17 +16,17 @@
     },
     "gameUnits": [
         {
-            "name": "7.62cm FK 297",
-            "army": "german",
-            "hexagon": { "row": 1, "col": 0 },
-            "orientation": "South-East",
-            "isReserve": false
-        },
-        {
             "name": "Control",
             "army": "german",
             "hexagon": { "row": 2, "col": 2 },
             "orientation": "North",
+            "isReserve": false
+        },
+        {
+            "name": "7.62cm FK 297",
+            "army": "german",
+            "hexagon": { "row": 1, "col": 0 },
+            "orientation": "South-East",
             "isReserve": false
         }
     ]

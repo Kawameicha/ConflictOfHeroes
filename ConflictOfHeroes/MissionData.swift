@@ -16,13 +16,13 @@ struct MissionData: Codable {
 struct GameSetup: Codable {
     let name: String
     let date: String
-    let maps: String
+    let maps: [String]
     let rounds: Int
     let columns: Int
     let evenColumnRows: Int
     let oddColumnRows: Int
 
-    init(name: String, date: String, maps: String, rounds: Int, columns: Int, evenColumnRows: Int, oddColumnRows: Int) {
+    init(name: String, date: String, maps: [String], rounds: Int, columns: Int, evenColumnRows: Int, oddColumnRows: Int) {
         self.name = name
         self.date = date
         self.maps = maps
@@ -52,4 +52,5 @@ enum Mission: String {
     case mission0
     case mission1
     case mission2
+    case mission3
 }

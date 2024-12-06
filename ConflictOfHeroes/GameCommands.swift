@@ -12,15 +12,22 @@ struct GameCommands: Commands {
 
     var body: some Commands {
         CommandGroup(after: .saveItem) {
-            Button("Start Mission 1") {
-                gameManager.startNewMission(missionName: "mission1")
-            }
-            .keyboardShortcut("1", modifiers: [.command])
+            Menu("Start Mission") {
+                Button("Mission 1") {
+                    gameManager.startNewMission(missionName: "mission1")
+                }
+                .keyboardShortcut("1", modifiers: [.command])
 
-            Button("Start Mission 2") {
-                gameManager.startNewMission(missionName: "mission2")
+                Button("Mission 2") {
+                    gameManager.startNewMission(missionName: "mission2")
+                }
+                .keyboardShortcut("2", modifiers: [.command])
+
+                Button("Mission 3") {
+                    gameManager.startNewMission(missionName: "mission3")
+                }
+                .keyboardShortcut("3", modifiers: [.command])
             }
-            .keyboardShortcut("2", modifiers: [.command])
         }
     }
 }

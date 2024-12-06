@@ -12,7 +12,7 @@ struct HexagonGridView: View {
     @Binding var cells: [HexagonCell]
     @Binding var reserveUnits: [Unit]
     @Binding var removedUnits: [Unit]
-    let maps: String
+    let maps: [String]
     let onHexagonSelected: (HexagonCell?) -> Void
     let onUnitRemoved: (Unit, HexagonCell) -> Void
 
@@ -20,7 +20,7 @@ struct HexagonGridView: View {
         cells: Binding<[HexagonCell]>,
         reserveUnits: Binding<[Unit]>,
         removedUnits: Binding<[Unit]>,
-        maps: String,
+        maps: [String],
         onHexagonSelected: @escaping (HexagonCell?) -> Void
     ) {
         self._cells = cells
@@ -33,10 +33,20 @@ struct HexagonGridView: View {
 
     var body: some View {
         ScrollView([.horizontal, .vertical]) {
-            ZStack {
-                Image(maps)
-                    .resizable()
-                    .scaledToFit()
+            ZStack(alignment: .center) {
+                VStack(spacing: 0) {
+                    if let firstMap = maps.first {
+                        Image(firstMap)
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    if maps.count > 1 {
+                        Image(maps[1])
+                            .resizable()
+                            .scaledToFit()
+                    }
+                }
+                .frame(width: 2965 / 2, height: CGFloat((2300 * maps.count)) / 2)
 
                 HexagonGrid(cells) { cell in
                     HexagonView(
@@ -56,8 +66,10 @@ struct HexagonGridView: View {
                         onHexagonSelected(cell)
                     }
                 }
+                .padding(.horizontal, 24)
+                .offset(x: 2)
             }
-            .frame(width: 2965 / 2, height: 2300 / 2)
+            .frame(width: 2965 / 2, height: CGFloat((2300 * maps.count)) / 2)
             .onTapGesture {
                 onHexagonSelected(nil)
             }
