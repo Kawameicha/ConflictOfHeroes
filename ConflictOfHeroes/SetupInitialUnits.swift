@@ -27,7 +27,11 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit]) {
 
             var updatedCell = HexagonCell(offsetCoordinate: coordinate, units: [])
 
-            if let gameUnit = missionData.gameUnits.first(where: { $0.hexagon == coordinate && $0.isReserve == false }) {
+            let unitsOnHex = missionData.gameUnits.filter {
+                $0.hexagon == coordinate && !$0.isReserve
+            }
+
+            for gameUnit in unitsOnHex {
                 let unit = Unit(
                     name: gameUnit.name,
                     army: gameUnit.army,
