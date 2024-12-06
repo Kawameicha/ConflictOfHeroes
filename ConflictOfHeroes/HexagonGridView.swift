@@ -12,7 +12,7 @@ struct HexagonGridView: View {
     @Binding var cells: [HexagonCell]
     @Binding var reserveUnits: [Unit]
     @Binding var removedUnits: [Unit]
-    let mapName: String
+    let maps: String
     let onHexagonSelected: (HexagonCell?) -> Void
     let onUnitRemoved: (Unit, HexagonCell) -> Void
 
@@ -20,13 +20,13 @@ struct HexagonGridView: View {
         cells: Binding<[HexagonCell]>,
         reserveUnits: Binding<[Unit]>,
         removedUnits: Binding<[Unit]>,
-        mapName: String,
+        maps: String,
         onHexagonSelected: @escaping (HexagonCell?) -> Void
     ) {
         self._cells = cells
         self._reserveUnits = reserveUnits
         self._removedUnits = removedUnits
-        self.mapName = mapName
+        self.maps = maps
         self.onHexagonSelected = onHexagonSelected
         self.onUnitRemoved = { _, _ in }
     }
@@ -34,10 +34,10 @@ struct HexagonGridView: View {
     var body: some View {
         ScrollView([.horizontal, .vertical]) {
             ZStack {
-                Image(mapName)
+                Image(maps)
                     .resizable()
                     .scaledToFit()
-                
+
                 HexagonGrid(cells) { cell in
                     HexagonView(
                         cell: cell,

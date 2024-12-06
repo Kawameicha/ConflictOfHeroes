@@ -1,45 +1,26 @@
 {
-    "metadata": {
+    "gameSetup": {
         "name": "Test",
         "date": "June 30, 1941",
-        "victoryPoints": 1,
-        "victoryMarker": "german",
-        "germanCommandPoints": 3,
-        "sovietCommandPoints": 4,
+        "maps": "AtB_Planning_Map_2_Village",
         "rounds": 5,
-        "mapName": "AtB_Planning_Map_2_Village",
         "columns": 17,
         "evenColumnRows": 12,
         "oddColumnRows": 11
     },
-    "units": [
+    "gameState": {
+        "victoryPoints": 1,
+        "victoryMarker": "german",
+        "germanCommandPoints": 3,
+        "sovietCommandPoints": 4
+    },
+    "gameUnits": [
         {
             "name": "7.62cm FK 297",
             "army": "german",
             "hexagon": { "row": 1, "col": 0 },
             "orientation": "South-East",
             "isReserve": false
-        },
-        {
-            "name": "7.5cm LeIG 18",
-            "army": "german",
-            "hexagon": { "row": 0, "col": 3 },
-            "orientation": "North-West",
-            "isReserve": false
-        },
-        {
-            "name": "Tank Hunters",
-            "army": "german",
-            "hexagon": { "row": 1, "col": 3 },
-            "orientation": "North-West",
-            "isReserve": true
-        },
-        {
-            "name": "8cm Mortar",
-            "army": "german",
-            "hexagon": { "row": 2, "col": 3 },
-            "orientation": "North-West",
-            "isReserve": true
         },
         {
             "name": "Control",

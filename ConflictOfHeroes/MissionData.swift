@@ -8,30 +8,44 @@
 import Foundation
 
 struct MissionData: Codable {
-    struct Metadata: Codable {
-        let name: String
-        let date: String
-        let victoryPoints: Int
-        let victoryMarker: UnitArmy
-        let germanCommandPoints: Int
-        let sovietCommandPoints: Int
-        let rounds: Int
-        let mapName: String
-        let columns: Int
-        let evenColumnRows: Int
-        let oddColumnRows: Int
-    }
+    let gameSetup: GameSetup
+    var gameState: GameState
+    var gameUnits: [GameUnit]
+}
 
-    struct MissionUnit: Codable {
-        let name: String
-        let army: UnitArmy
-        let hexagon: HexagonCoordinate
-        let orientation: UnitFront
-        let isReserve: Bool
-    }
+struct GameSetup: Codable {
+    let name: String
+    let date: String
+    let maps: String
+    let rounds: Int
+    let columns: Int
+    let evenColumnRows: Int
+    let oddColumnRows: Int
 
-    let metadata: Metadata
-    let units: [MissionUnit]
+    init(name: String, date: String, maps: String, rounds: Int, columns: Int, evenColumnRows: Int, oddColumnRows: Int) {
+        self.name = name
+        self.date = date
+        self.maps = maps
+        self.rounds = rounds
+        self.columns = columns
+        self.evenColumnRows = evenColumnRows
+        self.oddColumnRows = oddColumnRows
+    }
+}
+
+struct GameState: Codable {
+    var victoryPoints: Int
+    var victoryMarker: UnitArmy
+    var germanCommandPoints: Int
+    var sovietCommandPoints: Int
+}
+
+struct GameUnit: Codable {
+    var name: String
+    var army: UnitArmy
+    var hexagon: HexagonCoordinate
+    var orientation: UnitFront
+    var isReserve: Bool
 }
 
 enum Mission: String {

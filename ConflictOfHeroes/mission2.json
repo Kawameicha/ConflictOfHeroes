@@ -1,18 +1,20 @@
 {
-    "metadata": {
+    "gameSetup": {
         "name": "NKVD Defense at Mir",
         "date": "June 30, 1941",
-        "victoryPoints": 1,
-        "victoryMarker": "german",
-        "germanCommandPoints": 6,
-        "sovietCommandPoints": 12,
+        "maps": "AtB_Planning_Map_1_Plains"],
         "rounds": 4,
-        "mapName": "AtB_Planning_Map_1_Plains",
         "columns": 17,
         "evenColumnRows": 12,
         "oddColumnRows": 11
     },
-    "units": [
+    "gameState": {
+        "victoryPoints": 1,
+        "victoryMarker": "german",
+        "germanCommandPoints": 6,
+        "sovietCommandPoints": 12
+    },
+    "gameUnits": [
         {
             "name": "Rifles '41",
             "army": "german",

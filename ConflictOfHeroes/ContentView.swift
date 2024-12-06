@@ -26,6 +26,13 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             VStack {
+                Section(header: Text("\(missionData?.gameSetup.name ?? "") - \(missionData?.gameSetup.date ?? "")")) {
+                    Text("Victory Points: \(missionData?.gameState.victoryPoints ?? 0)")
+                    Text("Leading: \(missionData?.gameState.victoryMarker.rawValue.capitalized ?? "")")
+                    Text("German CAP: \(missionData?.gameState.germanCommandPoints ?? 0)")
+                    Text("Soviet CAP: \(missionData?.gameState.sovietCommandPoints ?? 0)")
+                }
+
                 Section(header: Text("Reserve Units")) {
                     List(reserveUnits, id: \.self) { unit in
                         UnitRow(unit: unit)
@@ -45,7 +52,7 @@ struct ContentView: View {
                     cells: $initialCells,
                     reserveUnits: $reserveUnits,
                     removedUnits: $removedUnits,
-                    mapName: missionData.metadata.mapName,
+                    maps: missionData.gameSetup.maps,
                     onHexagonSelected: { hexagon in
                         selectedHexagon = hexagon
                     }

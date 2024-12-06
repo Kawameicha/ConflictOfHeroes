@@ -16,9 +16,9 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit]) {
         return ([], [])
     }
 
-    let columns = missionData.metadata.columns
-    let evenColumnRows = missionData.metadata.evenColumnRows
-    let oddColumnRows = missionData.metadata.oddColumnRows
+    let columns = missionData.gameSetup.columns
+    let evenColumnRows = missionData.gameSetup.evenColumnRows
+    let oddColumnRows = missionData.gameSetup.oddColumnRows
 
     for column in 0..<columns {
         let rows = column.isMultiple(of: 2) ? evenColumnRows : oddColumnRows
@@ -27,11 +27,11 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit]) {
 
             var updatedCell = HexagonCell(offsetCoordinate: coordinate, units: [])
 
-            if let missionUnit = missionData.units.first(where: { $0.hexagon == coordinate && $0.isReserve == false }) {
+            if let gameUnit = missionData.gameUnits.first(where: { $0.hexagon == coordinate && $0.isReserve == false }) {
                 let unit = Unit(
-                    name: missionUnit.name,
-                    army: missionUnit.army,
-                    orientation: missionUnit.orientation,
+                    name: gameUnit.name,
+                    army: gameUnit.army,
+                    orientation: gameUnit.orientation,
                     statsDictionary: statsDictionary
                 )
                 updatedCell.units.append(unit)
@@ -41,7 +41,7 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit]) {
         }
     }
 
-    reserveUnits = missionData.units.filter { $0.isReserve }.map {
+    reserveUnits = missionData.gameUnits.filter { $0.isReserve }.map {
         Unit(
             name: $0.name,
             army: $0.army,
@@ -52,4 +52,3 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit]) {
 
     return (hexagonCells, reserveUnits)
 }
-

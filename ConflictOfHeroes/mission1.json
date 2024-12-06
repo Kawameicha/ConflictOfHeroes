@@ -1,18 +1,20 @@
 {
-    "metadata": {
+    "gameSetup": {
         "name": "Partisans",
         "date": "October 17, 1941",
-        "victoryPoints": 1,
-        "victoryMarker": "soviet",
-        "germanCommandPoints": 7,
-        "sovietCommandPoints": 7,
+        "maps": "AtB_Planning_Map_1_Plains",
         "rounds": 5,
-        "mapName": "AtB_Planning_Map_1_Plains",
         "columns": 17,
         "evenColumnRows": 12,
         "oddColumnRows": 11
     },
-    "units": [
+    "gameState": {
+        "victoryPoints": 1,
+        "victoryMarker": "soviet",
+        "germanCommandPoints": 7,
+        "sovietCommandPoints": 7
+    },
+    "gameUnits": [
         {
             "name": "Rifles '41",
             "army": "german",
