@@ -76,6 +76,11 @@ struct UnitView: View {
                 RoundedRectangle(cornerRadius: 9, style: .continuous)
                     .fill(Color("\(unit.army)"))
             )
+            .background(
+                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    .fill(.gray)
+                    .offset(x: -0.9, y: 1.1)
+            )
             .rotationEffect(rotationAngle(for: unit.orientation))
         }
         .frame(width: 75, height: 75)
