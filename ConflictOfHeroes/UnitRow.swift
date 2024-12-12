@@ -46,7 +46,7 @@ struct UnitRow: View {
 
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
-    let hitMarkers = loadHitMarkers(from: "HitMarkers")
+    let hitMarkers = loadFromJson(from: "HitMarkers", ofType: HitMarker.self)
     let unit = Unit(name: "Rifles '41", army: .german, hitMarker: hitMarkers.first , statsDictionary: statsDictionary)
     UnitRow(unit: unit)
 }

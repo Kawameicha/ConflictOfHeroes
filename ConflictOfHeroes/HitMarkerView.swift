@@ -141,6 +141,6 @@ struct HitMarkerGridView: View {
 }
 
 #Preview {
-    let hitMarkers = loadHitMarkers(from: "HitMarkers")
+    let hitMarkers = loadFromJson(from: "HitMarkers", ofType: HitMarker.self)
     HitMarkerGridView(hitMarkers: hitMarkers)
 }
