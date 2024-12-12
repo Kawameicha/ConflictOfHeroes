@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var cardDeck: CardDeck
     @EnvironmentObject var gameManager: GameManager
     @State private var selectedHexagon: HexagonCell?
     @State private var reserveUnits: [Unit] = []
@@ -83,6 +84,16 @@ struct ContentView: View {
         }
         .onAppear {
             gameManager.contentView = self
+
+            let cards = loadFromJson(from: "Cards", ofType: Card.self)
+            if cardDeck.deck.isEmpty {
+                print("No cards loaded!")
+                cardDeck.deck = CardDeck.createCardDeck(from: cards)
+                print("Successfully loaded \(cardDeck.deck.count) cards.")
+                if let card = cardDeck.drawRandomCard() {
+                    print(card.name)
+                }
+            }
         }
     }
 
@@ -102,8 +113,10 @@ struct ContentView: View {
 
 #Preview {
     let gameManager = GameManager()
-    let hitMarkerPool = HitMarkerPool(hitMarkers: loadHitMarkers(from: "HitMarkers"))
+    let hitMarkerPool = HitMarkerPool(hitMarkers: loadFromJson(from: "HitMarkers", ofType: HitMarker.self))
+    let cardDeck = CardDeck(cards: loadFromJson(from: "cards", ofType: Card.self))
     ContentView()
         .environmentObject(gameManager)
         .environmentObject(hitMarkerPool)
+        .environmentObject(cardDeck)
 }
