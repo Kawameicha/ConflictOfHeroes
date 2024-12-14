@@ -15,6 +15,10 @@ struct ContentView: View {
     @State private var removedUnits: [Unit] = []
     @State private var initialCells: [HexagonCell]
     @State private var missionData: MissionData?
+    @State private var victoryPoints: Int = 0
+    @State private var germanCAP: Int = 0
+    @State private var sovietCAP: Int = 0
+    @State private var leading: UnitArmy = .german
 
     init() {
         let mission = loadMissionData(from: "mission1")
@@ -27,12 +31,55 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             VStack {
-                Section(header: Text("\(missionData?.gameSetup.name ?? "") - \(missionData?.gameSetup.date ?? "")")) {
-                    Text("Victory Points: \(missionData?.gameState.victoryPoints ?? 0)")
-                    Text("Leading: \(missionData?.gameState.victoryMarker.rawValue.capitalized ?? "")")
-                    Text("German CAP: \(missionData?.gameState.germanCommandPoints ?? 0)")
-                    Text("Soviet CAP: \(missionData?.gameState.sovietCommandPoints ?? 0)")
-                }
+                GroupBox(
+                    label: Text("\(missionData?.gameSetup.name ?? "") - \(missionData?.gameSetup.date ?? "")")
+                ) {
+                    HStack {
+                        Text("Leading: \(leading.rawValue.capitalized)")
+                        Spacer()
+                        Button(action: {
+                            leading = (leading == .german) ? .soviet : .german
+                        }) {
+                            Image(systemName: "arrow.up.arrow.down")
+                        }
+                    }
+
+                    HStack {
+                        Text("Victory Points: ")
+                        Spacer()
+                        Button(action: { victoryPoints -= 1 }) {
+                            Image(systemName: "minus")
+                        }
+                        Text("\(victoryPoints)")
+                        Button(action: { victoryPoints += 1 }) {
+                            Image(systemName: "plus")
+                        }
+                    }
+
+                    HStack {
+                        Text("German CAP: ")
+                        Spacer()
+                        Button(action: { germanCAP -= 1 }) {
+                            Image(systemName: "minus")
+                        }
+                        Text("\(germanCAP)")
+                        Button(action: { germanCAP += 1 }) {
+                            Image(systemName: "plus")
+                        }
+                    }
+
+                    HStack {
+                        Text("Soviet CAP: ")
+                        Spacer()
+                        Button(action: { sovietCAP -= 1 }) {
+                            Image(systemName: "minus")
+                        }
+                        Text("\(sovietCAP)")
+                        Button(action: { sovietCAP += 1 }) {
+                            Image(systemName: "plus")
+                        }
+                    }
+                }.padding()
 
                 Section(header: Text("Reserve Units")) {
                     List(reserveUnits, id: \.self) { unit in
@@ -94,6 +141,13 @@ struct ContentView: View {
                     print(card.name)
                 }
             }
+
+            if let missionData {
+                self.victoryPoints = missionData.gameState.victoryPoints
+                self.germanCAP = missionData.gameState.germanCommandPoints
+                self.sovietCAP = missionData.gameState.sovietCommandPoints
+                self.leading = missionData.gameState.victoryMarker
+            }
         }
     }
 
@@ -105,6 +159,10 @@ struct ContentView: View {
             self.reserveUnits = newReserve
             self.removedUnits = []
             self.selectedHexagon = nil
+            self.victoryPoints = newMissionData.gameState.victoryPoints
+            self.germanCAP = newMissionData.gameState.germanCommandPoints
+            self.sovietCAP = newMissionData.gameState.sovietCommandPoints
+            self.leading = newMissionData.gameState.victoryMarker
         } else {
             print("Error: Could not load mission \(missionName)")
         }
