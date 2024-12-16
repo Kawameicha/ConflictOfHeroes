@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		592E8AF32CE7986200FAE0C9 /* Exceptions for "ConflictOfHeroes" folder in "ConflictOfHeroes" target */ = {
+		5922D7EE2D1081BB00B2FF31 /* Exceptions for "ConflictOfHeroes" folder in "ConflictOfHeroes" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -21,10 +21,10 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		592E8ACA2CE7972600FAE0C9 /* ConflictOfHeroes */ = {
+		5922D7C02D1081BB00B2FF31 /* ConflictOfHeroes */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				592E8AF32CE7986200FAE0C9 /* Exceptions for "ConflictOfHeroes" folder in "ConflictOfHeroes" target */,
+				5922D7EE2D1081BB00B2FF31 /* Exceptions for "ConflictOfHeroes" folder in "ConflictOfHeroes" target */,
 			);
 			path = ConflictOfHeroes;
 			sourceTree = "<group>";
@@ -45,7 +45,7 @@
 		592E8ABF2CE7972600FAE0C9 = {
 			isa = PBXGroup;
 			children = (
-				592E8ACA2CE7972600FAE0C9 /* ConflictOfHeroes */,
+				5922D7C02D1081BB00B2FF31 /* ConflictOfHeroes */,
 				592E8AC92CE7972600FAE0C9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,7 +74,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				592E8ACA2CE7972600FAE0C9 /* ConflictOfHeroes */,
+				5922D7C02D1081BB00B2FF31 /* ConflictOfHeroes */,
 			);
 			name = ConflictOfHeroes;
 			packageProductDependencies = (

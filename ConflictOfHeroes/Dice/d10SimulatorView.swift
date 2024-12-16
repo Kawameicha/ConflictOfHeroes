@@ -16,10 +16,6 @@ struct d10SimulatorView: View {
         VStack(spacing: 20) {
             d10View(value: dieValue, isRolling: isRolling)
 
-//            Text("Result: \(dieValue)")
-//                .font(.title)
-//                .bold()
-
             Button(action: rollDie) {
                 Text("Roll Die")
                     .padding()

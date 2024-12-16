@@ -19,10 +19,6 @@ struct d6SimulatorView: View {
                 d6View(value: die2, isRolling: isRolling)
             }
             
-//            Text("Result: \(die1 + die2)")
-//                .font(.title)
-//                .bold()
-            
             Button(action: rollDice) {
                 Text("Roll Dice")
                     .padding()
