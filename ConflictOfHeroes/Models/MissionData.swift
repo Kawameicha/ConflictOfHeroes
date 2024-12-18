@@ -7,13 +7,19 @@
 
 import Foundation
 
-struct MissionData: Codable {
+class MissionData: Codable {
     let gameSetup: GameSetup
     var gameState: GameState
     var gameUnits: [GameUnit]
+
+    init(gameSetup: GameSetup, gameState: GameState, gameUnits: [GameUnit]) {
+        self.gameSetup = gameSetup
+        self.gameState = gameState
+        self.gameUnits = gameUnits
+    }
 }
 
-struct GameSetup: Codable {
+class GameSetup: Codable {
     let name: String
     let date: String
     let maps: [String]
@@ -33,19 +39,34 @@ struct GameSetup: Codable {
     }
 }
 
-struct GameState: Codable {
+class GameState: Codable {
     var victoryPoints: Int
     var victoryMarker: UnitArmy
     var germanCommandPoints: Int
     var sovietCommandPoints: Int
+
+    init(victoryPoints: Int, victoryMarker: UnitArmy, germanCommandPoints: Int, sovietCommandPoints: Int) {
+        self.victoryPoints = victoryPoints
+        self.victoryMarker = victoryMarker
+        self.germanCommandPoints = germanCommandPoints
+        self.sovietCommandPoints = sovietCommandPoints
+    }
 }
 
-struct GameUnit: Codable {
+class GameUnit: Codable {
     var name: String
     var army: UnitArmy
     var hexagon: HexagonCoordinate
     var orientation: UnitFront
     var isReserve: Bool
+
+    init(name: String, army: UnitArmy, hexagon: HexagonCoordinate, orientation: UnitFront, isReserve: Bool) {
+        self.name = name
+        self.army = army
+        self.hexagon = hexagon
+        self.orientation = orientation
+        self.isReserve = isReserve
+    }
 }
 
 enum Mission: String {
