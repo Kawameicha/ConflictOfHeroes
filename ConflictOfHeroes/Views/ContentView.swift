@@ -13,9 +13,9 @@ struct ContentView: View {
     @State private var selectedHexagon: HexagonCell?
     @State private var reserveUnits: [Unit] = []
     @State private var removedUnits: [Unit] = []
-    @State private var initialCells: [HexagonCell]
+    @State var initialCells: [HexagonCell]
     @State private var missionData: MissionData?
-    @State private var round: Int = 1
+    @State var round: Int = 1
     @State private var roundLimit: Int = 5
     @State private var victoryPoints: Int = 0
     @State private var germanCAP: Int = 0

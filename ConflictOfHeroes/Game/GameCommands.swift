@@ -28,6 +28,13 @@ struct GameCommands: Commands {
                 }
                 .keyboardShortcut("3", modifiers: [.command])
             }
+
+            Divider()
+
+            Button("Start New Round") {
+                gameManager.startNewRound()
+            }
+            .keyboardShortcut("R", modifiers: [.command])
         }
     }
 }

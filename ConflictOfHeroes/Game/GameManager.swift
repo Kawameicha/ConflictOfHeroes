@@ -15,4 +15,14 @@ class GameManager: ObservableObject {
         currentMission = missionName
         contentView?.startNewMission(missionName: missionName)
     }
+
+    func startNewRound() {
+            contentView?.round += 1
+            contentView?.initialCells.forEach { cell in
+                cell.units.forEach { unit in
+                    unit.exhausted = false
+                    unit.stressed = false
+                }
+            }
+        }
 }
