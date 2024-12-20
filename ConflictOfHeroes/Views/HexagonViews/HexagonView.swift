@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HexagonView: View {
-    @EnvironmentObject var hitMarkerPool: HitMarkerPool
+    @EnvironmentObject var gameManager: GameManager
     @State var hexagonIsTargeted = false
     var cell: HexagonCell
     var onUnitMoved: (Unit, HexagonCell) -> Void
@@ -33,9 +33,9 @@ struct HexagonView: View {
 
                         Button(action: {
                             if let hitMarker = unit.hitMarker {
-                                hitMarkerPool.returnHitMarker(hitMarker)
+                                gameManager.hitMarkerPool.returnHitMarker(hitMarker)
                                 unit.hitMarker = nil
-                            } else if let marker = hitMarkerPool.assignRandomSoftHitMarker() {
+                            } else if let marker = gameManager.hitMarkerPool.assignRandomSoftHitMarker() {
                                 unit.hitMarker = marker
                             }
                         }) {
@@ -48,7 +48,7 @@ struct HexagonView: View {
                                 onUnitRemoved(unit)
                                 unit.stressed = false
                                 if let hitMarker = unit.hitMarker {
-                                    hitMarkerPool.returnHitMarker(hitMarker)
+                                    gameManager.hitMarkerPool.returnHitMarker(hitMarker)
                                     unit.hitMarker = nil
                                 }
                             }
@@ -58,7 +58,7 @@ struct HexagonView: View {
 
                         Menu("Debug") {
                             Button("Print HitMarkerPool") {
-                                print("HitMarkerPool contents: \(hitMarkerPool.pool.map(\.name)), HitMarkerPool items: \(hitMarkerPool.pool.count)")
+                                print("HitMarkerPool contents: \(gameManager.hitMarkerPool.pool.map(\.name)), HitMarkerPool items: \(gameManager.hitMarkerPool.pool.count)")
                             }
                         }
                     }

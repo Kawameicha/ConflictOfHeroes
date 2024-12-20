@@ -14,7 +14,7 @@ class HitMarkerPool: ObservableObject {
         self.pool = Self.createHitMarkerPool(from: hitMarkers)
     }
 
-    private static func createHitMarkerPool(from hitMarkers: [HitMarker]) -> [HitMarker] {
+    static func createHitMarkerPool(from hitMarkers: [HitMarker]) -> [HitMarker] {
         var pool: [HitMarker] = []
         for hitMarker in hitMarkers {
             pool.append(contentsOf: Array(repeating: hitMarker, count: hitMarker.item))
@@ -34,7 +34,7 @@ class HitMarkerPool: ObservableObject {
         pool.append(hitMarker)
     }
 
-    private func assignRandomHitMarker(ofType type: HitMarkerType) -> HitMarker? {
+    func assignRandomHitMarker(ofType type: HitMarkerType) -> HitMarker? {
         let filteredPool = pool.filter { $0.type == type }
         guard !filteredPool.isEmpty else {
             print("No more \(type.rawValue) hit markers available!")

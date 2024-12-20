@@ -9,16 +9,21 @@ import SwiftUI
 
 @main
 struct ConflictOfHeroesApp: App {
-    @StateObject var gameManager = GameManager()
-    @StateObject var hitMarkerPool = HitMarkerPool(hitMarkers: loadFromJson(from: "HitMarkers", ofType: HitMarker.self))
-    @StateObject var cardDeck = CardDeck(cards: loadFromJson(from: "Cards", ofType: Card.self))
+    @StateObject var gameManager: GameManager
+
+    init() {
+        let cards = loadFromJson(from: "Cards", ofType: Card.self)
+        let hitMarkers = loadFromJson(from: "HitMarkers", ofType: HitMarker.self)
+        _gameManager = StateObject(wrappedValue: GameManager(
+            cardDeck: CardDeck(cards: cards),
+            hitMarkerPool: HitMarkerPool(hitMarkers: hitMarkers)
+        ))
+    }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(gameManager: gameManager)
                 .environmentObject(gameManager)
-                .environmentObject(hitMarkerPool)
-                .environmentObject(cardDeck)
         }
         .commands {
             GameCommands(gameManager: gameManager)
