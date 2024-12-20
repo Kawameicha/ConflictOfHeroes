@@ -16,7 +16,7 @@ class GameViewModel: ObservableObject {
     @Published var missionData: MissionData?
     @Published var round: Int = 1
     @Published var roundLimit: Int = 5
-    @Published var victoryPoints: Int = 0
+    @Published var victoryPoints: Int = 1
     @Published var germanCAP: Int = 0
     @Published var sovietCAP: Int = 0
     @Published var leading: UnitArmy = .german

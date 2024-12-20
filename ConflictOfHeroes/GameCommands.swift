@@ -12,6 +12,10 @@ struct GameCommands: Commands {
 
     var body: some Commands {
         CommandGroup(after: .saveItem) {
+
+        }
+
+        CommandMenu("Game") {
             Menu("Start Mission") {
                 Button("Mission 1") {
                     gameManager.resetGame()
