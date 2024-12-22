@@ -87,14 +87,14 @@
         "id": "10",
         "name": "Gun Damaged",
         "type": "hard",
-        "item": 2,
+        "item": 1,
         "gunDamaged": "soft"
     },
     {
         "id": "11",
         "name": "Gun Damaged",
         "type": "hard",
-        "item": 2,
+        "item": 1,
         "gunDamaged": "hard"
     },
     {
