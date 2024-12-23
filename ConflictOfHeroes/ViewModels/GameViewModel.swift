@@ -19,9 +19,12 @@ class GameViewModel: ObservableObject {
     @Published var victoryPoints: Int = 1
     @Published var germanCAP: Int = 0
     @Published var sovietCAP: Int = 0
+    @Published var germanCard: [Card] = []
+    @Published var sovietCard: [Card] = []
     @Published var leading: UnitArmy = .german
     @Published var isShowingReserveUnits: Bool = false
-    private weak var gameManager: GameManager?
+    @Published var isShowGermanCards: Bool = false
+    @Published var isShowSovietCards: Bool = false
 
     func loadMission(_ missionName: String) {
         guard let mission = loadMissionData(from: missionName) else {
@@ -56,20 +59,5 @@ class GameViewModel: ObservableObject {
                 unit.stressed = false
             }
         }
-    }
-
-    func resetGameState() {
-//        selectedHexagon = nil
-//        reserveUnits.removeAll()
-//        removedUnits.removeAll()
-//        initialCells.removeAll()
-//        missionData = nil
-//        round = 1
-//        roundLimit = 5
-//        victoryPoints = 0
-//        germanCAP = 0
-//        sovietCAP = 0
-//        leading = .german
-//        isShowingReserveUnits = false
     }
 }

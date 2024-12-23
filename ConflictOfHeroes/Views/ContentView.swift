@@ -58,12 +58,20 @@ struct ContentView: View {
                     victoryPoints: $viewModel.victoryPoints,
                     germanCAP: $viewModel.germanCAP,
                     sovietCAP: $viewModel.sovietCAP,
-                    leading: $viewModel.leading
+                    leading: $viewModel.leading,
+                    isShowGermanCards: $viewModel.isShowGermanCards,
+                    isShowSovietCards: $viewModel.isShowSovietCards
                 )
             }
         }
         .popover(isPresented: $viewModel.isShowingReserveUnits, attachmentAnchor: .point(.top)) {
-            ReserveUnitsView(reserveUnits: viewModel.reserveUnits)
+            ReserveUnitView(reserveUnits: viewModel.reserveUnits)
+        }
+        .popover(isPresented: $viewModel.isShowGermanCards, attachmentAnchor: .point(.top)) {
+            PlayerHandView(cards: $viewModel.germanCard)
+        }
+        .popover(isPresented: $viewModel.isShowSovietCards, attachmentAnchor: .point(.top)) {
+            PlayerHandView(cards: $viewModel.sovietCard)
         }
         .navigationTitle(Text("\(viewModel.missionData?.gameSetup.name ?? "") - \(viewModel.missionData?.gameSetup.date ?? "")"))
     }

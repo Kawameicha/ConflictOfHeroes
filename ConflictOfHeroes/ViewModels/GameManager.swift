@@ -29,8 +29,6 @@ class GameManager: ObservableObject {
     }
 
     func resetGame() {
-//        gameViewModel.resetGameState()
-//        currentMission = nil
         gameViewModel.initialCells.forEach { cell in
             cell.units.forEach { unit in
                 if let hitMarker = unit.hitMarker {
@@ -39,5 +37,15 @@ class GameManager: ObservableObject {
                 }
             }
         }
+
+        gameViewModel.germanCard.forEach { card in
+            cardDeck.returnCard(card)
+        }
+        gameViewModel.germanCard.removeAll()
+
+        gameViewModel.sovietCard.forEach { card in
+            cardDeck.returnCard(card)
+        }
+        gameViewModel.sovietCard.removeAll()
     }
 }
