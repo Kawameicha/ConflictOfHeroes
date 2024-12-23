@@ -21,7 +21,7 @@ struct PlayerHandView: View {
                 if let card = gameManager.cardDeck.drawRandomCard(ofType: .battle) {
                     cards.append(card)
                 } else {
-                    print("No cards of type .battle are available!")
+                    print("No battle cards are available!")
                 }
             }) {
                 Label("Draw Card", systemImage: "plus.circle")

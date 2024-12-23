@@ -11,8 +11,10 @@
     "gameState": {
         "victoryPoints": 1,
         "victoryMarker": "soviet",
-        "germanCommandPoints": 8,
-        "sovietCommandPoints": 6
+        "germanBattleCards": { "startWith": 2, "eachRound": 1 },
+        "sovietBattleCards": { "startWith": 2, "eachRound": 1 },
+        "germanCommandPoints": { "eachRound": 8, "roundLeft": 8 },
+        "sovietCommandPoints": { "eachRound": 6, "roundLeft": 6 }
     },
     "gameUnits": [
         {

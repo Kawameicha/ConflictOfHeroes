@@ -8,22 +8,20 @@
 import SwiftUI
 
 struct GameToolbarView: View {
-    @Binding var round: Int
-    @Binding var roundLimit: Int
-    @Binding var victoryPoints: Int
-    @Binding var germanCAP: Int
-    @Binding var sovietCAP: Int
-    @Binding var leading: UnitArmy
-    @Binding var isShowGermanCards: Bool
-    @Binding var isShowSovietCards: Bool
+    @EnvironmentObject var gameManager: GameManager
+    @ObservedObject var viewModel: GameViewModel
+
+    init(gameManager: GameManager) {
+        self.viewModel = gameManager.viewModel
+    }
 
     var body: some View {
         HStack {
             Text("Round")
                 .frame(width: 42)
 
-            Picker("Round", selection: $round) {
-                ForEach(1...roundLimit, id: \.self) { value in
+            Picker("Round", selection: $viewModel.round) {
+                ForEach(1...viewModel.roundLimit, id: \.self) { value in
                     Text("\(value)").tag(value)
                 }
             }
@@ -35,7 +33,7 @@ struct GameToolbarView: View {
             Text("VPs")
                 .frame(width: 25)
 
-            Picker("Victory Points", selection: $victoryPoints) {
+            Picker("Victory Points", selection: $viewModel.victoryPoints) {
                 ForEach(1...10, id: \.self) { value in
                     Text("\(value)").tag(value)
                 }
@@ -44,10 +42,10 @@ struct GameToolbarView: View {
             .frame(width: 45)
 
             Button(action: {
-                leading = (leading == .german) ? .soviet : .german
+                viewModel.leading = (viewModel.leading == .german) ? .soviet : .german
             }) {
                 ZStack {
-                    switch leading {
+                    switch viewModel.leading {
                     case .german:
                         CrossShape(widthFactor: 0.3)
                             .foregroundColor(.black)
@@ -71,13 +69,22 @@ struct GameToolbarView: View {
             Text("CAPs")
                 .frame(width: 33)
 
-            Picker("German CAPs", selection: $germanCAP) {
+            Picker("German CAPs", selection: $viewModel.germanCAPs) {
                 ForEach(0...15, id: \.self) { value in
                     Text("\(value)").tag(value)
                 }
             }
             .pickerStyle(MenuPickerStyle())
             .frame(width: 45)
+
+            Button(action: {
+                viewModel.isShowingGermanCards.toggle()
+            }) {
+                Image(systemName: "rectangle.portrait.on.rectangle.portrait.fill")
+            }
+            .frame(width: 15)
+
+            Text("x \($viewModel.germanCards.count)")
 
             ZStack {
                 CrossShape(widthFactor: 0.3)
@@ -94,7 +101,7 @@ struct GameToolbarView: View {
 
             Text("-")
 
-            Picker("Soviet CAPs", selection: $sovietCAP) {
+            Picker("Soviet CAPs", selection: $viewModel.sovietCAPs) {
                 ForEach(0...15, id: \.self) { value in
                     Text("\(value)").tag(value)
                 }
@@ -102,44 +109,14 @@ struct GameToolbarView: View {
             .pickerStyle(MenuPickerStyle())
             .frame(width: 45)
 
-            ZStack {
-                StarShape()
-                    .fill(Color.red)
-            }
-            .aspectRatio(1.0, contentMode: .fit)
-            .frame(width: 15)
-
-            Divider()
-
-            Text("Cards")
-                .frame(width: 42)
-
             Button(action: {
-                isShowGermanCards.toggle()
+                viewModel.isShowingSovietCards.toggle()
             }) {
                 Image(systemName: "rectangle.portrait.on.rectangle.portrait.fill")
             }
-
-            ZStack {
-                CrossShape(widthFactor: 0.3)
-                    .foregroundColor(.black)
-
-                CrossShape(widthFactor: 0.25)
-                    .foregroundColor(.white)
-
-                CrossShape(widthFactor: 0.2)
-                    .foregroundColor(.black)
-            }
-            .aspectRatio(1.0, contentMode: .fit)
             .frame(width: 15)
 
-            Text("-")
-
-            Button(action: {
-                isShowSovietCards.toggle()
-            }) {
-                Image(systemName: "rectangle.portrait.on.rectangle.portrait.fill")
-            }
+            Text("x \($viewModel.sovietCards.count)")
 
             ZStack {
                 StarShape()

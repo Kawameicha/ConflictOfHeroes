@@ -12,7 +12,7 @@ struct ContentView: View {
     @ObservedObject var viewModel: GameViewModel
 
     init(gameManager: GameManager) {
-        self.viewModel = gameManager.gameViewModel
+        self.viewModel = gameManager.viewModel
     }
 
     var body: some View {
@@ -52,26 +52,17 @@ struct ContentView: View {
             }
 
             ToolbarItem(placement: .status) {
-                GameToolbarView(
-                    round: $viewModel.round,
-                    roundLimit: $viewModel.roundLimit,
-                    victoryPoints: $viewModel.victoryPoints,
-                    germanCAP: $viewModel.germanCAP,
-                    sovietCAP: $viewModel.sovietCAP,
-                    leading: $viewModel.leading,
-                    isShowGermanCards: $viewModel.isShowGermanCards,
-                    isShowSovietCards: $viewModel.isShowSovietCards
-                )
+                GameToolbarView(gameManager: gameManager)
             }
         }
         .popover(isPresented: $viewModel.isShowingReserveUnits, attachmentAnchor: .point(.top)) {
             ReserveUnitView(reserveUnits: viewModel.reserveUnits)
         }
-        .popover(isPresented: $viewModel.isShowGermanCards, attachmentAnchor: .point(.top)) {
-            PlayerHandView(cards: $viewModel.germanCard)
+        .popover(isPresented: $viewModel.isShowingGermanCards, attachmentAnchor: .point(.top)) {
+            PlayerHandView(cards: $viewModel.germanCards)
         }
-        .popover(isPresented: $viewModel.isShowSovietCards, attachmentAnchor: .point(.top)) {
-            PlayerHandView(cards: $viewModel.sovietCard)
+        .popover(isPresented: $viewModel.isShowingSovietCards, attachmentAnchor: .point(.top)) {
+            PlayerHandView(cards: $viewModel.sovietCards)
         }
         .navigationTitle(Text("\(viewModel.missionData?.gameSetup.name ?? "") - \(viewModel.missionData?.gameSetup.date ?? "")"))
     }
@@ -83,4 +74,5 @@ struct ContentView: View {
     let gameManager = GameManager(cardDeck: cardDeck, hitMarkerPool: hitMarkerPool)
 
     ContentView(gameManager: gameManager)
+        .environmentObject(gameManager)
 }

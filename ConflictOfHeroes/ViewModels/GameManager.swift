@@ -8,28 +8,54 @@
 import Foundation
 
 class GameManager: ObservableObject {
-    @Published var currentMission: String?
-    @Published var gameViewModel: GameViewModel
+    @Published var viewModel: GameViewModel
     @Published var cardDeck: CardDeck
     @Published var hitMarkerPool: HitMarkerPool
 
     init(cardDeck: CardDeck, hitMarkerPool: HitMarkerPool) {
-        self.gameViewModel = GameViewModel()
+        self.viewModel = GameViewModel()
         self.cardDeck = cardDeck
         self.hitMarkerPool = hitMarkerPool
     }
 
     func startNewMission(missionName: String) {
-        currentMission = missionName
-        gameViewModel.loadMission(missionName)
+        viewModel.loadMission(missionName)
+
+        guard let missionData = viewModel.missionData else {
+            print("Mission data is not available!")
+            return
+        }
+
+        drawCards(for: &viewModel.germanCards, number: missionData.gameState.germanBattleCards.startWith)
+        drawCards(for: &viewModel.sovietCards, number: missionData.gameState.sovietBattleCards.startWith)
     }
 
     func startNewRound() {
-        gameViewModel.startNewRound()
+        viewModel.startNewRound()
+
+        drawCards(for: &viewModel.germanCards, number: viewModel.germanCardPerRound)
+        drawCards(for: &viewModel.sovietCards, number: viewModel.sovietCardPerRound)
     }
 
     func resetGame() {
-        gameViewModel.initialCells.forEach { cell in
+        resetHitMarkers(in: viewModel.initialCells)
+        resetCards(&viewModel.germanCards)
+        resetCards(&viewModel.sovietCards)
+    }
+
+    private func drawCards(for playerCards: inout [Card], number: Int) {
+        for _ in 0..<number {
+            if let card = cardDeck.drawRandomCard(ofType: .battle) {
+                playerCards.append(card)
+            } else {
+                print("No more battle cards are available!")
+                break
+            }
+        }
+    }
+
+    private func resetHitMarkers(in cells: [HexagonCell]) {
+        cells.forEach { cell in
             cell.units.forEach { unit in
                 if let hitMarker = unit.hitMarker {
                     hitMarkerPool.returnHitMarker(hitMarker)
@@ -37,15 +63,10 @@ class GameManager: ObservableObject {
                 }
             }
         }
+    }
 
-        gameViewModel.germanCard.forEach { card in
-            cardDeck.returnCard(card)
-        }
-        gameViewModel.germanCard.removeAll()
-
-        gameViewModel.sovietCard.forEach { card in
-            cardDeck.returnCard(card)
-        }
-        gameViewModel.sovietCard.removeAll()
+    private func resetCards(_ cards: inout [Card]) {
+        cards.forEach { cardDeck.returnCard($0) }
+        cards.removeAll()
     }
 }

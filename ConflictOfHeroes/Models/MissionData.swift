@@ -42,14 +42,45 @@ class GameSetup: Codable {
 class GameState: Codable {
     var victoryPoints: Int
     var victoryMarker: UnitArmy
-    var germanCommandPoints: Int
-    var sovietCommandPoints: Int
+    var germanBattleCards: BattleCardInfo
+    var sovietBattleCards: BattleCardInfo
+    var germanCommandPoints: CommandPointInfo
+    var sovietCommandPoints: CommandPointInfo
 
-    init(victoryPoints: Int, victoryMarker: UnitArmy, germanCommandPoints: Int, sovietCommandPoints: Int) {
+    init(
+        victoryPoints: Int,
+        victoryMarker: UnitArmy,
+        germanBattleCards: BattleCardInfo,
+        sovietBattleCards: BattleCardInfo,
+        germanCommandPoints: CommandPointInfo,
+        sovietCommandPoints: CommandPointInfo
+    ) {
         self.victoryPoints = victoryPoints
         self.victoryMarker = victoryMarker
+        self.germanBattleCards = germanBattleCards
+        self.sovietBattleCards = sovietBattleCards
         self.germanCommandPoints = germanCommandPoints
         self.sovietCommandPoints = sovietCommandPoints
+    }
+}
+
+class BattleCardInfo: Codable {
+    var startWith: Int
+    var eachRound: Int
+
+    init(startWith: Int, eachRound: Int) {
+        self.startWith = startWith
+        self.eachRound = eachRound
+    }
+}
+
+class CommandPointInfo: Codable {
+    var eachRound: Int
+    var roundLeft: Int
+
+    init(eachRound: Int, roundLeft: Int) {
+        self.eachRound = eachRound
+        self.roundLeft = roundLeft
     }
 }
 
@@ -70,7 +101,6 @@ class GameUnit: Codable {
 }
 
 enum Mission: String {
-    case mission0
     case mission1
     case mission2
     case mission3
