@@ -12,7 +12,7 @@ struct HexagonGridView: View {
     @Binding var cells: [HexagonCell]
     @Binding var reserveUnits: [Unit]
     @Binding var removedUnits: [Unit]
-    let maps: [String]
+    let maps: [String: MapsSetup]
     let onHexagonSelected: (HexagonCell?) -> Void
     let onUnitRemoved: (Unit, HexagonCell) -> Void
 
@@ -20,7 +20,7 @@ struct HexagonGridView: View {
         cells: Binding<[HexagonCell]>,
         reserveUnits: Binding<[Unit]>,
         removedUnits: Binding<[Unit]>,
-        maps: [String],
+        maps: [String: MapsSetup],
         onHexagonSelected: @escaping (HexagonCell?) -> Void
     ) {
         self._cells = cells
@@ -35,15 +35,11 @@ struct HexagonGridView: View {
         ScrollView([.horizontal, .vertical]) {
             ZStack(alignment: .center) {
                 VStack(spacing: 0) {
-                    if let firstMap = maps.first {
-                        Image(firstMap)
+                    ForEach(Array(maps.prefix(4)), id: \.key) { mapName, orientation in
+                        Image(mapName)
                             .resizable()
                             .scaledToFit()
-                    }
-                    if maps.count > 1 {
-                        Image(maps[1])
-                            .resizable()
-                            .scaledToFit()
+                            .rotationEffect(rotationAngle(for: orientation))
                     }
                 }
                 .frame(width: 2965 / 2, height: CGFloat((2300 * maps.count)) / 2)
@@ -76,6 +72,15 @@ struct HexagonGridView: View {
         }
     }
 
+    private func rotationAngle(for orientation: MapsSetup) -> Angle {
+        switch orientation {
+        case .N: return .degrees(0)
+        case .E: return .degrees(90)
+        case .S: return .degrees(180)
+        case .W: return .degrees(270)
+        }
+    }
+
     private func moveUnit(_ unit: Unit, to targetCell: HexagonCell) {
         guard let sourceIndex = cells.firstIndex(where: { $0.units.contains(unit) }),
               let targetIndex = cells.firstIndex(where: { $0.id == targetCell.id }) else { return }
@@ -100,7 +105,3 @@ struct HexagonGridView: View {
         cells[targetIndex].units.append(unit)
     }
 }
-
-//#Preview {
-//    HexagonGridView(cells: hexagonGridGenerator(), mapName: "AtB_Planning_Map_1_Plains")
-//}

@@ -21,7 +21,7 @@ struct GameToolbarView: View {
                 .frame(width: 42)
 
             Picker("Round", selection: $viewModel.round) {
-                ForEach(1...viewModel.roundLimit, id: \.self) { value in
+                ForEach(1...(viewModel.missionData?.gameSetup.last ?? 5), id: \.self) { value in
                     Text("\(value)").tag(value)
                 }
             }
@@ -42,10 +42,10 @@ struct GameToolbarView: View {
             .frame(width: 45)
 
             Button(action: {
-                viewModel.leading = (viewModel.leading == .german) ? .soviet : .german
+                viewModel.victoryMarker = (viewModel.victoryMarker == .german) ? .soviet : .german
             }) {
                 ZStack {
-                    switch viewModel.leading {
+                    switch viewModel.victoryMarker {
                     case .german:
                         CrossShape(widthFactor: 0.3)
                             .foregroundColor(.black)

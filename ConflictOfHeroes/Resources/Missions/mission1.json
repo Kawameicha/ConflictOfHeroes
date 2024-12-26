@@ -2,19 +2,17 @@
     "gameSetup": {
         "name": "Partisans",
         "date": "October 17, 1941",
-        "maps": ["AtB_Planning_Map_1_Plains"],
-        "rounds": 5,
-        "columns": 17,
-        "evenColumnRows": 12,
-        "oddColumnRows": 11
+        "text": "Remnants of cut-off Soviet infantry units, scattered after the fall of Kiev, have begun partisan activities. A heavily armed group of partisans operating near Priluki has been tracked by soldiers from the German 161st Infantry Division, sent to clean up the area. Worse for the Soviets, a detached squad of SS trackers are trailing the arriving partisan reinforcements from the East.",
+        "card": { "german": { "startWith": 2, "eachRound": 1 }, "soviet": { "startWith": 2, "eachRound": 1 } },
+        "caps": { "german": 7, "soviet": 7 },
+        "last": 5,
+        "maps": { "AtB_Planning_Map_1_Plains": "N" },
+        "cols": 17,
+        "rows": 12
     },
     "gameState": {
         "victoryPoints": 1,
-        "victoryMarker": "soviet",
-        "germanBattleCards": { "startWith": 2, "eachRound": 1 },
-        "sovietBattleCards": { "startWith": 2, "eachRound": 1 },
-        "germanCommandPoints": { "eachRound": 7, "roundLeft": 7 },
-        "sovietCommandPoints": { "eachRound": 7, "roundLeft": 7 }
+        "victoryMarker": "soviet"
     },
     "gameUnits": [
         {

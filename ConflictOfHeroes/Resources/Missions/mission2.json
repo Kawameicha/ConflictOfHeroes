@@ -2,19 +2,17 @@
     "gameSetup": {
         "name": "NKVD Defense at Mir",
         "date": "June 30, 1941",
-        "maps": ["AtB_Planning_Map_1_Plains"],
-        "rounds": 4,
-        "columns": 17,
-        "evenColumnRows": 12,
-        "oddColumnRows": 11
+        "text": "Elements of Hoth’s 3rd Panzer Group have cornered a Soviet company trying to break through German lines by the wooded area of Mir, southwest of Minsk. Instead of surrendering, NKVD elements drive Red Army units to a fanatical defense. From the south, another Soviet Rifles platoon arrives in its effort to escape through the German lines.",
+        "card": { "german": { "startWith": 2, "eachRound": 1 }, "soviet": { "startWith": 2, "eachRound": 1 } },
+        "caps": { "german": 7, "soviet": 7 },
+        "last": 4,
+        "maps": { "AtB_Planning_Map_1_Plains": "N" },
+        "cols": 17,
+        "rows": 12
     },
     "gameState": {
         "victoryPoints": 1,
-        "victoryMarker": "german",
-        "germanBattleCards": { "startWith": 4, "eachRound": 2 },
-        "sovietBattleCards": { "startWith": 4, "eachRound": 2 },
-        "germanCommandPoints": { "eachRound": 6, "roundLeft": 6 },
-        "sovietCommandPoints": { "eachRound": 12, "roundLeft": 12 }
+        "victoryMarker": "german"
     },
     "gameUnits": [
         {

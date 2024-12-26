@@ -15,9 +15,8 @@ class GameViewModel: ObservableObject {
     @Published var removedUnits: [Unit] = []
     @Published var missionData: MissionData?
     @Published var round: Int = 1
-    @Published var roundLimit: Int = 5
     @Published var victoryPoints: Int = 1
-    @Published var leading: UnitArmy = .german
+    @Published var victoryMarker: UnitArmy = .german
     @Published var germanCardPerRound: Int = 0
     @Published var sovietCardPerRound: Int = 0
     @Published var germanCAPs: Int = 0
@@ -43,19 +42,18 @@ class GameViewModel: ObservableObject {
         removedUnits = []
 
         round = 1
-        roundLimit = mission.gameSetup.rounds
         victoryPoints = mission.gameState.victoryPoints
-        leading = mission.gameState.victoryMarker
-        germanCardPerRound = mission.gameState.germanBattleCards.eachRound
-        sovietCardPerRound = mission.gameState.sovietBattleCards.eachRound
-        germanCAPs = mission.gameState.germanCommandPoints.eachRound
-        sovietCAPs = mission.gameState.sovietCommandPoints.eachRound
-        germanMaxCAPs = mission.gameState.germanCommandPoints.eachRound
-        sovietMaxCAPs = mission.gameState.sovietCommandPoints.eachRound
+        victoryMarker = mission.gameState.victoryMarker
+        germanCardPerRound = mission.gameSetup.card.german.eachRound
+        sovietCardPerRound = mission.gameSetup.card.soviet.eachRound
+        germanCAPs = mission.gameSetup.caps.german
+        sovietCAPs = mission.gameSetup.caps.soviet
+        germanMaxCAPs = mission.gameSetup.caps.german
+        sovietMaxCAPs = mission.gameSetup.caps.soviet
     }
 
     func startNewRound() {
-        guard round < roundLimit else {
+        guard round < missionData?.gameSetup.last ?? 5 else {
             print("No more rounds left.")
             return
         }

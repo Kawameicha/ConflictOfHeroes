@@ -22,49 +22,48 @@ class MissionData: Codable {
 class GameSetup: Codable {
     let name: String
     let date: String
-    let maps: [String]
-    let rounds: Int
-    let columns: Int
-    let evenColumnRows: Int
-    let oddColumnRows: Int
-
-    init(name: String, date: String, maps: [String], rounds: Int, columns: Int, evenColumnRows: Int, oddColumnRows: Int) {
-        self.name = name
-        self.date = date
-        self.maps = maps
-        self.rounds = rounds
-        self.columns = columns
-        self.evenColumnRows = evenColumnRows
-        self.oddColumnRows = oddColumnRows
-    }
-}
-
-class GameState: Codable {
-    var victoryPoints: Int
-    var victoryMarker: UnitArmy
-    var germanBattleCards: BattleCardInfo
-    var sovietBattleCards: BattleCardInfo
-    var germanCommandPoints: CommandPointInfo
-    var sovietCommandPoints: CommandPointInfo
+    let text: String
+    let card: CardSetup
+    let caps: CapsSetup
+    let last: Int
+    let maps: [String: MapsSetup]
+    let cols: Int
+    let rows: Int
 
     init(
-        victoryPoints: Int,
-        victoryMarker: UnitArmy,
-        germanBattleCards: BattleCardInfo,
-        sovietBattleCards: BattleCardInfo,
-        germanCommandPoints: CommandPointInfo,
-        sovietCommandPoints: CommandPointInfo
+        name: String,
+        date: String,
+        text: String,
+        card: CardSetup,
+        caps: CapsSetup,
+        rounds: Int,
+        maps: [String: MapsSetup],
+        columns: Int,
+        rows: Int
     ) {
-        self.victoryPoints = victoryPoints
-        self.victoryMarker = victoryMarker
-        self.germanBattleCards = germanBattleCards
-        self.sovietBattleCards = sovietBattleCards
-        self.germanCommandPoints = germanCommandPoints
-        self.sovietCommandPoints = sovietCommandPoints
+        self.name = name
+        self.date = date
+        self.text = text
+        self.card = card
+        self.caps = caps
+        self.last = rounds
+        self.maps = maps
+        self.cols = columns
+        self.rows = rows
     }
 }
 
-class BattleCardInfo: Codable {
+class CardSetup: Codable {
+    let german: PlayerCard
+    let soviet: PlayerCard
+
+    init(german: PlayerCard, soviet: PlayerCard) {
+        self.german = german
+        self.soviet = soviet
+    }
+}
+
+class PlayerCard: Codable {
     var startWith: Int
     var eachRound: Int
 
@@ -74,15 +73,74 @@ class BattleCardInfo: Codable {
     }
 }
 
-class CommandPointInfo: Codable {
-    var eachRound: Int
-    var roundLeft: Int
+class CapsSetup: Codable {
+    let german: Int
+    let soviet: Int
 
-    init(eachRound: Int, roundLeft: Int) {
-        self.eachRound = eachRound
-        self.roundLeft = roundLeft
+    init(german: Int, soviet: Int) {
+        self.german = german
+        self.soviet = soviet
     }
 }
+
+enum MapsSetup: String, Codable {
+    case N
+    case E
+    case S
+    case W
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(String.self).uppercased()
+        guard let value = MapsSetup(rawValue: rawValue) else {
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Cannot initialize MapsSetup from invalid String value \(rawValue)"
+            )
+        }
+        self = value
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.rawValue)
+    }
+}
+
+class GameState: Codable {
+    var victoryPoints: Int
+    var victoryMarker: UnitArmy
+//    var germanBattleCards: BattleCardInfo
+//    var sovietBattleCards: BattleCardInfo
+//    var germanCommandPoints: CommandPointInfo
+//    var sovietCommandPoints: CommandPointInfo
+
+    init(
+        victoryPoints: Int,
+        victoryMarker: UnitArmy
+//        germanBattleCards: BattleCardInfo,
+//        sovietBattleCards: BattleCardInfo,
+//        germanCommandPoints: CommandPointInfo,
+//        sovietCommandPoints: CommandPointInfo
+    ) {
+        self.victoryPoints = victoryPoints
+        self.victoryMarker = victoryMarker
+//        self.germanBattleCards = germanBattleCards
+//        self.sovietBattleCards = sovietBattleCards
+//        self.germanCommandPoints = germanCommandPoints
+//        self.sovietCommandPoints = sovietCommandPoints
+    }
+}
+
+//class CommandPointInfo: Codable {
+//    var eachRound: Int
+//    var roundLeft: Int
+//
+//    init(eachRound: Int, roundLeft: Int) {
+//        self.eachRound = eachRound
+//        self.roundLeft = roundLeft
+//    }
+//}
 
 class GameUnit: Codable {
     var name: String

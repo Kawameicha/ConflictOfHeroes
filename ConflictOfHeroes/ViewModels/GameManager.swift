@@ -26,8 +26,8 @@ class GameManager: ObservableObject {
             return
         }
 
-        drawCards(for: &viewModel.germanCards, number: missionData.gameState.germanBattleCards.startWith)
-        drawCards(for: &viewModel.sovietCards, number: missionData.gameState.sovietBattleCards.startWith)
+        drawCards(for: &viewModel.germanCards, number: missionData.gameSetup.card.german.startWith)
+        drawCards(for: &viewModel.sovietCards, number: missionData.gameSetup.card.soviet.startWith)
     }
 
     func startNewRound() {
