@@ -14,7 +14,8 @@ struct HexagonGridView: View {
     @Binding var killedUnits: [Unit]
     let maps: [String: MapsSetup]
     let onHexagonSelected: (HexagonCell?) -> Void
-    let onUnitRemoved: (Unit, HexagonCell) -> Void
+    let onUnitToBackUp: (Unit, HexagonCell) -> Void
+    let onUnitToKilled: (Unit, HexagonCell) -> Void
 
     init(
         cells: Binding<[HexagonCell]>,
@@ -28,7 +29,8 @@ struct HexagonGridView: View {
         self._killedUnits = removedUnits
         self.maps = maps
         self.onHexagonSelected = onHexagonSelected
-        self.onUnitRemoved = { _, _ in }
+        self.onUnitToBackUp = { _, _ in }
+        self.onUnitToKilled = { _, _ in }
     }
 
     var body: some View {
@@ -53,10 +55,14 @@ struct HexagonGridView: View {
                         onUnitAdded: { unit, targetCell in
                             addUnit(unit, to: targetCell)
                         },
-                        onUnitRemoved: { unit in
-                            removeUnit(unit, from: cell)
+                        onUnitToBackUp: { unit in
+                            removeUnit(unit, from: cell, to: .backUp)
                         },
-                        reserveUnits: backUpUnits
+                        onUnitToKilled: { unit in
+                            removeUnit(unit, from: cell, to: .killed)
+                        },
+                        BackUpUnits: backUpUnits,
+                        KilledUnits: killedUnits
                     )
                     .onTapGesture {
                         onHexagonSelected(cell)
@@ -89,19 +95,33 @@ struct HexagonGridView: View {
         inGameUnits[targetIndex].units.append(unit)
     }
 
-    private func removeUnit(_ unit: Unit, from cell: HexagonCell) {
+    private func removeUnit(_ unit: Unit, from cell: HexagonCell, to targetState: UnitState) {
         guard let sourceIndex = inGameUnits.firstIndex(where: { $0.id == cell.id }) else { return }
 
         inGameUnits[sourceIndex].units.removeAll { $0 == unit }
-//        killedUnits.append(unit)
-        backUpUnits.append(unit)
+
+        switch targetState {
+        case .killed:
+            killedUnits.append(unit)
+        case .backUp:
+            backUpUnits.append(unit)
+        default:
+            print("Invalid target state for removal.")
+        }
     }
 
     private func addUnit(_ unit: Unit, to targetCell: HexagonCell) {
-        guard let targetIndex = inGameUnits.firstIndex(where: { $0.id == targetCell.id }),
-              let sourceIndex = backUpUnits.firstIndex(of: unit) else { return }
+        guard let targetIndex = inGameUnits.firstIndex(where: { $0.id == targetCell.id }) else { return }
 
-        backUpUnits.remove(at: sourceIndex)
+        if let sourceIndex = backUpUnits.firstIndex(of: unit) {
+            backUpUnits.remove(at: sourceIndex)
+        } else if let sourceIndex = killedUnits.firstIndex(of: unit) {
+            killedUnits.remove(at: sourceIndex)
+        } else {
+            print("Error: Unit not found in backUpUnits or killedUnits.")
+            return
+        }
+
         inGameUnits[targetIndex].units.append(unit)
     }
 }

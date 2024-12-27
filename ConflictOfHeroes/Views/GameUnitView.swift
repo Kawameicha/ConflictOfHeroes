@@ -1,5 +1,5 @@
 //
-//  ReserveUnitView.swift
+//  GameUnitView.swift
 //  ConflictOfHeroes
 //
 //  Created by Christoph Freier on 19.12.24.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct ReserveUnitView: View {
-    let reserveUnits: [Unit]
+struct GameUnitView: View {
+    let units: [Unit]
 
     var body: some View {
-        List(reserveUnits, id: \.self) { unit in
+        List(units, id: \.self) { unit in
             UnitRow(unit: unit)
                 .draggable(unit) {
                     Text(unit.name)

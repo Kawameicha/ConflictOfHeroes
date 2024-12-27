@@ -13,8 +13,10 @@ struct HexagonView: View {
     var cell: HexagonCell
     var onUnitMoved: (Unit, HexagonCell) -> Void
     var onUnitAdded: (Unit, HexagonCell) -> Void
-    var onUnitRemoved: (Unit) -> Void
-    var reserveUnits: [Unit]
+    var onUnitToBackUp: (Unit) -> Void
+    var onUnitToKilled: (Unit) -> Void
+    var BackUpUnits: [Unit]
+    var KilledUnits: [Unit]
 
     var body: some View {
         ZStack {
@@ -44,8 +46,17 @@ struct HexagonView: View {
                         }
 
                         Menu("Assign to") {
-                            Button("Reserve") {
-                                onUnitRemoved(unit)
+                            Button("Killed Units") {
+                                onUnitToKilled(unit)
+                                unit.stressed = false
+                                if let hitMarker = unit.hitMarker {
+                                    gameManager.hitMarkerPool.returnHitMarker(hitMarker)
+                                    unit.hitMarker = nil
+                                }
+                            }
+
+                            Button("Reinforcements") {
+                                onUnitToBackUp(unit)
                                 unit.stressed = false
                                 if let hitMarker = unit.hitMarker {
                                     gameManager.hitMarkerPool.returnHitMarker(hitMarker)
@@ -85,7 +96,9 @@ struct HexagonView: View {
         .dropDestination(for: Unit.self) { items, location in
             guard let droppedUnit = items.first else { return false }
 
-            if reserveUnits.contains(droppedUnit) {
+            if BackUpUnits.contains(droppedUnit) {
+                onUnitAdded(droppedUnit, cell)
+            } else if KilledUnits.contains(droppedUnit) {
                 onUnitAdded(droppedUnit, cell)
             } else {
                 onUnitMoved(droppedUnit, cell)

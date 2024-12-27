@@ -43,11 +43,17 @@ struct ContentView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .automatic) {
+            ToolbarItemGroup(placement: .automatic) {
                 Button(action: {
-                    viewModel.isShowingReserveUnits.toggle()
+                    viewModel.isShowingKilledUnits.toggle()
                 }) {
-                    Image(systemName: "plus")
+                    Image(systemName: "cross.circle.fill")
+                }
+
+                Button(action: {
+                    viewModel.isShowingBackUpUnits.toggle()
+                }) {
+                    Image(systemName: "plus.circle.fill")
                 }
             }
 
@@ -55,8 +61,11 @@ struct ContentView: View {
                 GameToolbarView(gameManager: gameManager)
             }
         }
-        .popover(isPresented: $viewModel.isShowingReserveUnits, attachmentAnchor: .point(.top)) {
-            ReserveUnitView(reserveUnits: viewModel.backUpUnits)
+        .popover(isPresented: $viewModel.isShowingKilledUnits, attachmentAnchor: .point(.top)) {
+            GameUnitView(units: viewModel.killedUnits)
+        }
+        .popover(isPresented: $viewModel.isShowingBackUpUnits, attachmentAnchor: .point(.top)) {
+            GameUnitView(units: viewModel.backUpUnits)
         }
         .popover(isPresented: $viewModel.isShowingGermanCards, attachmentAnchor: .point(.top)) {
             PlayerHandView(cards: $viewModel.germanCards)

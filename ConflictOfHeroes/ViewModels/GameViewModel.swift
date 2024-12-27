@@ -25,7 +25,8 @@ class GameViewModel: ObservableObject {
     @Published var sovietMaxCAPs: Int = 0
     @Published var germanCards: [Card] = []
     @Published var sovietCards: [Card] = []
-    @Published var isShowingReserveUnits: Bool = false
+    @Published var isShowingBackUpUnits: Bool = false
+    @Published var isShowingKilledUnits: Bool = false
     @Published var isShowingGermanCards: Bool = false
     @Published var isShowingSovietCards: Bool = false
 
