@@ -20,70 +20,70 @@
             "army": "soviet",
             "hexagon": { "row": 5, "col": 7 },
             "orientation": "North",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Rifles '41",
             "army": "german",
             "hexagon": { "row": 1, "col": 0 },
             "orientation": "North",
-            "isReserve": true
+            "state": "backUp"
         },
         {
             "name": "MG34",
             "army": "german",
             "hexagon": { "row": 2, "col": 0 },
             "orientation": "North",
-            "isReserve": true
+            "state": "backUp"
         },
         {
             "name": "Rifles '41",
             "army": "german",
             "hexagon": { "row": 5, "col": 0 },
             "orientation": "North",
-            "isReserve": true
+            "state": "backUp"
         },
         {
             "name": "MG34",
             "army": "german",
             "hexagon": { "row": 6, "col": 0 },
             "orientation": "North",
-            "isReserve": true
+            "state": "backUp"
         },
         {
             "name": "Pioneers",
             "army": "german",
             "hexagon": { "row": 0, "col": 13 },
             "orientation": "North",
-            "isReserve": true
+            "state": "backUp"
         },
         {
             "name": "MMG Maxim",
             "army": "soviet",
             "hexagon": { "row": 1, "col": 9 },
             "orientation": "South-West",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Rifles '41",
             "army": "soviet",
             "hexagon": { "row": 4, "col": 11 },
             "orientation": "South-West",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Rifles '41",
             "army": "soviet",
             "hexagon": { "row": 7, "col": 10 },
             "orientation": "North-West",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Rifles '41",
             "army": "soviet",
             "hexagon": { "row": 9, "col": 12 },
             "orientation": "North-West",
-            "isReserve": false
+            "state": "inGame"
         }
     ]
 }

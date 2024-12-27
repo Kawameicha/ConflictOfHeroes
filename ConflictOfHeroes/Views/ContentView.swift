@@ -18,8 +18,8 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             VStack {
-                if let selectedHexagon = viewModel.selectedHexagon {
-                    HexagonCellView(hexagon: selectedHexagon)
+                if let selectedHex = viewModel.selectedHex {
+                    HexagonCellView(hexagon: selectedHex)
                 }
 
                 d10SimulatorView()
@@ -30,12 +30,12 @@ struct ContentView: View {
         } detail: {
             if let missionData = viewModel.missionData {
                 HexagonGridView(
-                    cells: $viewModel.initialCells,
-                    reserveUnits: $viewModel.reserveUnits,
-                    removedUnits: $viewModel.removedUnits,
+                    cells: $viewModel.inGameUnits,
+                    reserveUnits: $viewModel.backUpUnits,
+                    removedUnits: $viewModel.killedUnits,
                     maps: missionData.gameSetup.maps,
                     onHexagonSelected: { hexagon in
-                        viewModel.selectedHexagon = hexagon
+                        viewModel.selectedHex = hexagon
                     }
                 )
             } else {
@@ -56,7 +56,7 @@ struct ContentView: View {
             }
         }
         .popover(isPresented: $viewModel.isShowingReserveUnits, attachmentAnchor: .point(.top)) {
-            ReserveUnitView(reserveUnits: viewModel.reserveUnits)
+            ReserveUnitView(reserveUnits: viewModel.backUpUnits)
         }
         .popover(isPresented: $viewModel.isShowingGermanCards, attachmentAnchor: .point(.top)) {
             PlayerHandView(cards: $viewModel.germanCards)

@@ -38,7 +38,7 @@ class GameManager: ObservableObject {
     }
 
     func resetGame() {
-        resetHitMarkers(in: viewModel.initialCells)
+        resetHitMarkers(in: viewModel.inGameUnits)
         resetCards(&viewModel.germanCards)
         resetCards(&viewModel.sovietCards)
     }

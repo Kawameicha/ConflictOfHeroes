@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct HexagonGridView: View {
-    @Binding var cells: [HexagonCell]
-    @Binding var reserveUnits: [Unit]
-    @Binding var removedUnits: [Unit]
+    @Binding var inGameUnits: [HexagonCell]
+    @Binding var backUpUnits: [Unit]
+    @Binding var killedUnits: [Unit]
     let maps: [String: MapsSetup]
     let onHexagonSelected: (HexagonCell?) -> Void
     let onUnitRemoved: (Unit, HexagonCell) -> Void
@@ -23,9 +23,9 @@ struct HexagonGridView: View {
         maps: [String: MapsSetup],
         onHexagonSelected: @escaping (HexagonCell?) -> Void
     ) {
-        self._cells = cells
-        self._reserveUnits = reserveUnits
-        self._removedUnits = removedUnits
+        self._inGameUnits = cells
+        self._backUpUnits = reserveUnits
+        self._killedUnits = removedUnits
         self.maps = maps
         self.onHexagonSelected = onHexagonSelected
         self.onUnitRemoved = { _, _ in }
@@ -44,7 +44,7 @@ struct HexagonGridView: View {
                 }
                 .frame(width: 2965 / 2, height: CGFloat((2300 * maps.count)) / 2)
 
-                HexagonGrid(cells) { cell in
+                HexagonGrid(inGameUnits) { cell in
                     HexagonView(
                         cell: cell,
                         onUnitMoved: { unit, targetCell in
@@ -56,7 +56,7 @@ struct HexagonGridView: View {
                         onUnitRemoved: { unit in
                             removeUnit(unit, from: cell)
                         },
-                        reserveUnits: reserveUnits
+                        reserveUnits: backUpUnits
                     )
                     .onTapGesture {
                         onHexagonSelected(cell)
@@ -82,26 +82,26 @@ struct HexagonGridView: View {
     }
 
     private func moveUnit(_ unit: Unit, to targetCell: HexagonCell) {
-        guard let sourceIndex = cells.firstIndex(where: { $0.units.contains(unit) }),
-              let targetIndex = cells.firstIndex(where: { $0.id == targetCell.id }) else { return }
+        guard let sourceIndex = inGameUnits.firstIndex(where: { $0.units.contains(unit) }),
+              let targetIndex = inGameUnits.firstIndex(where: { $0.id == targetCell.id }) else { return }
 
-        cells[sourceIndex].units.removeAll { $0 == unit }
-        cells[targetIndex].units.append(unit)
+        inGameUnits[sourceIndex].units.removeAll { $0 == unit }
+        inGameUnits[targetIndex].units.append(unit)
     }
 
     private func removeUnit(_ unit: Unit, from cell: HexagonCell) {
-        guard let sourceIndex = cells.firstIndex(where: { $0.id == cell.id }) else { return }
+        guard let sourceIndex = inGameUnits.firstIndex(where: { $0.id == cell.id }) else { return }
 
-        cells[sourceIndex].units.removeAll { $0 == unit }
-//        removedUnits.append(unit)
-        reserveUnits.append(unit)
+        inGameUnits[sourceIndex].units.removeAll { $0 == unit }
+//        killedUnits.append(unit)
+        backUpUnits.append(unit)
     }
 
     private func addUnit(_ unit: Unit, to targetCell: HexagonCell) {
-        guard let targetIndex = cells.firstIndex(where: { $0.id == targetCell.id }),
-              let sourceIndex = reserveUnits.firstIndex(of: unit) else { return }
+        guard let targetIndex = inGameUnits.firstIndex(where: { $0.id == targetCell.id }),
+              let sourceIndex = backUpUnits.firstIndex(of: unit) else { return }
 
-        reserveUnits.remove(at: sourceIndex)
-        cells[targetIndex].units.append(unit)
+        backUpUnits.remove(at: sourceIndex)
+        inGameUnits[targetIndex].units.append(unit)
     }
 }

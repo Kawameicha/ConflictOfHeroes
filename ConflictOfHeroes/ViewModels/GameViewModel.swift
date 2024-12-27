@@ -9,11 +9,11 @@
 import Foundation
 
 class GameViewModel: ObservableObject {
-    @Published var initialCells: [HexagonCell] = []
-    @Published var selectedHexagon: HexagonCell?
-    @Published var reserveUnits: [Unit] = []
-    @Published var removedUnits: [Unit] = []
+    @Published var inGameUnits: [HexagonCell] = []
+    @Published var backUpUnits: [Unit] = []
+    @Published var killedUnits: [Unit] = []
     @Published var missionData: MissionData?
+    @Published var selectedHex: HexagonCell?
     @Published var round: Int = 1
     @Published var victoryPoints: Int = 1
     @Published var victoryMarker: UnitArmy = .german
@@ -36,10 +36,10 @@ class GameViewModel: ObservableObject {
         }
         missionData = mission
 
-        let (cells, reserve) = setupInitialUnits(for: Mission(rawValue: missionName) ?? .mission1)
-        initialCells = cells
-        reserveUnits = reserve
-        removedUnits = []
+        let (inGame, backUp, killed) = setupInitialUnits(for: Mission(rawValue: missionName) ?? .mission1)
+        inGameUnits = inGame
+        backUpUnits = backUp
+        killedUnits = killed
 
         round = 1
         victoryPoints = mission.gameState.victoryPoints
@@ -61,7 +61,7 @@ class GameViewModel: ObservableObject {
         round += 1
         germanCAPs = germanMaxCAPs
         sovietCAPs = sovietMaxCAPs
-        initialCells.forEach { cell in
+        inGameUnits.forEach { cell in
             cell.units.forEach { unit in
                 unit.exhausted = false
                 unit.stressed = false

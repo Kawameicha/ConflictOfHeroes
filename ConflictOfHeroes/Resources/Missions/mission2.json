@@ -20,112 +20,112 @@
             "army": "german",
             "hexagon": { "row": 6, "col": 6 },
             "orientation": "North",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Control",
             "army": "soviet",
             "hexagon": { "row": 0, "col": 11 },
             "orientation": "North",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Rifles '41",
             "army": "german",
             "hexagon": { "row": 3, "col": 0 },
             "orientation": "North-East",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "HMG34",
             "army": "german",
             "hexagon": { "row": 3, "col": 1 },
             "orientation": "North-East",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Rifles '41",
             "army": "german",
             "hexagon": { "row": 6, "col": 4 },
             "orientation": "North-East",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Rifles '41",
             "army": "german",
             "hexagon": { "row": 5, "col": 5 },
             "orientation": "North-East",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "MG34",
             "army": "german",
             "hexagon": { "row": 6, "col": 9 },
             "orientation": "North-East",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Rifles '41",
             "army": "german",
             "hexagon": { "row": 6, "col": 11 },
             "orientation": "North",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "MG34",
             "army": "german",
             "hexagon": { "row": 6, "col": 12 },
             "orientation": "North",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Rifles '41",
             "army": "german",
             "hexagon": { "row": 6, "col": 15 },
             "orientation": "North",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "MMG Maxim",
             "army": "soviet",
             "hexagon": { "row": 2, "col": 9 },
             "orientation": "South-West",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "SMG Rifles",
             "army": "soviet",
             "hexagon": { "row": 4, "col": 10 },
             "orientation": "South",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "NKVD",
             "army": "soviet",
             "hexagon": { "row": 3, "col": 11 },
             "orientation": "South",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "MMG Maxim",
             "army": "soviet",
             "hexagon": { "row": 2, "col": 12 },
             "orientation": "South",
-            "isReserve": false
+            "state": "inGame"
         },
         {
             "name": "Rifles '41",
             "army": "soviet",
             "hexagon": { "row": 0, "col": 0 },
             "orientation": "North",
-            "isReserve": true
+            "state": "backUp"
         },
         {
             "name": "Rifles '41",
             "army": "soviet",
             "hexagon": { "row": 0, "col": 0 },
             "orientation": "North",
-            "isReserve": true
+            "state": "backUp"
         }
     ]
 }

@@ -110,52 +110,36 @@ enum MapsSetup: String, Codable {
 class GameState: Codable {
     var victoryPoints: Int
     var victoryMarker: UnitArmy
-//    var germanBattleCards: BattleCardInfo
-//    var sovietBattleCards: BattleCardInfo
-//    var germanCommandPoints: CommandPointInfo
-//    var sovietCommandPoints: CommandPointInfo
 
     init(
         victoryPoints: Int,
         victoryMarker: UnitArmy
-//        germanBattleCards: BattleCardInfo,
-//        sovietBattleCards: BattleCardInfo,
-//        germanCommandPoints: CommandPointInfo,
-//        sovietCommandPoints: CommandPointInfo
     ) {
         self.victoryPoints = victoryPoints
         self.victoryMarker = victoryMarker
-//        self.germanBattleCards = germanBattleCards
-//        self.sovietBattleCards = sovietBattleCards
-//        self.germanCommandPoints = germanCommandPoints
-//        self.sovietCommandPoints = sovietCommandPoints
     }
 }
-
-//class CommandPointInfo: Codable {
-//    var eachRound: Int
-//    var roundLeft: Int
-//
-//    init(eachRound: Int, roundLeft: Int) {
-//        self.eachRound = eachRound
-//        self.roundLeft = roundLeft
-//    }
-//}
 
 class GameUnit: Codable {
     var name: String
     var army: UnitArmy
     var hexagon: HexagonCoordinate
     var orientation: UnitFront
-    var isReserve: Bool
+    var state: UnitState
 
-    init(name: String, army: UnitArmy, hexagon: HexagonCoordinate, orientation: UnitFront, isReserve: Bool) {
+    init(name: String, army: UnitArmy, hexagon: HexagonCoordinate, orientation: UnitFront, state: UnitState) {
         self.name = name
         self.army = army
         self.hexagon = hexagon
         self.orientation = orientation
-        self.isReserve = isReserve
+        self.state = state
     }
+}
+
+enum UnitState: String, Codable {
+    case inGame
+    case backUp
+    case killed
 }
 
 enum Mission: String {
