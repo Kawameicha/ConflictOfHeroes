@@ -1,14 +1,14 @@
 {
     "gameSetup": {
-        "name": "The Gap",
-        "date": "June 23, 1941",
-        "text": "As the 14th Panzer Division punched through and rushed past the Soviet defenses on the Bug River, a gap opened between the 24th and 262nd Infantry Divisions of the 17th Army. The Soviets surprised the Germans with their tenacity, inflicting heavy losses on the Germans. The 296th Infantry Division was brought forward to close the hole and stabilize the line. Elements of the 520th Infantry Regiment must root out Soviet forces – some hidden – and secure the road to the north.",
+        "name": "General Petrov",
+        "date": "October 8, 1941",
+        "text": "After the breakthrough by the German LIII Infantry Corps from the SW to Bryansk, Soviet General Petrov withdrew his badly shaken 50th Army to a wooded area NE of Bryansk. Trying to break out of the ensuing Bryansk pocket, the general was critically wounded. Informants relayed the general’s location to the Germans who have jumped at the opportunity.",
         "card": { "german": { "startWith": 2, "eachRound": 1 }, "soviet": { "startWith": 2, "eachRound": 1 } },
-        "caps": { "german": 7, "soviet": 7 },
-        "last": 4,
+        "caps": { "german": 8, "soviet": 6 },
+        "last": 5,
         "maps": [
-            { "name": "AtB_Planning_Map_2_Village", "orientation": "N" },
-            { "name": "AtB_Planning_Map_1_Plains", "orientation": "N" },
+            { "name": "AtB_Planning_Map_4_Farm_and_Hills", "orientation": "S" },
+            { "name": "AtB_Planning_Map_3_Hills", "orientation": "S" }
         ],
         "cols": 17,
         "rows": 24
@@ -21,131 +21,124 @@
         {
             "name": "Control",
             "army": "soviet",
-            "hexagon": { "row": 9, "col": 8 },
+            "hexagon": { "row": 3, "col": 4 },
             "orientation": "North",
             "state": "inGame"
         },
         {
-            "name": "Control",
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "state": "backUp"
+        },
+        {
+            "name": "MG34",
+            "army": "german",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "state": "backUp"
+        },
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "state": "backUp"
+        },
+        {
+            "name": "MG34",
+            "army": "german",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "state": "backUp"
+        },
+        {
+            "name": "Rifles '41",
+            "army": "german",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "state": "backUp"
+        },
+        {
+            "name": "MG34",
+            "army": "german",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "state": "backUp"
+        },
+        {
+            "name": "5cm Mortar",
+            "army": "german",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "state": "backUp"
+        },
+        {
+            "name": "8cm Mortar",
+            "army": "german",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "state": "backUp"
+        },
+        {
+            "name": "8cm Mortar",
+            "army": "german",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "North",
+            "state": "backUp"
+        },
+        {
+            "name": "Rifles '41",
             "army": "soviet",
-            "hexagon": { "row": 2, "col": 9 },
+            "hexagon": { "row": 0, "col": 0 },
             "orientation": "North",
-            "state": "inGame"
+            "state": "backUp"
         },
         {
             "name": "Rifles '41",
-            "army": "german",
-            "hexagon": { "row": 19, "col": 5 },
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
             "orientation": "North",
-            "state": "inGame"
-        },
-        {
-            "name": "MG34",
-            "army": "german",
-            "hexagon": { "row": 19, "col": 5 },
-            "orientation": "North",
-            "state": "inGame"
+            "state": "backUp"
         },
         {
             "name": "Rifles '41",
-            "army": "german",
-            "hexagon": { "row": 20, "col": 5 },
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
             "orientation": "North",
-            "state": "inGame"
-        },
-        {
-            "name": "MG34",
-            "army": "german",
-            "hexagon": { "row": 20, "col": 5 },
-            "orientation": "North",
-            "state": "inGame"
+            "state": "backUp"
         },
         {
             "name": "Rifles '41",
-            "army": "german",
-            "hexagon": { "row": 18, "col": 6 },
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
             "orientation": "North",
-            "state": "inGame"
+            "state": "backUp"
         },
         {
-            "name": "MG34",
-            "army": "german",
-            "hexagon": { "row": 18, "col": 6 },
+            "name": "SMG Rifles",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
             "orientation": "North",
-            "state": "inGame"
-        },
-        {
-            "name": "Rifles '41",
-            "army": "german",
-            "hexagon": { "row": 19, "col": 6 },
-            "orientation": "North",
-            "state": "inGame"
-        },
-        {
-            "name": "MG34",
-            "army": "german",
-            "hexagon": { "row": 19, "col": 6 },
-            "orientation": "North",
-            "state": "inGame"
+            "state": "backUp"
         },
         {
             "name": "MMG Maxim",
             "army": "soviet",
-            "hexagon": { "row": 9, "col": 8 },
+            "hexagon": { "row": 0, "col": 0 },
             "orientation": "South",
-            "state": "inGame"
-        },
-        {
-            "name": "Rifles '41",
-            "army": "soviet",
-            "hexagon": { "row": 0, "col": 0 },
-            "orientation": "North",
-            "state": "backUp"
-        },
-        {
-            "name": "Rifles '41",
-            "army": "soviet",
-            "hexagon": { "row": 0, "col": 0 },
-            "orientation": "North",
-            "state": "backUp"
-        },
-        {
-            "name": "Rifles '41",
-            "army": "soviet",
-            "hexagon": { "row": 0, "col": 0 },
-            "orientation": "North",
-            "state": "backUp"
-        },
-        {
-            "name": "Rifles '41",
-            "army": "soviet",
-            "hexagon": { "row": 0, "col": 0 },
-            "orientation": "North",
-            "state": "backUp"
-        },
-        {
-            "name": "Rifles '41",
-            "army": "soviet",
-            "hexagon": { "row": 0, "col": 0 },
-            "orientation": "North",
-            "state": "backUp"
-        },
-        {
-            "name": "Rifles '41",
-            "army": "soviet",
-            "hexagon": { "row": 0, "col": 0 },
-            "orientation": "North",
-            "state": "backUp"
-        },
-        {
-            "name": "Rifles '41",
-            "army": "soviet",
-            "hexagon": { "row": 0, "col": 0 },
-            "orientation": "North",
             "state": "backUp"
         },
         {
             "name": "MMG Maxim",
+            "army": "soviet",
+            "hexagon": { "row": 0, "col": 0 },
+            "orientation": "South",
+            "state": "backUp"
+        },
+        {
+            "name": "50mm Mortar",
             "army": "soviet",
             "hexagon": { "row": 0, "col": 0 },
             "orientation": "North",

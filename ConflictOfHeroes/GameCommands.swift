@@ -34,6 +34,12 @@ struct GameCommands: Commands {
                     gameManager.startNewMission(missionName: "mission3")
                 }
                 .keyboardShortcut("3", modifiers: [.command])
+
+                Button("Mission 4") {
+                    gameManager.resetGame()
+                    gameManager.startNewMission(missionName: "mission4")
+                }
+                .keyboardShortcut("4", modifiers: [.command])
             }
 
             Divider()

@@ -12,16 +12,16 @@ struct HexagonGridView: View {
     @Binding var inGameUnits: [HexagonCell]
     @Binding var backUpUnits: [Unit]
     @Binding var killedUnits: [Unit]
-    let maps: [String: MapsSetup]
     let onHexagonSelected: (HexagonCell?) -> Void
     let onUnitToBackUp: (Unit, HexagonCell) -> Void
     let onUnitToKilled: (Unit, HexagonCell) -> Void
+    let maps: [MapInfo]
 
     init(
         cells: Binding<[HexagonCell]>,
         reserveUnits: Binding<[Unit]>,
         removedUnits: Binding<[Unit]>,
-        maps: [String: MapsSetup],
+        maps: [MapInfo],
         onHexagonSelected: @escaping (HexagonCell?) -> Void
     ) {
         self._inGameUnits = cells
@@ -37,11 +37,11 @@ struct HexagonGridView: View {
         ScrollView([.horizontal, .vertical]) {
             ZStack(alignment: .center) {
                 VStack(spacing: 0) {
-                    ForEach(Array(maps.prefix(4)), id: \.key) { mapName, orientation in
-                        Image(mapName)
+                    ForEach(maps, id: \.name) { map in
+                        Image(map.name)
                             .resizable()
                             .scaledToFit()
-                            .rotationEffect(rotationAngle(for: orientation))
+                            .rotationEffect(rotationAngle(for: map.orientation))
                     }
                 }
                 .frame(width: 2965 / 2, height: CGFloat((2300 * maps.count)) / 2)

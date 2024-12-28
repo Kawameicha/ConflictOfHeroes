@@ -26,7 +26,7 @@ class GameSetup: Codable {
     let card: CardSetup
     let caps: CapsSetup
     let last: Int
-    let maps: [String: MapsSetup]
+    let maps: [MapInfo]
     let cols: Int
     let rows: Int
 
@@ -37,7 +37,7 @@ class GameSetup: Codable {
         card: CardSetup,
         caps: CapsSetup,
         rounds: Int,
-        maps: [String: MapsSetup],
+        maps: [MapInfo],
         columns: Int,
         rows: Int
     ) {
@@ -81,6 +81,11 @@ class CapsSetup: Codable {
         self.german = german
         self.soviet = soviet
     }
+}
+
+struct MapInfo: Codable {
+    let name: String
+    let orientation: MapsSetup
 }
 
 enum MapsSetup: String, Codable {
@@ -146,4 +151,5 @@ enum Mission: String {
     case mission1
     case mission2
     case mission3
+    case mission4
 }

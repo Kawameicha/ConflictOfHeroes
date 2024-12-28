@@ -6,7 +6,9 @@
         "card": { "german": { "startWith": 2, "eachRound": 1 }, "soviet": { "startWith": 2, "eachRound": 1 } },
         "caps": { "german": 7, "soviet": 7 },
         "last": 4,
-        "maps": { "AtB_Planning_Map_1_Plains": "N" },
+        "maps": [
+            { "name": "AtB_Planning_Map_1_Plains", "orientation": "N" }
+        ],
         "cols": 17,
         "rows": 12
     },
