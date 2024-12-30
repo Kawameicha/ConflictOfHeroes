@@ -9,6 +9,7 @@ import SwiftUI
 
 class HitMarkerPool: ObservableObject {
     @Published var pool: [HitMarker] = []
+    private var assignedMarkers: [HitMarker] = []
 
     init(hitMarkers: [HitMarker]) {
         self.pool = Self.createHitMarkerPool(from: hitMarkers)
@@ -31,10 +32,15 @@ class HitMarkerPool: ObservableObject {
     }
 
     func returnHitMarker(_ hitMarker: HitMarker) {
+        guard let index = assignedMarkers.firstIndex(of: hitMarker) else {
+            print("Attempted to return a marker that was not assigned.")
+            return
+        }
+        assignedMarkers.remove(at: index)
         pool.append(hitMarker)
     }
 
-    func assignRandomHitMarker(ofType type: HitMarkerType) -> HitMarker? {
+    private func assignRandomHitMarker(ofType type: HitMarkerType) -> HitMarker? {
         let filteredPool = pool.filter { $0.type == type }
         guard !filteredPool.isEmpty else {
             print("No more \(type.rawValue) hit markers available!")
@@ -43,7 +49,9 @@ class HitMarkerPool: ObservableObject {
 
         if let randomMarker = filteredPool.randomElement(),
            let index = pool.firstIndex(of: randomMarker) {
-            return pool.remove(at: index)
+            let assignedMarker = pool.remove(at: index)
+            assignedMarkers.append(assignedMarker)
+            return assignedMarker
         }
 
         return nil
