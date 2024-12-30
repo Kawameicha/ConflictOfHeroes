@@ -22,11 +22,13 @@ struct ContentView: View {
                     HexagonCellView(hexagon: selectedHex)
                 }
 
+                Spacer()
+                
                 d10SimulatorView()
                 d6SimulatorView()
             }
 //            .toolbar(removing: .sidebarToggle)
-            .navigationSplitViewColumnWidth(190)
+            .navigationSplitViewColumnWidth(160)
         } detail: {
             if let missionData = viewModel.missionData {
                 HexagonGridView(

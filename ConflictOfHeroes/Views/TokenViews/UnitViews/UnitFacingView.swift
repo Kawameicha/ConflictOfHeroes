@@ -1,5 +1,5 @@
 //
-//  UnitFacing.swift
+//  UnitFacingView.swift
 //  ConflictOfHeroes
 //
 //  Created by Christoph Freier on 19.11.24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UnitFacing: View {
+struct UnitFacingView: View {
     let unit: Unit
 
     var body: some View {

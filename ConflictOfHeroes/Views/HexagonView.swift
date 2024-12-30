@@ -73,24 +73,7 @@ struct HexagonView: View {
                             }
                         }
                     }
-                    .draggable(unit) {
-                        ZStack(alignment: .center) {
-                            UnitSymbol(unit: unit)
-                                .scaleEffect(0.5, anchor: .center)
-
-                            VStack(alignment: .center) {
-                                Text("\(unit.name)")
-                                Spacer()
-                            }
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.black)
-                        }
-                        .frame(width: 75, height: 75)
-                        .aspectRatio(1.0, contentMode: .fit)
-                        .background(RoundedRectangle(cornerRadius: 9, style: .continuous)
-                            .fill(Color("\(unit.army)")))
-                    }
+                    .draggableUnit(unit)
             }
         }
         .dropDestination(for: Unit.self) { items, location in

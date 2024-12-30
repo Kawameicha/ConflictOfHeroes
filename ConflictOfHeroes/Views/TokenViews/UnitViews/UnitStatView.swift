@@ -1,5 +1,5 @@
 //
-//  UnitStatsView.swift
+//  UnitStatView.swift
 //  ConflictOfHeroes
 //
 //  Created by Christoph Freier on 24.11.24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UnitStatsView: View {
+struct UnitStatView: View {
     var unit: Unit
 
     var body: some View {
@@ -91,5 +91,5 @@ struct UnitStatsView: View {
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
     let unit = Unit(name: "88mm FlaK18", army: .german, statsDictionary: statsDictionary)
-    UnitStatsView(unit: unit)
+    UnitStatView(unit: unit)
 }

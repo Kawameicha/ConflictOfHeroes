@@ -1,5 +1,5 @@
 //
-//  HitMarkerView.swift
+//  HitTokenView.swift
 //  ConflictOfHeroes
 //
 //  Created by Christoph Freier on 02.12.24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HitMarkerView: View {
+struct HitTokenView: View {
     var hitMarker: HitMarker
 
     var body: some View {
@@ -131,7 +131,7 @@ struct HitMarkerGridView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(hitMarkers, id: \.id) { hitMarker in
-                    HitMarkerView(hitMarker: hitMarker)
+                    HitTokenView(hitMarker: hitMarker)
                 }
             }
             .frame(width: 640, height: .infinity)

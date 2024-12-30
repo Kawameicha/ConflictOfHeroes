@@ -8,61 +8,25 @@
 import SwiftUI
 
 struct UnitView: View {
-    var units: [Unit]
+    var units: [Unit] = []
     @Bindable var unit: Unit
 
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                if unit.name == "Control" {
-                    ZStack(alignment: .center) {
-                        UnitSymbol(unit: unit)
-                            .scaleEffect(0.5, anchor: .center)
-
-                        VStack(alignment: .center) {
-                            Text("\(unit.name)")
-                            Spacer()
-                        }
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.black)
-
-                        Button(action: {
-                            unit.army = (unit.army == .german) ? .soviet : .german
-                        }) {
-                            Image(systemName: "arrow.up.arrow.down")
-                        }
-                        .clipShape(Capsule())
-                        .frame(width: geometry.size.width * 0.05, height: geometry.size.width * 0.05)
-                    }
-                } else {
-                    Image("\(unit.army) \(unit.name)" )
-                        .resizable()
-                        .scaleEffect(0.9, anchor: .bottom)
-
-                    UnitSymbolsView(unit: unit)
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-
-                    UnitStatsView(unit: unit)
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-
-                    UnitActionsView(unit: unit)
-                        .frame(width: geometry.size.width, height: geometry.size.height)
+//        GeometryReader { geometry in
+            ZStack(alignment: .center) {
+                switch unit.name {
+                case "Control":
+                    ControlTokenView(units: units, unit: unit)
+                    ControlActionView(unit: unit)
+                case "Smoke":
+                    SmokeTokenView(units: units, unit: unit)
+                    ControlActionView(unit: unit)
+                default:
+                    UnitTokenView(units: units, unit: unit)
+                    UnitActionView(unit: unit)
                 }
 
                 HStack {
-                    if unit.hitMarker != nil {
-                        Image(systemName: "cross.circle.fill")
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.red, .white)
-                    }
-
-                    if unit.stressed {
-                        Image(systemName: "xmark.octagon.fill")
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.white, .red)
-                    }
-
                     if units.count > 1 {
                         Image(systemName: "\(units.count).circle.fill")
                             .symbolRenderingMode(.palette)
@@ -71,18 +35,9 @@ struct UnitView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
-            .frame(width: 75, height: 75)
-            .background(
-                RoundedRectangle(cornerRadius: 9, style: .continuous)
-                    .fill(Color("\(unit.army)"))
-            )
-            .background(
-                RoundedRectangle(cornerRadius: 9, style: .continuous)
-                    .fill(.gray)
-                    .offset(x: -0.9, y: 1.1)
-            )
+//            .frame(width: geometry.size.width, height: geometry.size.height)
             .rotationEffect(rotationAngle(for: unit.orientation))
-        }
+//        }
         .frame(width: 75, height: 75)
     }
 

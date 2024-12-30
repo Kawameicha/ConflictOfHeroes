@@ -1,5 +1,5 @@
 //
-//  UnitSymbolsView.swift
+//  UnitSymbolView.swift
 //  ConflictOfHeroes
 //
 //  Created by Christoph Freier on 24.11.24.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct UnitSymbolsView: View {
+struct UnitSymbolView: View {
     var unit: Unit
 
     var body: some View {
         HStack(alignment: .center) {
             VStack {
                 ZStack(alignment: .center) {
-                    UnitFacing(unit: unit)
+                    UnitFacingView(unit: unit)
                         .scaleEffect(1.2, anchor: .top)
 
                     Text(unit.name)
@@ -50,5 +50,5 @@ struct UnitSymbolsView: View {
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
     let unit = Unit(name: "Rifles '41", army: .german, statsDictionary: statsDictionary)
-    UnitSymbolsView(unit: unit)
+    UnitSymbolView(unit: unit)
 }

@@ -11,15 +11,15 @@ struct GameUnitView: View {
     let units: [Unit]
 
     var body: some View {
-        List(units, id: \.self) { unit in
-            UnitRow(unit: unit)
-                .draggable(unit) {
-                    Text(unit.name)
-                        .foregroundColor(.black)
-                        .padding(8)
-                        .background(Capsule().fill(Color.white))
+        ScrollView {
+            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2), spacing: 4) {
+                ForEach(units, id: \.id) { unit in
+                    UnitTokenView(unit: unit)
+                        .draggableUnit(unit)
                 }
+            }
+            .padding(4)
         }
-        .frame(width: 190, height: 300)
+        .frame(width: 160, height: 300)
     }
 }

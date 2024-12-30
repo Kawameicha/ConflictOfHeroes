@@ -1,5 +1,5 @@
 //
-//  UnitActionsView.swift
+//  UnitActionView.swift
 //  ConflictOfHeroes
 //
 //  Created by Christoph Freier on 24.11.24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UnitActionsView: View {
+struct UnitActionView: View {
     var unit: Unit
 
     var body: some View {
@@ -17,7 +17,6 @@ struct UnitActionsView: View {
                     Image(systemName: "arrow.counterclockwise")
                 }
                 .clipShape(Capsule())
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
 
                 Spacer()
 
@@ -28,7 +27,6 @@ struct UnitActionsView: View {
                         .symbolVariant(unit.exhausted ? .none : .slash)
                 }
                 .clipShape(Capsule())
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
 
                 Spacer()
 
@@ -36,7 +34,6 @@ struct UnitActionsView: View {
                     Image(systemName: "arrow.clockwise")
                 }
                 .clipShape(Capsule())
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
             }
             .background(
                 Rectangle()
@@ -71,5 +68,5 @@ struct UnitActionsView: View {
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
     let unit = Unit(name: "Rifles '41", army: .german, statsDictionary: statsDictionary)
-    UnitActionsView(unit: unit)
+    UnitActionView(unit: unit)
 }
