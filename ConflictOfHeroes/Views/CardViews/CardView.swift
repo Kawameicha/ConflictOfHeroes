@@ -51,7 +51,7 @@ struct CardView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 
                 VStack {
-                    Text(card.id)
+                    Text(card.code)
                         .font(.system(size: 12))
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)

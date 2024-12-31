@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-class HitMarker: Codable, Equatable {
-    var id: String
+class HitMarker: Codable, Equatable, Identifiable {
+    var id: UUID = UUID()
+    var code: String
     var name: String
     var type: HitMarkerType
     var item: Int
@@ -24,8 +25,9 @@ class HitMarker: Codable, Equatable {
     var defenseFront: Int? = nil
     var rangeDisabled: Bool? = false
 
-    init(id: String, name: String, type: HitMarkerType, item: Int, rally: Int? = nil, attackCost: Int? = nil, attackSoft: Int? = nil, attackHard: Int? = nil, attackDisabled: Bool? = nil, gunDamaged: HitMarkerType? = nil, moveCost: Int? = nil, moveDisabled: Bool? = nil, defenseFlank: Int? = nil, defenseFront: Int? = nil, rangeDisabled: Bool? = nil) {
+    init(id: UUID = UUID(), code: String, name: String, type: HitMarkerType, item: Int, rally: Int? = nil, attackCost: Int? = nil, attackSoft: Int? = nil, attackHard: Int? = nil, attackDisabled: Bool? = nil, gunDamaged: HitMarkerType? = nil, moveCost: Int? = nil, moveDisabled: Bool? = nil, defenseFlank: Int? = nil, defenseFront: Int? = nil, rangeDisabled: Bool? = nil) {
         self.id = id
+        self.code = code
         self.name = name
         self.type = type
         self.item = item
@@ -41,6 +43,10 @@ class HitMarker: Codable, Equatable {
         self.defenseFront = defenseFront
         self.rangeDisabled = rangeDisabled
     }
+
+    private enum CodingKeys: String, CodingKey {
+            case code, name, type, item, rally, attackCost, attackSoft, attackHard, attackDisabled, gunDamaged, moveCost, moveDisabled, defenseFlank, defenseFront, rangeDisabled
+        }
 
     static func == (lhs: HitMarker, rhs: HitMarker) -> Bool {
         return lhs.id == rhs.id
