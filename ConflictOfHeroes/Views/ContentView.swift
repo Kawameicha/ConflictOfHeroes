@@ -23,7 +23,7 @@ struct ContentView: View {
                 }
 
                 Spacer()
-                
+
                 d10SimulatorView()
                 d6SimulatorView()
             }
@@ -32,9 +32,9 @@ struct ContentView: View {
         } detail: {
             if let missionData = viewModel.missionData {
                 HexagonGridView(
-                    cells: $viewModel.inGameUnits,
-                    reserveUnits: $viewModel.backUpUnits,
-                    removedUnits: $viewModel.killedUnits,
+                    inGameUnits: $viewModel.inGameUnits,
+                    backUpUnits: $viewModel.backUpUnits,
+                    killedUnits: $viewModel.killedUnits,
                     maps: missionData.gameSetup.maps,
                     onHexagonSelected: { hexagon in
                         viewModel.selectedHex = hexagon
@@ -49,13 +49,13 @@ struct ContentView: View {
                 Button(action: {
                     viewModel.isShowingKilledUnits.toggle()
                 }) {
-                    Image(systemName: "cross.circle.fill")
+                    Image(systemName: "cross.case.circle")
                 }
 
                 Button(action: {
                     viewModel.isShowingBackUpUnits.toggle()
                 }) {
-                    Image(systemName: "plus.circle.fill")
+                    Image(systemName: "plus.circle")
                 }
             }
 

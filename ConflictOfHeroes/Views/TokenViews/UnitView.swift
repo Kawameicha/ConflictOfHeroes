@@ -12,32 +12,29 @@ struct UnitView: View {
     @Bindable var unit: Unit
 
     var body: some View {
-//        GeometryReader { geometry in
-            ZStack(alignment: .center) {
-                switch unit.name {
-                case "Control":
-                    ControlTokenView(units: units, unit: unit)
-                    ControlActionView(unit: unit)
-                case "Smoke":
-                    SmokeTokenView(units: units, unit: unit)
-                    ControlActionView(unit: unit)
-                default:
-                    UnitTokenView(units: units, unit: unit)
-                    UnitActionView(unit: unit)
-                }
-
-                HStack {
-                    if units.count > 1 {
-                        Image(systemName: "\(units.count).circle.fill")
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.white, .red)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        ZStack(alignment: .center) {
+            switch unit.name {
+            case "Control":
+                ControlTokenView(units: units, unit: unit)
+                ControlActionView(unit: unit)
+            case "Smoke":
+                SmokeTokenView(units: units, unit: unit)
+                SmokeActionView(unit: unit)
+            default:
+                UnitTokenView(units: units, unit: unit)
+                UnitActionView(unit: unit)
             }
-//            .frame(width: geometry.size.width, height: geometry.size.height)
-            .rotationEffect(rotationAngle(for: unit.orientation))
-//        }
+
+            HStack {
+                if units.count > 1 {
+                    Image(systemName: "\(units.count).circle.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.white, .red)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        }
+        .rotationEffect(rotationAngle(for: unit.orientation))
         .frame(width: 75, height: 75)
     }
 

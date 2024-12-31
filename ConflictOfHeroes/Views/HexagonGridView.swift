@@ -18,15 +18,15 @@ struct HexagonGridView: View {
     let maps: [MapInfo]
 
     init(
-        cells: Binding<[HexagonCell]>,
-        reserveUnits: Binding<[Unit]>,
-        removedUnits: Binding<[Unit]>,
+        inGameUnits: Binding<[HexagonCell]>,
+        backUpUnits: Binding<[Unit]>,
+        killedUnits: Binding<[Unit]>,
         maps: [MapInfo],
         onHexagonSelected: @escaping (HexagonCell?) -> Void
     ) {
-        self._inGameUnits = cells
-        self._backUpUnits = reserveUnits
-        self._killedUnits = removedUnits
+        self._inGameUnits = inGameUnits
+        self._backUpUnits = backUpUnits
+        self._killedUnits = killedUnits
         self.maps = maps
         self.onHexagonSelected = onHexagonSelected
         self.onUnitToBackUp = { _, _ in }
@@ -60,9 +60,7 @@ struct HexagonGridView: View {
                         },
                         onUnitToKilled: { unit in
                             removeUnit(unit, from: cell, to: .killed)
-                        },
-                        BackUpUnits: backUpUnits,
-                        KilledUnits: killedUnits
+                        }
                     )
                     .onTapGesture {
                         onHexagonSelected(cell)

@@ -64,6 +64,12 @@ class GameViewModel: ObservableObject {
         sovietCAPs = sovietMaxCAPs
         inGameUnits.forEach { cell in
             cell.units.forEach { unit in
+                if unit.name == "Smoke" && !unit.exhausted {
+                    guard let sourceIndex = inGameUnits.firstIndex(where: { $0.id == cell.id }) else { return }
+                    inGameUnits[sourceIndex].units.removeAll { $0 == unit }
+                    backUpUnits.append(unit)
+                }
+
                 unit.exhausted = false
                 unit.stressed = false
             }

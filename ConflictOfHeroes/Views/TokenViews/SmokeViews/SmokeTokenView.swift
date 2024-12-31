@@ -13,7 +13,7 @@ struct SmokeTokenView: View {
 
     var body: some View {
         ZStack(alignment: .center) {
-            if unit.army == .german {
+            if unit.exhausted {
                 HStack(alignment: .center) {
                     Image(systemName: "circle.slash")
                         .foregroundColor(.wheeled)
@@ -60,7 +60,7 @@ struct SmokeTokenView: View {
         .foregroundStyle(.black)
         .frame(width: 75, height: 75)
         .background(
-            Image(unit.army == .german ? "heavy_smoke" : "light_smoke")
+            Image(unit.exhausted ? "heavy_smoke" : "light_smoke")
                 .resizable()
                 .scaledToFit()
                 .clipShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
@@ -75,6 +75,6 @@ struct SmokeTokenView: View {
 
 #Preview {
     let statsDictionary = loadUnitStatsFromFile()
-    let unit = Unit(name: "Smoke", army: .german, statsDictionary: statsDictionary)
+    let unit = Unit(name: "Smoke", army: .german, exhausted: true, statsDictionary: statsDictionary)
     SmokeTokenView(unit: unit)
 }

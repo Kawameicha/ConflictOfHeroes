@@ -55,6 +55,16 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit], [Unit]) 
         )
     }
 
+    backUpUnits.append(contentsOf: (0..<16).map { _ in
+        Unit(
+            name: "Smoke",
+            army: .german,
+            orientation: .N,
+            exhausted: true,
+            statsDictionary: statsDictionary
+        )
+    })
+
     killedUnits = missionData.gameUnits.filter { $0.state == .killed }.map {
         Unit(
             name: $0.name,

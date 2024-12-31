@@ -15,8 +15,6 @@ struct HexagonView: View {
     var onUnitAdded: (Unit, HexagonCell) -> Void
     var onUnitToBackUp: (Unit) -> Void
     var onUnitToKilled: (Unit) -> Void
-    var BackUpUnits: [Unit]
-    var KilledUnits: [Unit]
 
     var body: some View {
         ZStack {
@@ -37,8 +35,9 @@ struct HexagonView: View {
                             if let hitMarker = unit.hitMarker {
                                 gameManager.hitMarkerPool.returnHitMarker(hitMarker)
                                 unit.hitMarker = nil
-                            } else if let marker = gameManager.hitMarkerPool.assignRandomSoftHitMarker() {
+                            } else if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: .soft) {
                                 unit.hitMarker = marker
+                                print("Assigned \(marker.name) to unit: \(unit.name)")
                             }
                         }) {
                             Label(unit.hitMarker != nil ? "Rally Unit" : "Hit Marker",
@@ -79,9 +78,8 @@ struct HexagonView: View {
         .dropDestination(for: Unit.self) { items, location in
             guard let droppedUnit = items.first else { return false }
 
-            if BackUpUnits.contains(droppedUnit) {
-                onUnitAdded(droppedUnit, cell)
-            } else if KilledUnits.contains(droppedUnit) {
+            if [gameManager.viewModel.backUpUnits,
+                gameManager.viewModel.killedUnits].contains(where: { $0.contains(droppedUnit) }) {
                 onUnitAdded(droppedUnit, cell)
             } else {
                 onUnitMoved(droppedUnit, cell)
