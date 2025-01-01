@@ -33,8 +33,13 @@ class GameManager: ObservableObject {
     func startNewRound() {
         viewModel.startNewRound()
 
-        drawCards(for: &viewModel.germanCards, number: viewModel.germanCardPerRound)
-        drawCards(for: &viewModel.sovietCards, number: viewModel.sovietCardPerRound)
+        guard let missionData = viewModel.missionData else {
+            print("Mission data is not available!")
+            return
+        }
+
+        drawCards(for: &viewModel.germanCards, number: missionData.gameSetup.card.german.eachRound)
+        drawCards(for: &viewModel.sovietCards, number: missionData.gameSetup.card.soviet.eachRound)
     }
 
     func resetGame() {

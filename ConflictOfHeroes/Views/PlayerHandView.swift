@@ -43,7 +43,9 @@ struct PlayerHandView: View {
                                         }
                                     }
                                 }
+
                                 Divider()
+                                
                                 Menu("Debug") {
                                     Button("Print CardDeck") {
                                         print("CardDeck contents: \(gameManager.cardDeck.deck.map(\.name)), CardDeck items: \(gameManager.cardDeck.deck.count)")

@@ -33,6 +33,7 @@ struct UnitView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .offset(y: 9)
         }
         .rotationEffect(rotationAngle(for: unit.orientation))
         .frame(width: 75, height: 75)

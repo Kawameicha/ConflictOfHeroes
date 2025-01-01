@@ -25,17 +25,23 @@ struct UnitTokenView: View {
                     .frame(width: geometry.size.width, height: geometry.size.height)
             }
 
-            HStack {
+            HStack(spacing: 0) {
                 if unit.hitMarker != nil {
                     Image(systemName: "cross.circle.fill")
                         .symbolRenderingMode(.palette)
                         .foregroundStyle(.red, .white)
+                } else {
+                    Image(systemName: "cross.circle.fill")
+                        .foregroundStyle(.clear)
                 }
 
                 if unit.stressed {
-                    Image(systemName: "xmark.octagon.fill")
+                    Image(systemName: "xmark.circle.fill")
                         .symbolRenderingMode(.palette)
                         .foregroundStyle(.white, .red)
+                } else {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(.clear)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
