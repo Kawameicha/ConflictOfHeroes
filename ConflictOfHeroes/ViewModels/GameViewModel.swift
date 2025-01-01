@@ -28,7 +28,7 @@ class GameViewModel: ObservableObject {
     @Published var isShowingGermanCards: Bool = false
     @Published var isShowingSovietCards: Bool = false
 
-    func loadMission(_ missionName: String) {
+    func loadMission(_ missionName: String, cardDeck: CardDeck) {
         guard let mission = loadMissionData(from: missionName) else {
             print("Error: Could not load mission \(missionName)")
             return
@@ -47,6 +47,14 @@ class GameViewModel: ObservableObject {
         sovietCAPs = mission.gameSetup.caps.soviet
         germanMaxCAPs = mission.gameSetup.caps.german
         sovietMaxCAPs = mission.gameSetup.caps.soviet
+
+        germanCards = mission.gameState.germanCards.flatMap { code, count in
+            cardDeck.drawNonRandomCards(code: code, count: count)
+        }
+        sovietCards = mission.gameState.sovietCards.flatMap { code, count in
+            cardDeck.drawNonRandomCards(code: code, count: count)
+        }
+        
     }
 
     func startNewRound() {

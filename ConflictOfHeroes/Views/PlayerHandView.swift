@@ -18,7 +18,7 @@ struct PlayerHandView: View {
                 .padding(.bottom, 8)
 
             Button(action: {
-                if let card = gameManager.cardDeck.drawRandomCard(ofType: .battle) {
+                if let card = gameManager.cardDeck.drawRandomCard(ofType: .battle, upToCode: gameManager.viewModel.missionData?.gameSetup.card.maxCode ?? "17") {
                     cards.append(card)
                 } else {
                     print("No battle cards are available!")
@@ -36,7 +36,7 @@ struct PlayerHandView: View {
                         CardView(card: card)
                             .contextMenu {
                                 Menu("Return to") {
-                                    Button("Reserve") {
+                                    Button("Card Deck") {
                                         gameManager.cardDeck.returnCard(card)
                                         if let index = cards.firstIndex(where: { $0.id == card.id }) {
                                             cards.remove(at: index)
@@ -45,7 +45,7 @@ struct PlayerHandView: View {
                                 }
 
                                 Divider()
-                                
+
                                 Menu("Debug") {
                                     Button("Print CardDeck") {
                                         print("CardDeck contents: \(gameManager.cardDeck.deck.map(\.name)), CardDeck items: \(gameManager.cardDeck.deck.count)")

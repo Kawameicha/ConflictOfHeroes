@@ -19,7 +19,7 @@ class GameManager: ObservableObject {
     }
 
     func startNewMission(missionName: String) {
-        viewModel.loadMission(missionName)
+        viewModel.loadMission(missionName, cardDeck: cardDeck)
 
         guard let missionData = viewModel.missionData else {
             print("Mission data is not available!")
@@ -50,7 +50,7 @@ class GameManager: ObservableObject {
 
     private func drawCards(for playerCards: inout [Card], number: Int) {
         for _ in 0..<number {
-            if let card = cardDeck.drawRandomCard(ofType: .battle) {
+            if let card = cardDeck.drawRandomCard(ofType: .battle, upToCode: viewModel.missionData?.gameSetup.card.maxCode ?? "17") {
                 playerCards.append(card)
             } else {
                 print("No more battle cards are available!")

@@ -56,10 +56,12 @@ class GameSetup: Codable {
 class CardSetup: Codable {
     let german: PlayerCard
     let soviet: PlayerCard
+    let maxCode: String
 
-    init(german: PlayerCard, soviet: PlayerCard) {
+    init(german: PlayerCard, soviet: PlayerCard, maxCode: String) {
         self.german = german
         self.soviet = soviet
+        self.maxCode = maxCode
     }
 }
 
@@ -115,13 +117,14 @@ enum MapsSetup: String, Codable {
 class GameState: Codable {
     var victoryPoints: Int
     var victoryMarker: UnitArmy
+    var germanCards: [String:Int]
+    var sovietCards: [String:Int]
 
-    init(
-        victoryPoints: Int,
-        victoryMarker: UnitArmy
-    ) {
+    init(victoryPoints: Int, victoryMarker: UnitArmy, germanCards: [String : Int], sovietCards: [String : Int]) {
         self.victoryPoints = victoryPoints
         self.victoryMarker = victoryMarker
+        self.germanCards = germanCards
+        self.sovietCards = sovietCards
     }
 }
 

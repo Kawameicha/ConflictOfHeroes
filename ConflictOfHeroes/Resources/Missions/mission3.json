@@ -3,8 +3,15 @@
         "name": "The Gap",
         "date": "June 23, 1941",
         "text": "As the 14th Panzer Division punched through and rushed past the Soviet defenses on the Bug River, a gap opened between the 24th and 262nd Infantry Divisions of the 17th Army. The Soviets surprised the Germans with their tenacity, inflicting heavy losses on the Germans. The 296th Infantry Division was brought forward to close the hole and stabilize the line. Elements of the 520th Infantry Regiment must root out Soviet forces – some hidden – and secure the road to the north.",
-        "card": { "german": { "startWith": 2, "eachRound": 1 }, "soviet": { "startWith": 2, "eachRound": 1 } },
-        "caps": { "german": 7, "soviet": 7 },
+        "card": {
+            "german": { "startWith": 2, "eachRound": 1 },
+            "soviet": { "startWith": 2, "eachRound": 1 },
+            "maxCode": "14"
+        },
+        "caps": {
+            "german": 7,
+            "soviet": 7
+        },
         "last": 4,
         "maps": [
             { "name": "AtB_Planning_Map_2_Village", "orientation": "N" },
@@ -15,7 +22,9 @@
     },
     "gameState": {
         "victoryPoints": 1,
-        "victoryMarker": "soviet"
+        "victoryMarker": "soviet",
+        "germanCards": {},
+        "sovietCards": {}
     },
     "gameUnits": [
         {

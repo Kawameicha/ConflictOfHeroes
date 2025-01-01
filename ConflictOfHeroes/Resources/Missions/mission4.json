@@ -3,8 +3,15 @@
         "name": "General Petrov",
         "date": "October 8, 1941",
         "text": "After the breakthrough by the German LIII Infantry Corps from the SW to Bryansk, Soviet General Petrov withdrew his badly shaken 50th Army to a wooded area NE of Bryansk. Trying to break out of the ensuing Bryansk pocket, the general was critically wounded. Informants relayed the general’s location to the Germans who have jumped at the opportunity.",
-        "card": { "german": { "startWith": 2, "eachRound": 1 }, "soviet": { "startWith": 2, "eachRound": 1 } },
-        "caps": { "german": 8, "soviet": 6 },
+        "card": {
+            "german": { "startWith": 2, "eachRound": 1 },
+            "soviet": { "startWith": 2, "eachRound": 1 },
+            "maxCode": "14"
+        },
+        "caps": {
+            "german": 8,
+            "soviet": 6
+        },
         "last": 5,
         "maps": [
             { "name": "AtB_Planning_Map_4_Farm_and_Hills", "orientation": "S" },
@@ -15,7 +22,9 @@
     },
     "gameState": {
         "victoryPoints": 1,
-        "victoryMarker": "soviet"
+        "victoryMarker": "soviet",
+        "germanCards": { "14": 1 },
+        "sovietCards": {}
     },
     "gameUnits": [
         {
