@@ -62,7 +62,7 @@ struct UnitTokenView: View {
 /// Preview
 struct UnitTokenGridView: View {
     let units: [Unit]
-    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 8)
+    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 12)
 
     var sortedUnits: [Unit] {
         units.sorted {
@@ -77,7 +77,7 @@ struct UnitTokenGridView: View {
                     UnitTokenView(units: [unit], unit: unit)
                 }
             }
-            .frame(width: 640, height: .infinity)
+            .frame(width: 960, height: .infinity)
         }
         .navigationTitle("Units")
     }

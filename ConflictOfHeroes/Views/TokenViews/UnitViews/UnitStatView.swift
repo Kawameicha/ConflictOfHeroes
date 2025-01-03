@@ -27,10 +27,37 @@ struct UnitStatView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 
 
-            VStack {
+            VStack(spacing: 1) {
                 if let cost = unit.stats.costToMove {
                     Text("\(cost)")
                         .foregroundColor(Color(unit.stats.type.rawValue))
+                }
+                if let moveBonus = unit.stats.moveBonus1 {
+                    if moveBonus == .wheeled {
+                        WheeledBonusMove()
+                    } else if moveBonus == .tracked {
+                        TrackedBonusMove()
+                    }
+                }
+                if let moveBonus = unit.stats.moveBonus2 {
+                    if moveBonus == .wheeled {
+                        WheeledBonusMove()
+                    } else if moveBonus == .tracked {
+                        TrackedBonusMove()
+                    }
+                }
+                if let coverBonus = unit.stats.coverBonus {
+                    ZStack(alignment: .center) {
+                        Image(systemName: "shield")
+                            .font(.system(size: 12))
+
+                        Image(systemName: "shield.fill")
+                            .foregroundColor(.white)
+
+                        Text("+\(coverBonus)")
+                            .font(.system(size: 6))
+                    }
+                    .foregroundStyle(.foot)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
@@ -41,10 +68,16 @@ struct UnitStatView: View {
                         Text("\(attack)")
                             .background(unit.stats.crewedUnit ?? false ? .white : .clear)
                             .foregroundStyle(.foot)
+                    } else {
+                        Text("-")
+                            .foregroundStyle(.foot)
                     }
                     if let attack = unit.stats.attackHard {
                         Text("\(attack)")
                             .background(unit.stats.crewedType == .tracked ? .white : .clear)
+                            .foregroundStyle(.tracked)
+                    } else {
+                        Text("-")
                             .foregroundStyle(.tracked)
                     }
                 }
