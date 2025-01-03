@@ -99,7 +99,7 @@ struct UnitStatView: View {
             VStack {
                 if let _ = unit.stats.openVehicle, let defense = unit.stats.defenseFlank {
                     Text("\(defense)")
-                        .foregroundColor(Color(unit.stats.flankType.rawValue))
+                        .foregroundColor(Color(.tracked))
                         .background(.white)
                         .background{Rectangle().stroke(Color.foot)}
                 } else if let defense = unit.stats.defenseFlank {

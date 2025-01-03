@@ -34,7 +34,7 @@
             "state": "inGame"
         },
         {
-            "name": "Rifles '41",
+            "name": "PzJg 35R",
             "army": "german",
             "hexagon": { "row": 1, "col": 0 },
             "orientation": "North",

@@ -343,7 +343,7 @@
         "crewedType": "foot",
         "maxRange": 8,
         "defenseFlank": 13,
-        "flankType": "tracked",
+        "flankType": "foot",
         "defenseFront": 15,
         "frontType": "tracked",
         "openVehicle": true

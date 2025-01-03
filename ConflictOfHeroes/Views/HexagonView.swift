@@ -35,9 +35,25 @@ struct HexagonView: View {
                             if let hitMarker = unit.hitMarker {
                                 gameManager.hitMarkerPool.returnHitMarker(hitMarker)
                                 unit.hitMarker = nil
-                            } else if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: .soft) {
-                                unit.hitMarker = marker
-                                print("Assigned \(marker.name) to unit: \(unit.name)")
+                            } else {
+                                switch (unit.stats.frontType, unit.stats.flankType) {
+                                case let (front, flank) where front != flank:
+                                    presentHitMarkerChoice { chosenType in
+                                        if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: chosenType) {
+                                            unit.hitMarker = marker
+                                        }
+                                    }
+                                case let (front, _) where front == .foot:
+                                    if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: .soft) {
+                                        unit.hitMarker = marker
+                                    }
+                                case let (front, _) where front == .tracked:
+                                    if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: .hard) {
+                                        unit.hitMarker = marker
+                                    }
+                                default:
+                                    print("Unhandled frontType or flankType case")
+                                }
                             }
                         }) {
                             Label(unit.hitMarker != nil ? "Rally Unit" : "Hit Marker",
@@ -88,6 +104,26 @@ struct HexagonView: View {
             return true
         } isTargeted: { isTargeted in
             hexagonIsTargeted = isTargeted
+        }
+    }
+
+    private func presentHitMarkerChoice(completion: @escaping (HitMarkerType) -> Void) {
+        let alert = NSAlert()
+        alert.messageText = "Choose Hit Marker Type"
+        alert.informativeText = "Assign a soft or armored hit marker."
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "Soft")
+        alert.addButton(withTitle: "Armored")
+        alert.addButton(withTitle: "Cancel")
+
+        let response = alert.runModal()
+        switch response {
+        case .alertFirstButtonReturn:
+            completion(.soft)
+        case .alertSecondButtonReturn:
+            completion(.hard)
+        default:
+            break
         }
     }
 }
