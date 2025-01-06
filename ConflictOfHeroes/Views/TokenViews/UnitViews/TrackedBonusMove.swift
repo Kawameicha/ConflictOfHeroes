@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TrackedBonusMove: View {
+    var showSlash: Bool = false
+
     var body: some View {
         ZStack {
             Rectangle()
@@ -21,12 +23,15 @@ struct TrackedBonusMove: View {
             Rectangle()
                 .fill(Color.white)
                 .frame(width: 1, height: 1)
-        }
-    }
-}
 
-struct TrackedBonusMove_Previews: PreviewProvider {
-    static var previews: some View {
-        TrackedBonusMove()
+            if showSlash {
+                Path { path in
+                    path.move(to: CGPoint(x: 7, y: 0))
+                    path.addLine(to: CGPoint(x: 0, y: 7))
+                }
+                .stroke(Color.red, lineWidth: 1)
+            }
+        }
+        .frame(width: 7, height: 7)
     }
 }

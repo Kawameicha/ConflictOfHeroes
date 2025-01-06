@@ -13,10 +13,8 @@ struct UnitRow: View {
     var body: some View {
         HStack(spacing: 4) {
             switch unit.name {
-            case "Control":
-                ControlTokenView(unit: unit)
-            case "Smoke":
-                SmokeTokenView(unit: unit)
+            case "Artillery", "Barbed Wire", "Control", "Bunkers", "Hasty Defenses", "Immobilized", "Mines", "Road Blocks", "Smoke", "Trenches":
+                TokenView(unit: unit)
             default:
                 UnitTokenView(unit: unit)
             }

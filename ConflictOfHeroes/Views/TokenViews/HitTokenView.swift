@@ -114,10 +114,16 @@ struct HitTokenView: View {
         .font(.system(size: 9))
         .fontWeight(.bold)
         .foregroundStyle(.black)
-        .frame(width: 75, height: 75)
+        .frame(width: 72, height: 72)
         .background(
-            RoundedRectangle(cornerRadius: 9, style: .continuous)
-                .fill(hitMarker.type == .soft ? Color(.hitSoft) : Color(.hitHard))
+            ZStack {
+                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    .fill(Color(.darkGray).opacity(0.7))
+                    .offset(x: -0.9, y: 1.1)
+
+                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    .fill(hitMarker.type == .soft ? Color(.hitSoft) : Color(.hitHard))
+            }
         )
     }
 }

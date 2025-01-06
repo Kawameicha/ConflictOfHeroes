@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct UnitTokenView: View {
-    var units: [Unit] = []
     var unit: Unit
 
     var body: some View {
@@ -46,15 +45,16 @@ struct UnitTokenView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
-        .frame(width: 75, height: 75)
+        .frame(width: 72, height: 72)
         .background(
-            RoundedRectangle(cornerRadius: 9, style: .continuous)
-                .fill(Color("\(unit.army)"))
-        )
-        .background(
-            RoundedRectangle(cornerRadius: 9, style: .continuous)
-                .fill(.gray)
-                .offset(x: -0.9, y: 1.1)
+            ZStack {
+                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    .fill(Color(.darkGray).opacity(0.7))
+                    .offset(x: -0.9, y: 1.1)
+
+                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    .fill(Color("\(unit.army)"))
+            }
         )
     }
 }
@@ -74,7 +74,7 @@ struct UnitTokenGridView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(sortedUnits, id: \.id) { unit in
-                    UnitTokenView(units: [unit], unit: unit)
+                    UnitTokenView(unit: unit)
                 }
             }
             .frame(width: 960, height: .infinity)

@@ -15,13 +15,19 @@ struct UnitView: View {
         ZStack(alignment: .center) {
             switch unit.name {
             case "Control":
-                ControlTokenView(units: units, unit: unit)
-                ControlActionView(unit: unit)
+                TokenView(unit: unit)
+                ActionView(unit: unit) {
+                    unit.army = (unit.army == .german) ? .soviet : .german
+                }
             case "Smoke":
-                SmokeTokenView(units: units, unit: unit)
-                SmokeActionView(unit: unit)
+                TokenView(unit: unit)
+                ActionView(unit: unit) {
+                    unit.exhausted.toggle()
+                }
+            case "Artillery", "Barbed Wire", "Bunkers", "Hasty Defenses", "Immobilized", "Mines", "Road Blocks", "Trenches":
+                TokenView(unit: unit)
             default:
-                UnitTokenView(units: units, unit: unit)
+                UnitTokenView(unit: unit)
                 UnitActionView(unit: unit)
             }
 
@@ -36,7 +42,7 @@ struct UnitView: View {
             .offset(y: 9)
         }
         .rotationEffect(rotationAngle(for: unit.orientation))
-        .frame(width: 75, height: 75)
+        .frame(width: 72, height: 72)
     }
 
     func rotationAngle(for orientation: UnitFront) -> Angle {

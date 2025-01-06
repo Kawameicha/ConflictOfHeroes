@@ -13,10 +13,8 @@ struct DraggableModifier: ViewModifier {
     func body(content: Content) -> some View {
         content.draggable(unit) {
             switch unit.name {
-            case "Control":
-                ControlTokenView(unit: unit)
-            case "Smoke":
-                SmokeTokenView(unit: unit)
+            case "Artillery", "Barbed Wire", "Bunkers", "Control", "Hasty Defenses", "Immobilized", "Mines", "Road Blocks", "Smoke", "Trenches":
+                TokenView(unit: unit)
             default:
                 UnitTokenView(unit: unit)
             }

@@ -24,40 +24,42 @@ struct HexagonView: View {
             ForEach(cell.units, id: \.self) { unit in
                 UnitView(units: cell.units, unit: unit)
                     .contextMenu {
-                        Button(action: {
-                            unit.stressed.toggle()
-                        }) {
-                            Label(unit.stressed ? "Relax Unit" : "Stress Unit",
-                                  systemImage: unit.stressed ? "" : "")
-                        }
+                        if !["Artillery", "Barbed Wire", "Control", "Bunkers", "Hasty Defenses", "Immobilized", "Mines", "Road Blocks", "Smoke", "Trenches"].contains(unit.name) {
+                            Button(action: {
+                                unit.stressed.toggle()
+                            }) {
+                                Label(unit.stressed ? "Relax Unit" : "Stress Unit",
+                                      systemImage: unit.stressed ? "" : "")
+                            }
 
-                        Button(action: {
-                            if let hitMarker = unit.hitMarker {
-                                gameManager.hitMarkerPool.returnHitMarker(hitMarker)
-                                unit.hitMarker = nil
-                            } else {
-                                switch (unit.stats.frontType, unit.stats.flankType) {
-                                case let (front, flank) where front != flank:
-                                    presentHitMarkerChoice { chosenType in
-                                        if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: chosenType) {
+                            Button(action: {
+                                if let hitMarker = unit.hitMarker {
+                                    gameManager.hitMarkerPool.returnHitMarker(hitMarker)
+                                    unit.hitMarker = nil
+                                } else {
+                                    switch (unit.stats.frontType, unit.stats.flankType) {
+                                    case let (front, flank) where front != flank:
+                                        presentHitMarkerChoice { chosenType in
+                                            if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: chosenType) {
+                                                unit.hitMarker = marker
+                                            }
+                                        }
+                                    case let (front, _) where front == .foot:
+                                        if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: .soft) {
                                             unit.hitMarker = marker
                                         }
+                                    case let (front, _) where front == .tracked:
+                                        if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: .hard) {
+                                            unit.hitMarker = marker
+                                        }
+                                    default:
+                                        print("Unhandled frontType or flankType case")
                                     }
-                                case let (front, _) where front == .foot:
-                                    if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: .soft) {
-                                        unit.hitMarker = marker
-                                    }
-                                case let (front, _) where front == .tracked:
-                                    if let marker = gameManager.hitMarkerPool.assignRandomHitMarker(ofType: .hard) {
-                                        unit.hitMarker = marker
-                                    }
-                                default:
-                                    print("Unhandled frontType or flankType case")
                                 }
+                            }) {
+                                Label(unit.hitMarker != nil ? "Rally Unit" : "Hit Marker",
+                                      systemImage: unit.hitMarker == nil ? "" : "")
                             }
-                        }) {
-                            Label(unit.hitMarker != nil ? "Rally Unit" : "Hit Marker",
-                                  systemImage: unit.hitMarker == nil ? "" : "")
                         }
 
                         Menu("Assign to") {
@@ -70,7 +72,7 @@ struct HexagonView: View {
                                 }
                             }
 
-                            Button("Reinforcements") {
+                            Button("Backup Units") {
                                 onUnitToBackUp(unit)
                                 unit.stressed = false
                                 if let hitMarker = unit.hitMarker {
