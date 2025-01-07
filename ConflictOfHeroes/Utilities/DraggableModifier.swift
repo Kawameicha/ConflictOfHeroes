@@ -14,7 +14,7 @@ struct DraggableModifier: ViewModifier {
         content.draggable(unit) {
             switch unit.name {
             case "Artillery", "Barbed Wire", "Bunkers", "Control", "Hasty Defenses", "Immobilized", "Mines", "Road Blocks", "Smoke", "Trenches":
-                TokenView(unit: unit)
+                OtherTokenView(unit: unit)
             default:
                 UnitTokenView(unit: unit)
             }

@@ -1,5 +1,5 @@
 //
-//  TokenView.swift
+//  OtherTokenView.swift
 //  ConflictOfHeroes
 //
 //  Created by Christoph Freier on 05.01.25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TokenView: View {
+struct OtherTokenView: View {
     var unit: Unit
 
     var body: some View {
@@ -66,8 +66,7 @@ struct TokenView: View {
                         Image(systemName: "die.face.6.fill")
                     }
 
-                    Image(systemName: "circle.slash")
-                        .scaleEffect(x: -1, y: 1)
+                    Image(systemName: "slash.circle")
                         .foregroundColor(.wheeled)
                 }
 
@@ -117,12 +116,10 @@ struct TokenView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
         case "Immobilized":
             HStack(spacing: 2) {
-                Image(systemName: "circle.slash")
-                    .scaleEffect(x: -1, y: 1)
+                Image(systemName: "slash.circle")
                     .foregroundColor(.tracked)
 
-                Image(systemName: "circle.slash")
-                    .scaleEffect(x: -1, y: 1)
+                Image(systemName: "slash.circle")
                     .foregroundColor(.wheeled)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
@@ -163,8 +160,7 @@ struct TokenView: View {
             VStack(spacing: 2) {
                 TrackedBonusMove(showSlash: true)
 
-                Image(systemName: "circle.slash")
-                    .scaleEffect(x: -1, y: 1)
+                Image(systemName: "slash.circle")
                     .foregroundColor(.wheeled)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
@@ -194,8 +190,7 @@ struct TokenView: View {
             VStack(spacing: 2) {
                 TrackedBonusMove(showSlash: true)
 
-                Image(systemName: "circle.slash")
-                    .scaleEffect(x: -1, y: 1)
+                Image(systemName: "slash.circle")
                     .foregroundColor(.wheeled)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)

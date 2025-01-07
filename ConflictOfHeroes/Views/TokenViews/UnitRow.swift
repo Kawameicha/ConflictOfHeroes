@@ -14,7 +14,7 @@ struct UnitRow: View {
         HStack(spacing: 4) {
             switch unit.name {
             case "Artillery", "Barbed Wire", "Control", "Bunkers", "Hasty Defenses", "Immobilized", "Mines", "Road Blocks", "Smoke", "Trenches":
-                TokenView(unit: unit)
+                OtherTokenView(unit: unit)
             default:
                 UnitTokenView(unit: unit)
             }

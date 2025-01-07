@@ -1,5 +1,5 @@
 //
-//  ActionView.swift
+//  TokenActionView.swift
 //  ConflictOfHeroes
 //
 //  Created by Christoph Freier on 05.01.25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ActionView: View {
+struct TokenActionView: View {
     var unit: Unit
     var action: () -> Void
 

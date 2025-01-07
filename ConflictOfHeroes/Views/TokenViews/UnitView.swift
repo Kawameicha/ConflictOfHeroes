@@ -15,17 +15,17 @@ struct UnitView: View {
         ZStack(alignment: .center) {
             switch unit.name {
             case "Control":
-                TokenView(unit: unit)
-                ActionView(unit: unit) {
+                OtherTokenView(unit: unit)
+                TokenActionView(unit: unit) {
                     unit.army = (unit.army == .german) ? .soviet : .german
                 }
             case "Smoke":
-                TokenView(unit: unit)
-                ActionView(unit: unit) {
+                OtherTokenView(unit: unit)
+                TokenActionView(unit: unit) {
                     unit.exhausted.toggle()
                 }
             case "Artillery", "Barbed Wire", "Bunkers", "Hasty Defenses", "Immobilized", "Mines", "Road Blocks", "Trenches":
-                TokenView(unit: unit)
+                OtherTokenView(unit: unit)
             default:
                 UnitTokenView(unit: unit)
                 UnitActionView(unit: unit)

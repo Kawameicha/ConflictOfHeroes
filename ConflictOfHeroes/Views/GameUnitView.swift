@@ -55,7 +55,7 @@ struct GameUnitView: View {
                             ForEach(sortedTokenKeys, id: \.self) { key in
                                 if let unitsWithGroup = groupedUnits[key] {
                                     ZStack(alignment: .center) {
-                                        TokenView(unit: unitsWithGroup[0])
+                                        OtherTokenView(unit: unitsWithGroup[0])
                                             .draggableUnit(unitsWithGroup[0])
 
                                         if unitsWithGroup.count > 1 {
