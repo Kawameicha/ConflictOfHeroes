@@ -14,13 +14,13 @@ struct HexagonGridView: View {
     let onHexagonSelected: (HexagonCell?) -> Void
     let onUnitToBackUp: (Unit, HexagonCell) -> Void
     let onUnitToKilled: (Unit, HexagonCell) -> Void
-    let maps: [MapInfo]
+    let maps: [GameSetup.MapsSetup]
 
     init(
         inGameUnits: Binding<[HexagonCell]>,
         backUpUnits: Binding<[Unit]>,
         killedUnits: Binding<[Unit]>,
-        maps: [MapInfo],
+        maps: [GameSetup.MapsSetup],
         onHexagonSelected: @escaping (HexagonCell?) -> Void
     ) {
         self._inGameUnits = inGameUnits
@@ -75,7 +75,7 @@ struct HexagonGridView: View {
         }
     }
 
-    private func rotationAngle(for orientation: MapsSetup) -> Angle {
+    private func rotationAngle(for orientation: GameSetup.MapsSetup.MapFacing) -> Angle {
         switch orientation {
         case .N: return .degrees(0)
         case .E: return .degrees(90)
@@ -92,7 +92,7 @@ struct HexagonGridView: View {
         inGameUnits[targetIndex].units.append(unit)
     }
 
-    private func removeUnit(_ unit: Unit, from cell: HexagonCell, to targetState: UnitState) {
+    private func removeUnit(_ unit: Unit, from cell: HexagonCell, to targetState: GameUnit.UnitState) {
         guard let sourceIndex = inGameUnits.firstIndex(where: { $0.id == cell.id }) else { return }
 
         inGameUnits[sourceIndex].units.removeAll { $0 == unit }

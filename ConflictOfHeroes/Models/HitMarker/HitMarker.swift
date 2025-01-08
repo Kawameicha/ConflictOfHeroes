@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class HitMarker: Codable, Equatable, Identifiable {
+struct HitMarker: Codable, Equatable, Identifiable {
     var id: UUID = UUID()
     var code: String
     var name: String

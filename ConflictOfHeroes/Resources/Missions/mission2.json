@@ -20,8 +20,13 @@
         "rows": 12
     },
     "gameState": {
+        "round": 1,
         "victoryPoints": 1,
         "victoryMarker": "german",
+        "caps": {
+            "german": 7,
+            "soviet": 7
+        },
         "germanCards": {},
         "sovietCards": {}
     },

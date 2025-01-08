@@ -20,7 +20,7 @@ struct GameToolbarView: View {
             Text("Round")
                 .frame(width: 42)
 
-            Picker("Round", selection: $viewModel.round) {
+            Picker("Round", selection: $viewModel.gameState.round) {
                 ForEach(1...(viewModel.missionData?.gameSetup.last ?? 5), id: \.self) { value in
                     Text("\(value)").tag(value)
                 }
@@ -33,7 +33,7 @@ struct GameToolbarView: View {
             Text("VPs")
                 .frame(width: 25)
 
-            Picker("Victory Points", selection: $viewModel.victoryPoints) {
+            Picker("Victory Points", selection: $viewModel.gameState.victoryPoints) {
                 ForEach(1...10, id: \.self) { value in
                     Text("\(value)").tag(value)
                 }
@@ -42,10 +42,10 @@ struct GameToolbarView: View {
             .frame(width: 45)
 
             Button(action: {
-                viewModel.victoryMarker = (viewModel.victoryMarker == .german) ? .soviet : .german
+                viewModel.gameState.victoryMarker = (viewModel.gameState.victoryMarker == .german) ? .soviet : .german
             }) {
                 ZStack {
-                    switch viewModel.victoryMarker {
+                    switch viewModel.gameState.victoryMarker {
                     case .german:
                         CrossShape(widthFactor: 0.3)
                             .foregroundColor(.black)
@@ -69,7 +69,7 @@ struct GameToolbarView: View {
             Text("CAPs")
                 .frame(width: 33)
 
-            Picker("German CAPs", selection: $viewModel.germanCAPs) {
+            Picker("German CAPs", selection: $viewModel.gameState.caps.german) {
                 ForEach(0...15, id: \.self) { value in
                     Text("\(value)").tag(value)
                 }
@@ -101,7 +101,7 @@ struct GameToolbarView: View {
 
             Text("-")
 
-            Picker("Soviet CAPs", selection: $viewModel.sovietCAPs) {
+            Picker("Soviet CAPs", selection: $viewModel.gameState.caps.soviet) {
                 ForEach(0...15, id: \.self) { value in
                     Text("\(value)").tag(value)
                 }

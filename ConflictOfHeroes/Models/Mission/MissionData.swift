@@ -19,14 +19,14 @@ class MissionData: Codable {
     }
 }
 
-class GameSetup: Codable {
+struct GameSetup: Codable {
     let name: String
     let date: String
     let text: String
     let card: CardSetup
     let caps: CapsSetup
     let last: Int
-    let maps: [MapInfo]
+    let maps: [MapsSetup]
     let cols: Int
     let rows: Int
 
@@ -37,7 +37,7 @@ class GameSetup: Codable {
         card: CardSetup,
         caps: CapsSetup,
         rounds: Int,
-        maps: [MapInfo],
+        maps: [MapsSetup],
         columns: Int,
         rows: Int
     ) {
@@ -51,80 +51,119 @@ class GameSetup: Codable {
         self.cols = columns
         self.rows = rows
     }
-}
 
-class CardSetup: Codable {
-    let german: PlayerCard
-    let soviet: PlayerCard
-    let maxCode: String
+    struct CardSetup: Codable {
+        struct PlayerCard: Codable {
+            var startWith: Int
+            var eachRound: Int
 
-    init(german: PlayerCard, soviet: PlayerCard, maxCode: String) {
-        self.german = german
-        self.soviet = soviet
-        self.maxCode = maxCode
-    }
-}
-
-class PlayerCard: Codable {
-    var startWith: Int
-    var eachRound: Int
-
-    init(startWith: Int, eachRound: Int) {
-        self.startWith = startWith
-        self.eachRound = eachRound
-    }
-}
-
-class CapsSetup: Codable {
-    let german: Int
-    let soviet: Int
-
-    init(german: Int, soviet: Int) {
-        self.german = german
-        self.soviet = soviet
-    }
-}
-
-struct MapInfo: Codable {
-    let name: String
-    let orientation: MapsSetup
-}
-
-enum MapsSetup: String, Codable {
-    case N
-    case E
-    case S
-    case W
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        let rawValue = try container.decode(String.self).uppercased()
-        guard let value = MapsSetup(rawValue: rawValue) else {
-            throw DecodingError.dataCorruptedError(
-                in: container,
-                debugDescription: "Cannot initialize MapsSetup from invalid String value \(rawValue)"
-            )
+            init(startWith: Int, eachRound: Int) {
+                self.startWith = startWith
+                self.eachRound = eachRound
+            }
         }
-        self = value
+
+        let german: PlayerCard
+        let soviet: PlayerCard
+        let maxCode: String
+
+        init(german: PlayerCard, soviet: PlayerCard, maxCode: String) {
+            self.german = german
+            self.soviet = soviet
+            self.maxCode = maxCode
+        }
+    }
+
+    struct CapsSetup: Codable {
+        var german: Int
+        var soviet: Int
+
+        init(german: Int, soviet: Int) {
+            self.german = german
+            self.soviet = soviet
+        }
+    }
+
+    struct MapsSetup: Codable {
+        let name: String
+        let orientation: MapFacing
+
+        enum MapFacing: String, Codable {
+            case N, E, S, W
+
+            init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                let rawValue = try container.decode(String.self).uppercased()
+                guard let value = MapFacing(rawValue: rawValue) else {
+                    throw DecodingError.dataCorruptedError(
+                        in: container,
+                        debugDescription: "Cannot initialize MapsSetup from invalid String value \(rawValue)"
+                    )
+                }
+                self = value
+            }
+
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                try container.encode(self.rawValue)
+            }
+        }
+    }
+}
+
+class GameState: ObservableObject, Codable {
+    @Published var round: Int
+    @Published var victoryPoints: Int
+    @Published var victoryMarker: UnitArmy
+    @Published var caps: GameSetup.CapsSetup
+    @Published var germanCards: [String: Int]
+    @Published var sovietCards: [String: Int]
+
+    init(round: Int, victoryPoints: Int, victoryMarker: UnitArmy, caps: GameSetup.CapsSetup, germanCards: [String: Int], sovietCards: [String: Int]) {
+        self.round = round
+        self.victoryPoints = victoryPoints
+        self.victoryMarker = victoryMarker
+        self.caps = caps
+        self.germanCards = germanCards
+        self.sovietCards = sovietCards
+    }
+
+    static let `default` = GameState(
+        round: 1,
+        victoryPoints: 1,
+        victoryMarker: .german,
+        caps: GameSetup.CapsSetup(german: 7, soviet: 7),
+        germanCards: [:],
+        sovietCards: [:]
+    )
+
+    enum CodingKeys: String, CodingKey {
+        case round
+        case victoryPoints
+        case victoryMarker
+        case caps
+        case germanCards
+        case sovietCards
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        round = try container.decode(Int.self, forKey: .round)
+        victoryPoints = try container.decode(Int.self, forKey: .victoryPoints)
+        victoryMarker = try container.decode(UnitArmy.self, forKey: .victoryMarker)
+        caps = try container.decode(GameSetup.CapsSetup.self, forKey: .caps)
+        germanCards = try container.decode([String: Int].self, forKey: .germanCards)
+        sovietCards = try container.decode([String: Int].self, forKey: .sovietCards)
     }
 
     func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(self.rawValue)
-    }
-}
-
-class GameState: Codable {
-    var victoryPoints: Int
-    var victoryMarker: UnitArmy
-    var germanCards: [String:Int]
-    var sovietCards: [String:Int]
-
-    init(victoryPoints: Int, victoryMarker: UnitArmy, germanCards: [String : Int], sovietCards: [String : Int]) {
-        self.victoryPoints = victoryPoints
-        self.victoryMarker = victoryMarker
-        self.germanCards = germanCards
-        self.sovietCards = sovietCards
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(round, forKey: .round)
+        try container.encode(victoryPoints, forKey: .victoryPoints)
+        try container.encode(victoryMarker, forKey: .victoryMarker)
+        try container.encode(caps, forKey: .caps)
+        try container.encode(germanCards, forKey: .germanCards)
+        try container.encode(sovietCards, forKey: .sovietCards)
     }
 }
 
@@ -142,12 +181,31 @@ class GameUnit: Codable {
         self.orientation = orientation
         self.state = state
     }
+
+    enum UnitState: String, Codable {
+        case inGame
+        case backUp
+        case killed
+    }
 }
 
-enum UnitState: String, Codable {
-    case inGame
-    case backUp
-    case killed
+extension MissionData {
+    var inGameUnits: [GameUnit] {
+        gameUnits.filter { $0.state == .inGame }
+    }
+
+    var backUpUnits: [GameUnit] {
+        gameUnits.filter { $0.state == .backUp }
+    }
+
+    var killedUnits: [GameUnit] {
+        gameUnits.filter { $0.state == .killed }
+    }
+
+    // Example: Additional grouping/filtering logic
+    func units(for army: UnitArmy) -> [GameUnit] {
+        gameUnits.filter { $0.army == army }
+    }
 }
 
 enum Mission: String {
