@@ -16,16 +16,35 @@ class Unit: Identifiable, Hashable, Transferable, Codable {
     var army: UnitArmy
     var hexagon: HexagonCoordinate
     var orientation: UnitFront
-    var exhausted: Bool
+    var exhausted: Bool = false
     var hitMarker: HitMarker?
-    var stressed: Bool
-    var stats: UnitStats
+    var stressed: Bool = false
+    var state: UnitState = .inGame
 
     var identifier: UnitIdentifier {
         return UnitIdentifier(name: name, army: army)
     }
 
-    init(id: UUID = UUID(), name: String, game: UnitGame? = nil, army: UnitArmy, hexagon: HexagonCoordinate = HexagonCoordinate(row: 0, col: 0), orientation: UnitFront = .N, exhausted: Bool = false, hitMarker: HitMarker? = nil, stressed: Bool = false, statsDictionary: [UnitIdentifier: UnitStats]) {
+    var stats: UnitStats {
+        let identifier = UnitIdentifier(name: name, army: army)
+        return Unit.statsDictionary[identifier] ?? UnitStats(name: name, army: army)
+    }
+
+    static var statsDictionary: [UnitIdentifier: UnitStats] = [:]
+
+    init(
+        id: UUID = UUID(),
+        name: String,
+        game: UnitGame? = .AtB,
+        army: UnitArmy,
+        hexagon: HexagonCoordinate = HexagonCoordinate(row: 0, col: 0),
+        orientation: UnitFront = .N,
+        exhausted: Bool = false,
+        hitMarker: HitMarker? = nil,
+        stressed: Bool = false,
+        state: UnitState = .inGame,
+        statsDictionary: [UnitIdentifier: UnitStats]
+    ) {
         self.id = id
         self.name = name
         self.game = game
@@ -35,10 +54,39 @@ class Unit: Identifiable, Hashable, Transferable, Codable {
         self.exhausted = exhausted
         self.hitMarker = hitMarker
         self.stressed = stressed
+        self.state = state
+    }
 
-        let identifier = UnitIdentifier(name: name, army: army)
-        self.stats = statsDictionary[identifier] ?? UnitStats(name: name, army: army)
-        self.game = stats.game
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        name = try container.decode(String.self, forKey: .name)
+        game = try container.decodeIfPresent(UnitGame.self, forKey: .game)
+        army = try container.decode(UnitArmy.self, forKey: .army)
+        hexagon = try container.decode(HexagonCoordinate.self, forKey: .hexagon)
+        orientation = try container.decode(UnitFront.self, forKey: .orientation)
+        exhausted = try container.decodeIfPresent(Bool.self, forKey: .exhausted) ?? false
+        hitMarker = try container.decodeIfPresent(HitMarker.self, forKey: .hitMarker)
+        stressed = try container.decodeIfPresent(Bool.self, forKey: .stressed) ?? false
+        state = try container.decodeIfPresent(UnitState.self, forKey: .state) ?? .inGame
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encodeIfPresent(game, forKey: .game)
+        try container.encode(army, forKey: .army)
+        try container.encode(hexagon, forKey: .hexagon)
+        try container.encode(orientation, forKey: .orientation)
+        try container.encode(exhausted, forKey: .exhausted)
+        try container.encodeIfPresent(hitMarker, forKey: .hitMarker)
+        try container.encode(stressed, forKey: .stressed)
+        try container.encode(state, forKey: .state)
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, game, army, hexagon, orientation, exhausted, hitMarker, stressed, state
     }
 
     static var unitType = UTType(exportedAs: "com.example.unit")
@@ -53,6 +101,12 @@ class Unit: Identifiable, Hashable, Transferable, Codable {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+
+    enum UnitState: String, Codable {
+        case inGame
+        case backUp
+        case killed
     }
 }
 
@@ -89,7 +143,7 @@ enum UnitFront: String, Codable {
     var name: String { rawValue.capitalized }
 }
 
-struct UnitIdentifier: Hashable {
+struct UnitIdentifier: Hashable, Codable {
     let name: String
     let army: UnitArmy
 }

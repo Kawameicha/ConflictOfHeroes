@@ -92,7 +92,7 @@ struct HexagonGridView: View {
         inGameUnits[targetIndex].units.append(unit)
     }
 
-    private func removeUnit(_ unit: Unit, from cell: HexagonCell, to targetState: GameUnit.UnitState) {
+    private func removeUnit(_ unit: Unit, from cell: HexagonCell, to targetState: Unit.UnitState) {
         guard let sourceIndex = inGameUnits.firstIndex(where: { $0.id == cell.id }) else { return }
 
         inGameUnits[sourceIndex].units.removeAll { $0 == unit }

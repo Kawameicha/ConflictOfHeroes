@@ -10,9 +10,9 @@ import Foundation
 class MissionData: Codable {
     let gameSetup: GameSetup
     var gameState: GameState
-    var gameUnits: [GameUnit]
+    var gameUnits: [Unit]
 
-    init(gameSetup: GameSetup, gameState: GameState, gameUnits: [GameUnit]) {
+    init(gameSetup: GameSetup, gameState: GameState, gameUnits: [Unit]) {
         self.gameSetup = gameSetup
         self.gameState = gameState
         self.gameUnits = gameUnits
@@ -164,47 +164,6 @@ class GameState: ObservableObject, Codable {
         try container.encode(caps, forKey: .caps)
         try container.encode(germanCards, forKey: .germanCards)
         try container.encode(sovietCards, forKey: .sovietCards)
-    }
-}
-
-class GameUnit: Codable {
-    var name: String
-    var army: UnitArmy
-    var hexagon: HexagonCoordinate
-    var orientation: UnitFront
-    var state: UnitState
-
-    init(name: String, army: UnitArmy, hexagon: HexagonCoordinate, orientation: UnitFront, state: UnitState) {
-        self.name = name
-        self.army = army
-        self.hexagon = hexagon
-        self.orientation = orientation
-        self.state = state
-    }
-
-    enum UnitState: String, Codable {
-        case inGame
-        case backUp
-        case killed
-    }
-}
-
-extension MissionData {
-    var inGameUnits: [GameUnit] {
-        gameUnits.filter { $0.state == .inGame }
-    }
-
-    var backUpUnits: [GameUnit] {
-        gameUnits.filter { $0.state == .backUp }
-    }
-
-    var killedUnits: [GameUnit] {
-        gameUnits.filter { $0.state == .killed }
-    }
-
-    // Example: Additional grouping/filtering logic
-    func units(for army: UnitArmy) -> [GameUnit] {
-        gameUnits.filter { $0.army == army }
     }
 }
 

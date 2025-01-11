@@ -5,16 +5,15 @@
 //  Created by Christoph Freier on 20.12.24.
 //
 
-
 import Foundation
 
 class GameViewModel: ObservableObject {
     @Published var missionData: MissionData?
     @Published var gameState: GameState = GameState.default
+    @Published var selectedHex: HexagonCell?
     @Published var inGameUnits: [HexagonCell] = []
     @Published var backUpUnits: [Unit] = []
     @Published var killedUnits: [Unit] = []
-    @Published var selectedHex: HexagonCell?
     @Published var germanCards: [Card] = []
     @Published var sovietCards: [Card] = []
     @Published var isShowingBackUpUnits: Bool = false
@@ -23,14 +22,15 @@ class GameViewModel: ObservableObject {
     @Published var isShowingSovietCards: Bool = false
 
     init(missionData: MissionData? = nil) {
-            self.missionData = missionData
-        }
+        self.missionData = missionData
+    }
 
-    func loadMission(_ missionName: String, cardDeck: CardDeck) {
+    func loadNewMission(_ missionName: String, cardDeck: CardDeck) {
         guard let mission = loadMissionData(from: missionName) else {
             print("Error: Could not load mission \(missionName)")
             return
         }
+
         missionData = mission
         gameState = GameState(
             round: mission.gameState.round,
@@ -52,7 +52,6 @@ class GameViewModel: ObservableObject {
         sovietCards = mission.gameState.sovietCards.flatMap { code, count in
             cardDeck.drawNonRandomCards(code: code, count: count)
         }
-        
     }
 
     func startNewRound() {

@@ -19,6 +19,6 @@ struct TokenActionView: View {
             .clipShape(Capsule())
         }
         .aspectRatio(5.75, contentMode: .fit)
-        .scaleEffect(0.75, anchor: .center)
+        .scaleEffect(0.7, anchor: .center)
     }
 }

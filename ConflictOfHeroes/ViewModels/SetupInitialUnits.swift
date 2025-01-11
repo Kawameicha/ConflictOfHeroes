@@ -8,10 +8,9 @@
 import Foundation
 
 func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit], [Unit]) {
-    let statsDictionary = loadUnitStatsFromFile()
     var inGameUnits: [HexagonCell] = []
     var backUpUnits: [Unit] = []
-    var killedUnits: [Unit] = []
+    let killedUnits: [Unit] = []
 
     guard let missionData = loadMissionData(from: "\(mission)") else {
         return ([], [], [])
@@ -37,7 +36,7 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit], [Unit]) 
                     name: gameUnit.name,
                     army: gameUnit.army,
                     orientation: gameUnit.orientation,
-                    statsDictionary: statsDictionary
+                    statsDictionary: [:]
                 )
                 updatedCell.units.append(unit)
             }
@@ -50,8 +49,7 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit], [Unit]) 
         Unit(
             name: $0.name,
             army: $0.army,
-            orientation: $0.orientation,
-            statsDictionary: statsDictionary
+            statsDictionary: [:]
         )
     }
 
@@ -72,20 +70,10 @@ func setupInitialUnits(for mission: Mission) -> ([HexagonCell], [Unit], [Unit]) 
             Unit(
                 name: tokenName,
                 army: .german,
-                orientation: .N,
                 exhausted: true,
-                statsDictionary: statsDictionary
+                statsDictionary: [:]
             )
         })
-    }
-
-    killedUnits = missionData.gameUnits.filter { $0.state == .killed }.map {
-        Unit(
-            name: $0.name,
-            army: $0.army,
-            orientation: $0.orientation,
-            statsDictionary: statsDictionary
-        )
     }
 
     return (inGameUnits, backUpUnits, killedUnits)
