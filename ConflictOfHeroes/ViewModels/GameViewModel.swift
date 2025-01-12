@@ -13,7 +13,11 @@ class GameViewModel: ObservableObject {
     @Published var selectedHex: HexagonCell?
     @Published var inGameUnits: [HexagonCell] = []
     @Published var backUpUnits: [Unit] = []
-    @Published var killedUnits: [Unit] = []
+    @Published var killedUnits: [Unit] = [] {
+            didSet {
+                adjustCapsForKilledUnits()
+            }
+        }
     @Published var germanCards: [Card] = []
     @Published var sovietCards: [Card] = []
     @Published var isShowingBackUpUnits: Bool = false
@@ -25,32 +29,22 @@ class GameViewModel: ObservableObject {
         self.missionData = missionData
     }
 
-    func loadNewMission(_ missionName: String, cardDeck: CardDeck) {
-        guard let mission = loadMissionData(from: missionName) else {
-            print("Error: Could not load mission \(missionName)")
-            return
+    private func adjustCapsForKilledUnits() {
+        guard let missionData = missionData else { return }
+
+        let killedGermanUnits = killedUnits.filter { $0.army == .german
+            && !["Wagon", "Opel Blitz"].contains($0.name) }.count
+        let killedSovietUnits = killedUnits.filter { $0.army == .soviet
+            && !["Wagon", "Truck"].contains($0.name) }.count
+
+        let maxCapsGerman = max(missionData.gameSetup.caps.german - killedGermanUnits, 3)
+        if maxCapsGerman <= gameState.caps.german {
+            gameState.caps.german = maxCapsGerman
         }
 
-        missionData = mission
-        gameState = GameState(
-            round: mission.gameState.round,
-            victoryPoints: mission.gameState.victoryPoints,
-            victoryMarker: mission.gameState.victoryMarker,
-            caps: mission.gameState.caps,
-            germanCards: mission.gameState.germanCards,
-            sovietCards: mission.gameState.sovietCards
-        )
-
-        let (inGame, backUp, killed) = setupInitialUnits(for: Mission(rawValue: missionName) ?? .mission1)
-        inGameUnits = inGame
-        backUpUnits = backUp
-        killedUnits = killed
-
-        germanCards = mission.gameState.germanCards.flatMap { code, count in
-            cardDeck.drawNonRandomCards(code: code, count: count)
-        }
-        sovietCards = mission.gameState.sovietCards.flatMap { code, count in
-            cardDeck.drawNonRandomCards(code: code, count: count)
+        let maxCapsSoviet = max(missionData.gameSetup.caps.soviet - killedSovietUnits, 3)
+        if maxCapsSoviet <= gameState.caps.soviet {
+            gameState.caps.soviet = maxCapsSoviet
         }
     }
 
@@ -62,8 +56,15 @@ class GameViewModel: ObservableObject {
             }
 
             gameState.round += 1
-            gameState.caps.german = missionData.gameSetup.caps.german
-            gameState.caps.soviet = missionData.gameSetup.caps.soviet
+
+            let killedGermanUnits = killedUnits.filter { $0.army == .german
+                && !["Wagon", "Opel Blitz"].contains($0.name) }.count
+            gameState.caps.german = max(missionData.gameSetup.caps.german - killedGermanUnits, 3)
+
+            let killedSovietUnits = killedUnits.filter { $0.army == .soviet
+                && !["Wagon", "Truck"].contains($0.name) }.count
+            gameState.caps.soviet = max(missionData.gameSetup.caps.soviet - killedSovietUnits, 3)
+
             inGameUnits.forEach { cell in
                 cell.units.forEach { unit in
                     if unit.name == "Smoke" && !unit.exhausted {

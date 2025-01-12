@@ -27,25 +27,25 @@ struct GameCommands: Commands {
             Menu("Start Mission") {
                 Button("Mission 1") {
                     gameManager.resetGame()
-                    gameManager.startNewMission(missionName: "mission1")
+                    loadMissionByName(missionName: "mission1")
                 }
                 .keyboardShortcut("1", modifiers: [.command])
 
                 Button("Mission 2") {
                     gameManager.resetGame()
-                    gameManager.startNewMission(missionName: "mission2")
+                    loadMissionByName(missionName: "mission2")
                 }
                 .keyboardShortcut("2", modifiers: [.command])
 
                 Button("Mission 3") {
                     gameManager.resetGame()
-                    gameManager.startNewMission(missionName: "mission3")
+                    loadMissionByName(missionName: "mission3")
                 }
                 .keyboardShortcut("3", modifiers: [.command])
 
                 Button("Mission 4") {
                     gameManager.resetGame()
-                    gameManager.startNewMission(missionName: "mission4")
+                    loadMissionByName(missionName: "mission4")
                 }
                 .keyboardShortcut("4", modifiers: [.command])
             }
@@ -57,6 +57,14 @@ struct GameCommands: Commands {
             }
             .keyboardShortcut("R", modifiers: [.command])
         }
+    }
+
+    private func loadMissionByName(missionName: String) {
+        guard let missionData = loadMissionData(from: missionName) else {
+            print("Error: Could not load mission \(missionName)")
+            return
+        }
+        gameManager.loadSetupMission(missionData: missionData)
     }
 
     private func saveGame() {
@@ -86,7 +94,7 @@ struct GameCommands: Commands {
             do {
                 let jsonData = try Data(contentsOf: selectedFileURL)
                 if let loadedMission = try? JSONDecoder().decode(MissionData.self, from: jsonData) {
-                    gameManager.loadMission(missionData: loadedMission)
+                    gameManager.loadSavedMission(missionData: loadedMission)
                     print("Mission loaded successfully from \(selectedFileURL.path)")
                 } else {
                     print("Failed to decode mission data.")

@@ -18,37 +18,12 @@ class GameManager: ObservableObject {
         self.hitMarkerPool = hitMarkerPool
     }
 
-    func startNewMission(missionName: String) {
-        viewModel.loadNewMission(missionName, cardDeck: cardDeck)
+    private func loadMission(
+        missionData: MissionData,
+        customize: (inout [Card], inout [Card]) -> Void
+    ) {
+        resetGame()
 
-        guard let missionData = viewModel.missionData else {
-            print("Mission data is not available!")
-            return
-        }
-
-        drawCards(for: &viewModel.germanCards, number: missionData.gameSetup.card.german.startWith)
-        drawCards(for: &viewModel.sovietCards, number: missionData.gameSetup.card.soviet.startWith)
-    }
-
-    func startNewRound() {
-        viewModel.startNewRound()
-
-        guard let missionData = viewModel.missionData else {
-            print("Mission data is not available!")
-            return
-        }
-
-        drawCards(for: &viewModel.germanCards, number: missionData.gameSetup.card.german.eachRound)
-        drawCards(for: &viewModel.sovietCards, number: missionData.gameSetup.card.soviet.eachRound)
-    }
-
-    func resetGame() {
-        resetHitMarkers(in: viewModel.inGameUnits)
-        resetCards(&viewModel.germanCards)
-        resetCards(&viewModel.sovietCards)
-    }
-
-    func loadMission(missionData: MissionData) {
         let mission = Mission(rawValue: missionData.gameSetup.name) ?? .mission1
         let (inGame, backUp, killed) = loadInitialUnits(for: mission, missionData: missionData)
 
@@ -57,76 +32,47 @@ class GameManager: ObservableObject {
         viewModel.inGameUnits = inGame
         viewModel.backUpUnits = backUp
         viewModel.killedUnits = killed
+
+        customize(&viewModel.germanCards, &viewModel.sovietCards)
     }
 
-    func loadInitialUnits(for mission: Mission, missionData: MissionData) -> ([HexagonCell], [Unit], [Unit]) {
-        var inGameUnits: [HexagonCell] = []
-        var backUpUnits: [Unit] = []
-        var killedUnits: [Unit] = []
+    func loadSetupMission(missionData: MissionData) {
+        loadMission(missionData: missionData) { germanCards, sovietCards in
+            germanCards.append(contentsOf: missionData.gameState.germanCards.flatMap { code, count in
+                cardDeck.drawNonRandomCards(code: code, count: count)
+            })
+            sovietCards.append(contentsOf: missionData.gameState.sovietCards.flatMap { code, count in
+                cardDeck.drawNonRandomCards(code: code, count: count)
+            })
 
-        let columns = missionData.gameSetup.cols
-        let evenColumnRows = missionData.gameSetup.rows
-        let oddColumnRows = evenColumnRows - 1
+            drawCards(for: &germanCards, number: missionData.gameSetup.card.german.startWith)
+            drawCards(for: &sovietCards, number: missionData.gameSetup.card.soviet.startWith)
+        }
+    }
 
-        for column in 0..<columns {
-            let rows = column.isMultiple(of: 2) ? evenColumnRows : oddColumnRows
-            for row in 0..<rows {
-                let coordinate = HexagonCoordinate(row: row, col: column)
-
-                var updatedCell = HexagonCell(offsetCoordinate: coordinate, units: [])
-
-                let unitsOnHex = missionData.gameUnits.filter {
-                    $0.hexagon == coordinate && $0.state == .inGame
+    private func removeAssignedHitMarkers() {
+        for cell in viewModel.inGameUnits {
+            for unit in cell.units {
+                if let hitMarker = unit.hitMarker {
+                    if let index = hitMarkerPool.pool.firstIndex(where: { $0.code == hitMarker.code }) {
+                        hitMarkerPool.pool.remove(at: index)
+                    }
                 }
-
-                for gameUnit in unitsOnHex {
-                    let unit = Unit(
-                        name: gameUnit.name,
-                        army: gameUnit.army,
-                        hexagon: gameUnit.hexagon,
-                        orientation: gameUnit.orientation,
-                        exhausted: gameUnit.exhausted,
-                        hitMarker: gameUnit.hitMarker,
-                        stressed: gameUnit.stressed,
-                        state: gameUnit.state,
-                        statsDictionary: [:]
-                    )
-                    updatedCell.units.append(unit)
-                }
-
-                inGameUnits.append(updatedCell)
             }
         }
+    }
 
-        backUpUnits = missionData.gameUnits.filter { $0.state == .backUp }.map {
-            Unit(
-                name: $0.name,
-                army: $0.army,
-                hexagon: $0.hexagon,
-                orientation: $0.orientation,
-                exhausted: $0.exhausted,
-                hitMarker: $0.hitMarker,
-                stressed: $0.stressed,
-                state: $0.state,
-                statsDictionary: [:]
-            )
+    func loadSavedMission(missionData: MissionData) {
+        loadMission(missionData: missionData) { germanCards, sovietCards in
+            germanCards = missionData.gameState.germanCards.flatMap { code, count in
+                cardDeck.drawNonRandomCards(code: code, count: count)
+            }
+            sovietCards = missionData.gameState.sovietCards.flatMap { code, count in
+                cardDeck.drawNonRandomCards(code: code, count: count)
+            }
+
+            removeAssignedHitMarkers()
         }
-
-        killedUnits = missionData.gameUnits.filter { $0.state == .killed }.map {
-            Unit(
-                name: $0.name,
-                army: $0.army,
-                hexagon: $0.hexagon,
-                orientation: $0.orientation,
-                exhausted: $0.exhausted,
-                hitMarker: $0.hitMarker,
-                stressed: $0.stressed,
-                state: $0.state,
-                statsDictionary: [:]
-            )
-        }
-
-        return (inGameUnits, backUpUnits, killedUnits)
     }
 
     func saveMission(to fileURL: URL) {
@@ -136,6 +82,8 @@ class GameManager: ObservableObject {
         }
 
         var allGameUnits: [Unit] = []
+        var GermanCards: [String: Int] = [:]
+        var SovietCards: [String: Int] = [:]
 
         for cell in viewModel.inGameUnits {
             for unit in cell.units {
@@ -184,9 +132,26 @@ class GameManager: ObservableObject {
             allGameUnits.append(gameUnit)
         }
 
+        for card in viewModel.germanCards {
+            GermanCards[card.code, default: 0] += 1
+        }
+
+        for card in viewModel.sovietCards {
+            SovietCards[card.code, default: 0] += 1
+        }
+
+        let updatedGameState = GameState(
+            round: viewModel.gameState.round,
+            victoryPoints: viewModel.gameState.victoryPoints,
+            victoryMarker: viewModel.gameState.victoryMarker,
+            caps: viewModel.gameState.caps,
+            germanCards: GermanCards,
+            sovietCards: SovietCards
+        )
+
         let updatedMissionData = MissionData(
             gameSetup: missionData.gameSetup,
-            gameState: viewModel.gameState,
+            gameState: updatedGameState,
             gameUnits: allGameUnits
         )
 
@@ -213,6 +178,18 @@ class GameManager: ObservableObject {
         }
     }
 
+    func startNewRound() {
+        viewModel.startNewRound()
+
+        guard let missionData = viewModel.missionData else {
+            print("Mission data is not available!")
+            return
+        }
+
+        drawCards(for: &viewModel.germanCards, number: missionData.gameSetup.card.german.eachRound)
+        drawCards(for: &viewModel.sovietCards, number: missionData.gameSetup.card.soviet.eachRound)
+    }
+
     private func resetHitMarkers(in cells: [HexagonCell]) {
         cells.forEach { cell in
             cell.units.forEach { unit in
@@ -227,5 +204,11 @@ class GameManager: ObservableObject {
     private func resetCards(_ cards: inout [Card]) {
         cards.forEach { cardDeck.returnCard($0) }
         cards.removeAll()
+    }
+
+    func resetGame() {
+        resetHitMarkers(in: viewModel.inGameUnits)
+        resetCards(&viewModel.germanCards)
+        resetCards(&viewModel.sovietCards)
     }
 }
