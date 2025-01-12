@@ -79,4 +79,9 @@ class GameViewModel: ObservableObject {
             }
         }
     }
+
+    func toggleVictoryMarker() {
+            gameState.victoryMarker = (gameState.victoryMarker == .german) ? .soviet : .german
+            objectWillChange.send()
+        }
 }

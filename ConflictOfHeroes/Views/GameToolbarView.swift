@@ -42,7 +42,7 @@ struct GameToolbarView: View {
             .frame(width: 45)
 
             Button(action: {
-                viewModel.gameState.victoryMarker = (viewModel.gameState.victoryMarker == .german) ? .soviet : .german
+                viewModel.toggleVictoryMarker()
             }) {
                 ZStack {
                     switch viewModel.gameState.victoryMarker {
