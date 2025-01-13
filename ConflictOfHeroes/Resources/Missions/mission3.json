@@ -14,8 +14,8 @@
         },
         "last": 4,
         "maps": [
-            { "name": "AtB_Planning_Map_2_Village", "orientation": "N" },
-            { "name": "AtB_Planning_Map_1_Plains", "orientation": "N" },
+            { "name": "AtB_Map_02", "orientation": "N" },
+            { "name": "AtB_Map_01", "orientation": "N" },
         ],
         "cols": 17,
         "rows": 24

@@ -89,7 +89,7 @@ class Unit: Identifiable, Hashable, Transferable, Codable {
         case id, name, game, army, hexagon, orientation, exhausted, hitMarker, stressed, state
     }
 
-    static var unitType = UTType(exportedAs: "com.example.unit")
+    static var unitType = UTType(exportedAs: "com.game.unit")
 
     static var transferRepresentation: some TransferRepresentation {
         CodableRepresentation(for: Unit.self, contentType: unitType)

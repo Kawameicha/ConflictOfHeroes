@@ -14,8 +14,8 @@
         },
         "last": 5,
         "maps": [
-            { "name": "AtB_Planning_Map_4_Farm_and_Hills", "orientation": "S" },
-            { "name": "AtB_Planning_Map_3_Hills", "orientation": "S" }
+            { "name": "AtB_Map_04", "orientation": "S" },
+            { "name": "AtB_Map_03", "orientation": "S" }
         ],
         "cols": 17,
         "rows": 24

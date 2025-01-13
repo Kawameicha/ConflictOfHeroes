@@ -24,13 +24,22 @@ struct CardView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
 
                 VStack {
+                    Image("\(card.code)")
+                        .resizable()
+                        .scaledToFit()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .offset(y: -33)
+                .padding(.horizontal, -4)
+
+                VStack {
                     Text(card.text)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                .offset(y: 48)
+                .offset(y: 66)
                 .padding(.horizontal, 16)
 
-                VStack(spacing: 64) {
+                VStack(spacing: 96) {
                     if card.iconType == .action {
                         Image(systemName: "bolt.square.fill")
                             .font(.system(size: 24))
@@ -44,7 +53,7 @@ struct CardView: View {
                     }
 
                     Image(systemName: "\(card.cost ?? 0).square.fill")
-                        .font(.system(size: 24))
+                        .font(.system(size: 33))
                         .symbolRenderingMode(.palette)
                         .foregroundStyle(.black, card.isCAP ?? false ? .blue : .wheeled)
                 }

@@ -173,7 +173,7 @@
         "type": "battle",
         "item": 1,
         "description": "Immobilized",
-        "text": "During Opponent's Turn: Mark a Vehicle that just moved as Immobilized by rolling 2d6 ≥ 4. The Vehicle may not move on its own for the rest of the Round, but may fire if able.",
+        "text": "During Opponent's Turn: Mark a Vehicle that just moved as Immobilized by rolling 2d6 ≥ 4.",
         "cost": 0,
         "isCAP": true,
         "iconType": "bonus",

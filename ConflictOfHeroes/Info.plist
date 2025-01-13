@@ -15,7 +15,7 @@
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>com.example.unit</string>
+			<string>com.game.unit</string>
 			<key>UTTypeTagSpecification</key>
 			<dict/>
 		</dict>
