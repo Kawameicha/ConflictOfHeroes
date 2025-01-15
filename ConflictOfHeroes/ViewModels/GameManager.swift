@@ -25,7 +25,33 @@ class GameManager: ObservableObject {
         resetGame()
 
         let mission = Mission(rawValue: missionData.gameSetup.name) ?? .mission1
-        let (inGame, backUp, killed) = loadInitialUnits(for: mission, missionData: missionData)
+        var (inGame, backUp, killed) = loadInitialUnits(for: mission, missionData: missionData)
+        let containsArtillery = inGame.contains(where: { $0.units.contains { $0.name == "Artillery" } }) || backUp.contains { $0.name == "Artillery" } || killed.contains { $0.name == "Artillery" }
+
+        if !containsArtillery {
+            let tokenTypes: [String: Int] = [
+                "Artillery": 1,
+                "Barbed Wire": 8,
+                "Bunkers": 8,
+                "Hasty Defenses": 8,
+                "Immobilized": 2,
+                "Mines": 8,
+                "Road Blocks": 8,
+                "Smoke": 16,
+                "Trenches": 8
+            ]
+            
+            tokenTypes.forEach { tokenName, count in
+                backUp.append(contentsOf: (0..<count).map { _ in
+                    Unit(
+                        name: tokenName,
+                        army: .german,
+                        exhausted: true,
+                        statsDictionary: [:]
+                    )
+                })
+            }
+        }
 
         viewModel.missionData = missionData
         viewModel.gameState = missionData.gameState
