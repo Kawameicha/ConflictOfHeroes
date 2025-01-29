@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GameViewModel: ObservableObject {
+class GameViewModel: ObservableObject, Codable {
     @Published var missionData: MissionData?
     @Published var gameState: GameState = GameState.default
     @Published var selectedHex: HexagonCell?
@@ -24,6 +24,32 @@ class GameViewModel: ObservableObject {
     @Published var isShowingKilledUnits: Bool = false
     @Published var isShowingGermanCards: Bool = false
     @Published var isShowingSovietCards: Bool = false
+
+    enum CodingKeys: String, CodingKey {
+        case missionData, gameState, selectedHex, inGameUnits, backUpUnits, killedUnits, germanCards, sovietCards
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        missionData = try container.decodeIfPresent(MissionData.self, forKey: .missionData)
+        gameState = try container.decode(GameState.self, forKey: .gameState)
+        inGameUnits = try container.decode([HexagonCell].self, forKey: .inGameUnits)
+        backUpUnits = try container.decode([Unit].self, forKey: .backUpUnits)
+        killedUnits = try container.decode([Unit].self, forKey: .killedUnits)
+        germanCards = try container.decode([Card].self, forKey: .germanCards)
+        sovietCards = try container.decode([Card].self, forKey: .sovietCards)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(missionData, forKey: .missionData)
+        try container.encode(gameState, forKey: .gameState)
+        try container.encode(inGameUnits, forKey: .inGameUnits)
+        try container.encode(backUpUnits, forKey: .backUpUnits)
+        try container.encode(killedUnits, forKey: .killedUnits)
+        try container.encode(germanCards, forKey: .germanCards)
+        try container.encode(sovietCards, forKey: .sovietCards)
+    }
 
     init(missionData: MissionData? = nil) {
         self.missionData = missionData

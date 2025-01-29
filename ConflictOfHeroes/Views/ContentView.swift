@@ -47,15 +47,20 @@ struct ContentView: View {
         .toolbar {
             ToolbarItemGroup(placement: .automatic) {
                 Button(action: {
-                    viewModel.isShowingKilledUnits.toggle()
+                    gameManager.startMatch()
                 }) {
-                    Image(systemName: "cross.case.circle")
+                    Image(systemName: "network")
                 }
 
                 Button(action: {
-                    viewModel.isShowingBackUpUnits.toggle()
+                    if let match = gameManager.match {
+                        print("Match found: \(match.matchID)")
+                        gameManager.endTurn(for: match)
+                    } else {
+                        print("No match found or current participant is missing.")
+                    }
                 }) {
-                    Image(systemName: "plus.circle")
+                    Image(systemName: "checkmark.bubble")
                 }
             }
 

@@ -12,6 +12,7 @@ struct ConflictOfHeroesApp: App {
     @StateObject var gameManager: GameManager
 
     init() {
+        authenticatePlayer()
         Unit.statsDictionary = loadUnitStatsFromFile()
         let cards = loadFromJson(from: "Cards", ofType: Card.self)
         let hitMarkers = loadFromJson(from: "HitMarkers", ofType: HitMarker.self)

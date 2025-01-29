@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import GameKit
 
-class GameManager: ObservableObject {
+class GameManager: NSObject, ObservableObject, GKTurnBasedMatchmakerViewControllerDelegate {
     @Published var viewModel: GameViewModel
     @Published var cardDeck: CardDeck
     @Published var hitMarkerPool: HitMarkerPool
+    @Published var match: GKTurnBasedMatch?
 
     init(cardDeck: CardDeck, hitMarkerPool: HitMarkerPool) {
         self.viewModel = GameViewModel()
@@ -40,7 +42,7 @@ class GameManager: ObservableObject {
                 "Smoke": 16,
                 "Trenches": 8
             ]
-            
+
             tokenTypes.forEach { tokenName, count in
                 backUp.append(contentsOf: (0..<count).map { _ in
                     Unit(
@@ -236,5 +238,177 @@ class GameManager: ObservableObject {
         resetHitMarkers(in: viewModel.inGameUnits)
         resetCards(&viewModel.germanCards)
         resetCards(&viewModel.sovietCards)
+    }
+
+    func turnBasedMatchmakerViewControllerWasCancelled(_ viewController: GKTurnBasedMatchmakerViewController) {
+        print("Matchmaker cancelled.")
+        viewController.dismiss(nil)
+    }
+
+    func turnBasedMatchmakerViewController(_ viewController: GKTurnBasedMatchmakerViewController, didFailWithError error: Error) {
+        print("Matchmaker failed: \(error.localizedDescription)")
+        viewController.dismiss(nil)
+    }
+
+    func turnBasedMatchmakerViewController(_ viewController: GKTurnBasedMatchmakerViewController, didFind match: GKTurnBasedMatch) {
+        print("Match found: \(match.matchID)")
+        viewController.dismiss(nil)
+
+        self.match = match
+
+        if let matchData = match.matchData, !matchData.isEmpty {
+            print("Existing match data found, loading game...")
+            handleMatch(match)
+        } else {
+            print("New match, setting up game...")
+            setupNewMatch(match)
+        }
+    }
+
+    func setupNewMatch(_ match: GKTurnBasedMatch) {
+        guard match.participants.count == 2 else {
+            print("Error: Need exactly 2 players to start the game")
+            return
+        }
+
+        do {
+            let encoder = JSONEncoder()
+            let gameStateData = try encoder.encode(viewModel)
+
+            match.saveCurrentTurn(withMatch: gameStateData) { error in
+                if let error = error {
+                    print("Error saving new match state: \(error.localizedDescription)")
+                } else {
+                    print("New match state saved!")
+                }
+            }
+        } catch {
+            print("Error encoding new match state: \(error.localizedDescription)")
+        }
+    }
+
+    func startMatch() {
+        let request = GKMatchRequest()
+        request.minPlayers = 2
+        request.maxPlayers = 2
+
+        let matchmaker = GKTurnBasedMatchmakerViewController(matchRequest: request)
+        matchmaker.turnBasedMatchmakerDelegate = self
+
+        if let keyWindow = NSApplication.shared.keyWindow,
+           let rootViewController = keyWindow.contentViewController {
+            rootViewController.presentAsSheet(matchmaker)
+        } else {
+            print("Error: Could not find a valid window or root view controller to present the matchmaker.")
+        }
+    }
+
+    func updateGameState(for match: GKTurnBasedMatch) {
+        do {
+            let encoder = JSONEncoder()
+            let gameStateData = try encoder.encode(viewModel)
+
+            guard let currentParticipant = match.currentParticipant else {
+                print("Error: No current participant in match.")
+                return
+            }
+
+            let nextParticipants = match.participants.filter { $0 != currentParticipant && $0.matchOutcome == .none }
+
+            match.endTurn(
+                withNextParticipants: nextParticipants,
+                turnTimeout: GKTurnTimeoutDefault,
+                match: gameStateData
+            ) { error in
+                if let error = error {
+                    print("Failed to update game state: \(error.localizedDescription)")
+                } else {
+                    print("Game state updated successfully!")
+                }
+            }
+        } catch {
+            print("Error encoding game state: \(error.localizedDescription)")
+        }
+    }
+
+    func handleMatch(_ match: GKTurnBasedMatch) {
+        match.loadMatchData { data, error in
+            guard let data = data else {
+                print("Error loading match data: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            do {
+                let decoder = JSONDecoder()
+                let updatedGameState = try decoder.decode(GameViewModel.self, from: data)
+
+                DispatchQueue.main.async {
+                    self.viewModel = updatedGameState
+                    self.match = match
+                    print("Game state updated from received match data!")
+                }
+            } catch {
+                print("Error decoding game state: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func endTurn(for match: GKTurnBasedMatch) {
+        guard let currentParticipant = match.currentParticipant else {
+            print("Error: No current participant in match.")
+            return
+        }
+
+        let nextParticipants = match.participants
+            .filter { $0 != currentParticipant && $0.matchOutcome == .none }
+
+        guard let nextParticipant = nextParticipants.first else {
+            print("Error: No valid next participant.")
+            return
+        }
+
+        do {
+            let encoder = JSONEncoder()
+            let gameStateData = try encoder.encode(viewModel)
+
+            match.endTurn(
+                withNextParticipants: [nextParticipant],
+                turnTimeout: GKTurnTimeoutDefault,
+                match: gameStateData
+            ) { error in
+                if let error = error {
+                    print("Failed to update game state: \(error.localizedDescription)")
+                } else {
+                    print("Turn ended, game state sent to opponent!")
+                }
+            }
+        } catch {
+            print("Error encoding game state: \(error.localizedDescription)")
+        }
+    }
+}
+
+extension GameManager: GKLocalPlayerListener {
+    func player(_ player: GKPlayer, receivedTurnEventFor match: GKTurnBasedMatch, didBecomeActive: Bool) {
+        print("Received turn event for match: \(match.matchID)")
+        handleMatch(match)
+    }
+
+    func player(_ player: GKPlayer, matchEnded match: GKTurnBasedMatch) {
+        print("Match ended: \(match.matchID)")
+    }
+}
+
+func authenticatePlayer() {
+    GKLocalPlayer.local.authenticateHandler = { viewController, error in
+        if let viewController = viewController {
+            if let keyWindow = NSApplication.shared.keyWindow {
+                keyWindow.contentViewController?.presentAsSheet(viewController)
+            }
+        } else if GKLocalPlayer.local.isAuthenticated {
+            print("Player authenticated as \(GKLocalPlayer.local.displayName)")
+        } else {
+            print("Player authentication failed: \(error?.localizedDescription ?? "Unknown error")")
+        }
     }
 }

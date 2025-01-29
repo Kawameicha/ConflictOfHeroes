@@ -124,6 +124,18 @@ struct GameToolbarView: View {
             }
             .aspectRatio(1.0, contentMode: .fit)
             .frame(width: 15)
+
+            Button(action: {
+                viewModel.isShowingKilledUnits.toggle()
+            }) {
+                Image(systemName: "cross.case.circle")
+            }
+
+            Button(action: {
+                viewModel.isShowingBackUpUnits.toggle()
+            }) {
+                Image(systemName: "plus.circle")
+            }
         }
     }
 }
