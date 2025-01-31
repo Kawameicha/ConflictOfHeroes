@@ -49,7 +49,8 @@ struct ContentView: View {
                 Button(action: {
                     gameManager.startMatch()
                 }) {
-                    Image(systemName: "network")
+                    Image(systemName: gameManager.match == nil ? "network.slash" : "network")
+                        .foregroundColor(gameManager.match == nil ? .primary : .accentColor)
                 }
 
                 Button(action: {
@@ -60,7 +61,8 @@ struct ContentView: View {
                         print("No match found or current participant is missing.")
                     }
                 }) {
-                    Image(systemName: "checkmark.bubble")
+                    Image(systemName: gameManager.isPlayersTurn ? "icloud.and.arrow.up" : "icloud.slash")
+                        .foregroundColor(gameManager.isPlayersTurn ? .accentColor : .primary)
                 }
             }
 

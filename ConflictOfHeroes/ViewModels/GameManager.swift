@@ -13,6 +13,15 @@ class GameManager: NSObject, ObservableObject, GKTurnBasedMatchmakerViewControll
     @Published var cardDeck: CardDeck
     @Published var hitMarkerPool: HitMarkerPool
     @Published var match: GKTurnBasedMatch?
+    var isPlayersTurn: Bool {
+        guard let match = match,
+              let currentParticipant = match.currentParticipant,
+              let currentPlayer = currentParticipant.player else {
+            return false
+        }
+
+        return currentPlayer.gamePlayerID == GKLocalPlayer.local.gamePlayerID
+    }
 
     init(cardDeck: CardDeck, hitMarkerPool: HitMarkerPool) {
         self.viewModel = GameViewModel()
@@ -354,32 +363,32 @@ class GameManager: NSObject, ObservableObject, GKTurnBasedMatchmakerViewControll
     }
 
     func endTurn(for match: GKTurnBasedMatch) {
-        guard let currentParticipant = match.currentParticipant else {
-            print("Error: No current participant in match.")
-            return
-        }
-
-        let nextParticipants = match.participants
-            .filter { $0 != currentParticipant && $0.matchOutcome == .none }
-
-        guard let nextParticipant = nextParticipants.first else {
-            print("Error: No valid next participant.")
-            return
-        }
-
         do {
             let encoder = JSONEncoder()
             let gameStateData = try encoder.encode(viewModel)
 
+            guard let currentParticipant = match.currentParticipant else {
+                print("Error: No current participant in match.")
+                return
+            }
+
+            let nextParticipants = match.participants.filter { $0 != currentParticipant && $0.matchOutcome == .none }
+
             match.endTurn(
-                withNextParticipants: [nextParticipant],
+                withNextParticipants: nextParticipants,
                 turnTimeout: GKTurnTimeoutDefault,
                 match: gameStateData
-            ) { error in
+            ) { [weak self] error in
                 if let error = error {
                     print("Failed to update game state: \(error.localizedDescription)")
                 } else {
-                    print("Turn ended, game state sent to opponent!")
+                    print("Game state updated successfully!")
+
+                    match.loadMatchData { data, error in
+                        DispatchQueue.main.async {
+                            self?.match = match
+                        }
+                    }
                 }
             }
         } catch {
